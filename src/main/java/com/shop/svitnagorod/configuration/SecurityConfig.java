@@ -23,6 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .access("hasRole('USER')").antMatchers("/admin/**").access("hasRole('ADMIN')").and().formLogin()
         .defaultSuccessUrl("/guest/", false);
     //
+    //
 
     // http.authorizeRequests().antMatchers("/user/", "/user/login",
     // "/login").permitAll().antMatchers("/admin/**")
