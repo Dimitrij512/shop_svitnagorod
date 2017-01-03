@@ -33,7 +33,7 @@
         
    <!-- Login-us Page -->
     <definition name="login" extends="base-definition">  
-       <put-attribute name="title" value="Login page" />  
+       <put-attribute name="title" value="page for login" />  
        <put-attribute name="body" value="/WEB-INF/views/pages/login.jsp" />  
    </definition>  
    

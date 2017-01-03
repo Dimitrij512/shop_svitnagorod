@@ -11,21 +11,25 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth)
-	    throws Exception {
-		auth.inMemoryAuthentication().withUser("admin").password("admin")
-		    .roles("ADMIN");
-	}
+  @Autowired
+  public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
+    auth.inMemoryAuthentication().withUser("user").password("user").roles("USER");
+  }
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http.authorizeRequests().antMatchers("/", "/login", "/products").access("hasRole('USER')")
+        .antMatchers("/", "/contactus", "/admin/**").access("hasRole('ADMIN')").and().formLogin()
+        .defaultSuccessUrl("/", false);
 
-		http.authorizeRequests().antMatchers("/").permitAll()
-		    .antMatchers("/admin**").access("hasRole('ADMIN')").and().formLogin();
+    // http.authorizeRequests().antMatchers("/user/", "/user/login",
+    // "/login").permitAll().antMatchers("/admin/**")
+    // .access("hasRole('ADMIN')").antMatchers("/user/**").access("hasRole('USER')").and().formLogin()
+    // .loginPage("/login").defaultSuccessUrl("/").failureUrl("/login?error").usernameParameter("username")
+    // .passwordParameter("password").and().logout().logoutSuccessUrl("/loginPage?logout");
+    // http.csrf().disable();
 
-		http.csrf().disable();
-
-	}
+  }
 
 }

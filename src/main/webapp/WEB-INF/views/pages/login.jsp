@@ -1,6 +1,6 @@
 
 
-<h2>Signup Details</h2>
+<h2>Eneter login and password</h2>
 <form action="" method="post">
   <br/>
   Username:
