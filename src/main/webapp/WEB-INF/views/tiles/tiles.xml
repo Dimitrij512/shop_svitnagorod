@@ -33,7 +33,7 @@
         
    <!-- Login-us Page -->
     <definition name="login" extends="base-definition">  
-       <put-attribute name="title" value="page for login" />  
+       <put-attribute name="title" value="login page" />  
        <put-attribute name="body" value="/WEB-INF/views/pages/login.jsp" />  
    </definition>  
    
@@ -47,6 +47,12 @@
     <definition name="user" extends="base-definition">  
        <put-attribute name="title" value="user page" />  
        <put-attribute name="body" value="/WEB-INF/views/pages/user.jsp" />  
+   </definition>  
+   
+    <!-- Error Page -->
+    <definition name="error" extends="base-definition">  
+       <put-attribute name="title" value="error page" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/error.jsp" />  
    </definition>        
  
 </tiles-definitions>

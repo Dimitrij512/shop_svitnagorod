@@ -17,9 +17,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.stereotype.Component;
 
 @Component
-public class CustomSuccessHandler implements AuthenticationSuccessHandler // extends
-                                                                          // SimpleUrlAuthenticationSuccessHandler
-{
+public class CustomSuccessHandler implements AuthenticationSuccessHandler {
   private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
   public RedirectStrategy getRedirectStrategy() {
@@ -54,7 +52,6 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler // ext
     boolean isAdmin = false;
     Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
     for (GrantedAuthority grantedAuthority : authorities) {
-      System.out.println("autorities : " + grantedAuthority.getAuthority());
       if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
         isUser = true;
         break;
@@ -69,7 +66,6 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler // ext
       return "/admin/welcome";
     } else {
       throw new IllegalStateException();
-      // throw new IllegalStateException();
     }
   }
 

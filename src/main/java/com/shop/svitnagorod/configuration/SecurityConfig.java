@@ -20,11 +20,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http.authorizeRequests().antMatchers("/", "/login", "/logout", "/loginCheck", "/guest/", "/guest/**").permitAll()
+    http.authorizeRequests().antMatchers("/", "/403", "/login", "/logout", "/guest/", "/guest/**").permitAll()
         .antMatchers("/user/**").access("hasRole('USER')").antMatchers("/admin/**").access("hasRole('ADMIN')").and()
         .formLogin().loginPage("/login").loginProcessingUrl("/login").usernameParameter("username")
-        .passwordParameter("password").successHandler(authenticationHandler()).failureUrl("/login?logout=true").and()
-        .csrf().disable();
+        .passwordParameter("password").successHandler(authenticationHandler()).failureUrl("/login?error=true").and()
+        .exceptionHandling().accessDeniedPage("/403").and().csrf().disable();
   }
 
   @Bean
