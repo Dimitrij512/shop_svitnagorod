@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/guest")
-public class Guest {
+@RequestMapping("/")
+public class GuestController {
 
   @RequestMapping(value = { "/" }, method = RequestMethod.GET)
   public String homePage(ModelMap model) {
