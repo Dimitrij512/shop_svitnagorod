@@ -23,17 +23,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
     auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder())
-        .usersByUsernameQuery("select username,password, 1 from user where username=?")
-        .authoritiesByUsernameQuery("select username, role from user where username=?");
+        .usersByUsernameQuery("select login,password, 1 from user where login=?")
+        .authoritiesByUsernameQuery("select login, role from user where login=?");
   }
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http.authorizeRequests().antMatchers("/", "/403", "/login", "/logout", "/products", "/contactus").permitAll()
-        .antMatchers("/user/**").access("hasAuthority('USER')").antMatchers("/admin/**").access("hasAuthority('ADMIN')")
-        .and().formLogin().loginPage("/login").loginProcessingUrl("/login").usernameParameter("username")
-        .passwordParameter("password").successHandler(authenticationHandler()).failureUrl("/login?error=true").and()
-        .exceptionHandling().accessDeniedPage("/403").and().csrf().disable();
+    http.authorizeRequests().antMatchers("/", "/403", "/login", "/logout", "/registration", "/products", "/contactus")
+        .permitAll().antMatchers("/user/**").access("hasAuthority('USER')").antMatchers("/admin/**")
+        .access("hasAuthority('ADMIN')").and().formLogin().loginPage("/login").loginProcessingUrl("/login")
+        .usernameParameter("login").passwordParameter("password").successHandler(authenticationHandler())
+        .failureUrl("/login?error=true").and().exceptionHandling().accessDeniedPage("/403").and().csrf().disable();
   }
 
   @Override

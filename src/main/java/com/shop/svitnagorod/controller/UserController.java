@@ -11,6 +11,7 @@ public class UserController {
 
   @RequestMapping(value = { "/welcome" }, method = RequestMethod.GET)
   public String loginPage(ModelMap model) {
+
     return "user";
   }
 

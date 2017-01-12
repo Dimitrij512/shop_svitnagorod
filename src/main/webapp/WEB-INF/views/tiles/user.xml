@@ -6,5 +6,10 @@
     <definition name="user" extends="base-definition">  
        <put-attribute name="title" value="user page" />  
        <put-attribute name="body" value="/WEB-INF/views/pages/user/user.jsp" />  
+   </definition>
+<!--    Page for create and update data of user  -->
+   <definition name="createUpdateRegistration" extends="base-definition">  
+       <put-attribute name="title" value="Registration page" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/user/createUpdateRegistration.jsp" />      
    </definition>  
 </tiles-definitions>

@@ -9,7 +9,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -20,7 +19,7 @@ public class LoginLogoutController {
   private static final String SUCCES = "succes";
 
   @RequestMapping(value = { "/login" }, method = RequestMethod.GET)
-  public String getLoginPage(ModelMap model) {
+  public String getLoginPage(Model model) {
 
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     if (auth instanceof AnonymousAuthenticationToken) {

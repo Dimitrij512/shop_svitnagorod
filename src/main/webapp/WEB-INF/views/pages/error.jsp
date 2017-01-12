@@ -17,7 +17,7 @@
         ERROR
       </p>
       <a href="#" onclick="window.history.back();">Return</a>
-      <a href=<c:url value="/guest/" />>Start page</a>
+      <a href=<c:url value="/" />>Start page</a>
     </div>
   </div>
 </body>
