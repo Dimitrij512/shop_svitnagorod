@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
@@ -20,11 +22,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Autowired
   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
-    auth.jdbcAuthentication().dataSource(dataSource)
+    auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder())
         .usersByUsernameQuery("select username,password, 1 from user where username=?")
         .authoritiesByUsernameQuery("select username, role from user where username=?");
-
-    System.out.println("Security select execution");
   }
 
   @Override
@@ -40,6 +40,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   public void configure(WebSecurity web) throws Exception {
 
     web.ignoring().antMatchers("/resources/**");
+  }
+
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
   }
 
   @Bean
