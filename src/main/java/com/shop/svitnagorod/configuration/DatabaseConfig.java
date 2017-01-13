@@ -31,13 +31,6 @@ public class DatabaseConfig {
     dataSource.setUrl(environment.getRequiredProperty("jdbc.url"));
     dataSource.setUsername(environment.getRequiredProperty("jdbc.username"));
     dataSource.setPassword(environment.getRequiredProperty("jdbc.password"));
-
-    System.out.println("User name: " + dataSource.getUsername());
-    System.out.println("User password : " + dataSource.getPassword());
-    System.out.println("User driver : " + dataSource.getDriverClassName());
-    System.out.println("User URL  : " + dataSource.getUrl());
-    System.out.println("User validation  : " + dataSource.getValidationQuery());
-
     return dataSource;
   }
 

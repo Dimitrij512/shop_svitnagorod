@@ -14,6 +14,7 @@ import com.shop.svitnagorod.service.UserService;
 @Controller
 @RequestMapping("/")
 public class GuestController {
+
   BCryptPasswordEncoder cryptor = new BCryptPasswordEncoder();
 
   @Autowired
@@ -44,13 +45,10 @@ public class GuestController {
 
   @RequestMapping(value = { "/registration" }, method = RequestMethod.POST)
   public String createUser(@ModelAttribute(REGISTRATION) User user) {
-    System.out.println("controller is work");
     String userPassword = user.getPassword();
-    System.out.println(userPassword);
     user.setPassword(cryptor.encode(userPassword));
-    System.out.println(user.getPassword());
     userService.save(user);
-    return "redirect:/products";
+    return "redirect:/registration?registrationSuccess=true";
   }
 
 }
