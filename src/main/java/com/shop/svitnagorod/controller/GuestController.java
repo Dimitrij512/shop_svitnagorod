@@ -1,6 +1,7 @@
 package com.shop.svitnagorod.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,6 +14,7 @@ import com.shop.svitnagorod.service.UserService;
 @Controller
 @RequestMapping("/")
 public class GuestController {
+  BCryptPasswordEncoder cryptor = new BCryptPasswordEncoder();
 
   @Autowired
   UserService userService;
@@ -43,6 +45,10 @@ public class GuestController {
   @RequestMapping(value = { "/registration" }, method = RequestMethod.POST)
   public String createUser(@ModelAttribute(REGISTRATION) User user) {
     System.out.println("controller is work");
+    String userPassword = user.getPassword();
+    System.out.println(userPassword);
+    user.setPassword(cryptor.encode(userPassword));
+    System.out.println(user.getPassword());
     userService.save(user);
     return "redirect:/products";
   }
