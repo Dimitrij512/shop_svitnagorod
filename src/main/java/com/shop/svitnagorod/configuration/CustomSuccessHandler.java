@@ -48,14 +48,14 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
   private String determineTargetUrl(Authentication authentication) {
 
-    boolean isUser = false;
+    boolean isCustomer = false;
     boolean isAdmin = false;
     Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
     for (GrantedAuthority grantedAuthority : authorities) {
       System.out.println(grantedAuthority.getAuthority());
       System.out.println(grantedAuthority.getAuthority().equals("ADMIN"));
-      if (grantedAuthority.getAuthority().equals("USER")) {
-        isUser = true;
+      if (grantedAuthority.getAuthority().equals("CUSTOMER")) {
+        isCustomer = true;
         break;
       } else if (grantedAuthority.getAuthority().equals("ADMIN")) {
 
@@ -63,7 +63,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
         break;
       }
     }
-    if (isUser) {
+    if (isCustomer) {
       return "/user/welcome";
     } else if (isAdmin) {
       return "/admin/welcome";

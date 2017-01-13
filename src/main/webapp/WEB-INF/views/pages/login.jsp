@@ -33,6 +33,7 @@
                 <input type="submit" class="" value="Log in" />
               </fieldset>
             </form>
+            <nav><a href="${pageContext.request.contextPath}/registration">Registraton</a></nav>
           </div>
         </c:if>
       </div>

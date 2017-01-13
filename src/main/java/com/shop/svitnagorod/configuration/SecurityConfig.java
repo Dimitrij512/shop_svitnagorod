@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests().antMatchers("/", "/403", "/login", "/logout", "/registration", "/products", "/contactus")
-        .permitAll().antMatchers("/user/**").access("hasAuthority('USER')").antMatchers("/admin/**")
+        .permitAll().antMatchers("/user/**").access("hasAuthority('CUSTOMER')").antMatchers("/admin/**")
         .access("hasAuthority('ADMIN')").and().formLogin().loginPage("/login").loginProcessingUrl("/login")
         .usernameParameter("login").passwordParameter("password").successHandler(authenticationHandler())
         .failureUrl("/login?error=true").and().exceptionHandling().accessDeniedPage("/403").and().csrf().disable();
