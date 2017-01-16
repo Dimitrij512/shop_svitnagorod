@@ -4,8 +4,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%> 
 
 
-<%-- <link href="<c:url value='/static/css/registration.css' />" rel="stylesheet"></link> --%>
-
 <div class="container-fluid">
   <form:form action="" method="POST" modelAttribute="registration" class="">
 
@@ -17,25 +15,29 @@
     <div class="row">
       <div class="col-md-3 col-sm-3 col-lg-3">
         <label for="name">NAME</label>
-        <form:input name="name" path="name" class="form-control" type="text" />
+        <form:input name="name" path="name" class="form-control" cssErrorClass="error form-control" type="text" />
+        <form:errors path="name" class="help-block with-errors" cssErrorClass="" />
       </div>
     </div>
     <div class="row">
       <div class="col-md-3 col-sm-3 col-lg-3">
         <label for="surname">SURNAME</label>
-        <form:input name="surname" path="surname" class="form-control" type="text" />
+        <form:input name="surname" path="surname" class="form-control" cssErrorClass="error form-control" type="text" />
+        <form:errors path="surname" class="help-block with-errors" cssErrorClass="" />
       </div>
     </div>
     <div class="row">
       <div class="col-md-3 col-sm-3 col-lg-3">
         <label for="email">LOGIN</label>
-        <form:input name="email" path="login" class="form-control" />
+        <form:input name="email" path="login" class="form-control" cssErrorClass="error form-control" />
+        <form:errors path="login" class="help-block with-errors" cssErrorClass="" />     
       </div>
     </div>
     <div class="row">
       <div class="col-md-3 col-sm-3 col-lg-3">
         <label for="password">PASSWORD</label>
-        <form:input name="password" path="password" class="form-control" type="password" />
+        <form:input name="password" path="password" class="form-control" cssErrorClass="error form-control" type="password" />
+        <form:errors path="password" class="help-block with-errors" cssErrorClass="" /> 
       </div>
     </div>
     <hr>

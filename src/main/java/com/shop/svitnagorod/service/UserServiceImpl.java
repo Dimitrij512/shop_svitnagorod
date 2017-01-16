@@ -24,4 +24,24 @@ public class UserServiceImpl implements UserService {
     }
   }
 
+  @Transactional
+  @Override
+  public User findById(int id) {
+    return dao.findById(id);
+  }
+
+  @Transactional
+  @Override
+  public User findByLogin(String login) {
+
+    return dao.findByLogin(login);
+  }
+
+  @Transactional
+  public boolean isUserUnique(String login, Integer id) {
+    User user = null;
+    user = findByLogin(login);
+    return (user == null || ((id != null) && (user.getId() == id)));
+  }
+
 }

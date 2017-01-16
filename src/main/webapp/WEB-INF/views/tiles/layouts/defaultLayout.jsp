@@ -8,11 +8,14 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title><tiles:getAsString name="title" /></title>
-	
-	<script type="text/javascript" src="/js/jquery.min.js"></script>
-	
+	<!-- Bootstrap -->
 	<link href="<c:url value='/static/css/bootstrap.css' />"  rel="stylesheet"></link>
+	
+	<!-- Main CSS -->
 	<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
+
+	  <!-- jQuery -->
+	<script src="<c:url value = "/static/js/jquery.min.js" />"></script>
 </head>
  
 <body>

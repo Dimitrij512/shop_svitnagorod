@@ -7,13 +7,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 @Table(name = "user")
 public class User {
   private Integer id;
+
   private String name;
+
   private String surname;
+
   private String login;
+
   private String password;
   private String role = UserRole.CUSTOMER.getUserRole();
 
@@ -28,6 +34,7 @@ public class User {
     this.id = id;
   }
 
+  @NotBlank(message = "Please enter your name")
   @Column(name = "name")
   public String getName() {
     return name;
@@ -37,6 +44,7 @@ public class User {
     this.name = name;
   }
 
+  @NotBlank(message = "Please enter your surname")
   @Column(name = "surname")
   public String getSurname() {
     return surname;
@@ -46,6 +54,7 @@ public class User {
     this.surname = surname;
   }
 
+  @NotBlank(message = "Please enter your login")
   @Column(name = "login")
   public String getLogin() {
     return login;
@@ -55,6 +64,7 @@ public class User {
     this.login = login;
   }
 
+  @NotBlank(message = "Please enter your password")
   @Column(name = "password")
   public String getPassword() {
     return password;
