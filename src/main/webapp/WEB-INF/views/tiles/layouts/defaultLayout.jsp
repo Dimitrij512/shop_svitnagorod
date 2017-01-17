@@ -8,14 +8,19 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title><tiles:getAsString name="title" /></title>
+	
 	<!-- Bootstrap -->
-	<link href="<c:url value='/static/css/bootstrap.css' />"  rel="stylesheet"></link>
+	<link href="<c:url value='/static/bootstrap/css/bootstrap.min.css' />"  rel="stylesheet"></link>
+	<link href="https://fonts.googleapis.com/css?family=Cookie"  rel="stylesheet" >
 	
 	<!-- Main CSS -->
 	<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
 
+	  
 	  <!-- jQuery -->
 	<script src="<c:url value = "/static/js/jquery.min.js" />"></script>
+	  <!-- Bootstrap JS -->
+	<script src="<c:url value = "/static/bootstrap/js/bootstrap.min.js" />"></script>
 </head>
  
 <body>
@@ -24,7 +29,7 @@
 		</header>
 	
 		<section id="sidemenu">
-			<tiles:insertAttribute name="menu" />
+<%-- 			<tiles:insertAttribute name="menu" /> --%>
 		</section>
 			
 		<section id="site-content">
