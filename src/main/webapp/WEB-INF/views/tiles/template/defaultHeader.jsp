@@ -27,8 +27,8 @@
 	          <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">
 	          <span class="caret"></span><img src="assets/img/avatar.jpg" class="dropdown-image"></a>
 	          <ul class="dropdown-menu dropdown-menu-right" role="menu">
-	            <li><a href="#">Settings </a></li>
-	            <li><a href="#">Payments </a></li>
+	            <li><a href="#">Settings your accaunt </a></li>
+	            <li><a href="${pageContext.request.contextPath}/admin/settingWebsite">Settings webSite </a></li>
 	            <li><a href="${pageContext.request.contextPath}/logout">Logout </a></li>
 	          </ul>
 	        </li>

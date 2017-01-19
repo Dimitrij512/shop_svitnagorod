@@ -1,5 +1,7 @@
 package com.shop.svitnagorod.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,24 +13,15 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "product")
-public class Product {
+public class Product implements Serializable {
+
+  private static final long serialVersionUID = -846256523776995760L;
+
   private long id;
   private String name;
   private String description;
   private float price;
-
   private Category category;
-
-  public Product() {
-  };
-
-  public Product(String name, String description, float price, Category category) {
-    this.setName(name);
-    this.setDescription(description);
-    this.setPrice(price);
-    this.category = category;
-
-  }
 
   @Id
   @Column(name = "id")
@@ -41,8 +34,8 @@ public class Product {
     this.id = id;
   }
 
-  @ManyToOne(optional = false)
-  @JoinColumn(name = "category_id", referencedColumnName = "id")
+  @ManyToOne
+  @JoinColumn(name = "category_id", referencedColumnName="id", nullable = false)
   public Category geCategory() {
     return category;
   }

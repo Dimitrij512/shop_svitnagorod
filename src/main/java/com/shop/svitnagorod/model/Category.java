@@ -1,31 +1,25 @@
 package com.shop.svitnagorod.model;
 
-import java.util.HashSet;
+import java.io.Serializable;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "category")
-public class Category {
+public class Category implements Serializable {
+
+  private static final long serialVersionUID = 1788778762096872138L;
+
   private long id;
   private String name;
-  private Set<Product> products = new HashSet<Product>();
-
-  public Category() {
-  };
-
-  public Category(String name) {
-    this.setName(name);
-  }
+  private Set<Product> products;
 
   @Id
   @Column(name = "id")
@@ -38,8 +32,7 @@ public class Category {
     this.id = id;
   }
 
-  @OneToMany(cascade = CascadeType.ALL)
-  @JoinColumn(name = "category_id", referencedColumnName = "id")
+  @OneToMany
   public Set<Product> getProducts() {
     return products;
   }
