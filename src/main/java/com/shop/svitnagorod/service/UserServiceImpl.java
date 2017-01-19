@@ -1,5 +1,7 @@
 package com.shop.svitnagorod.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -38,10 +40,18 @@ public class UserServiceImpl implements UserService {
   }
 
   @Transactional
+  @Override
   public boolean isUserUnique(String login, Integer id) {
     User user = null;
     user = findByLogin(login);
     return (user == null || ((id != null) && (user.getId() == id)));
+  }
+
+  @Transactional
+  @Override
+  public List<User> findAllUser() {
+
+    return dao.findAllUsers();
   }
 
 }

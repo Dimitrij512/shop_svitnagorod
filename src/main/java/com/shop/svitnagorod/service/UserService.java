@@ -1,5 +1,7 @@
 package com.shop.svitnagorod.service;
 
+import java.util.List;
+
 import com.shop.svitnagorod.model.User;
 
 public interface UserService {
@@ -11,5 +13,7 @@ public interface UserService {
   User findByLogin(String login);
 
   boolean isUserUnique(String login, Integer id);
+
+  List<User> findAllUser();
 
 }

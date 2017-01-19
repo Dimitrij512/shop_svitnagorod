@@ -7,13 +7,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.shop.svitnagorod.service.CategoryService;
+import com.shop.svitnagorod.service.UserService;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
 
+  public static final String USERS = "users";
+  public static final String CATEGORIES = "categories";
+
   @Autowired
   CategoryService categoryService;
+  @Autowired
+  UserService userService;
 
   @RequestMapping(value = { "/welcome" }, method = RequestMethod.GET)
   public String loginPage(Model model) {
@@ -47,6 +53,19 @@ public class AdminController {
   public String settingWebsite(Model model) {
 
     return "settingWebSite";
+  }
+
+  @RequestMapping(value = { "/settingWebsite/users" }, method = RequestMethod.GET)
+  public String managementUsers(Model model) {
+    model.addAttribute(USERS, userService.findAllUser());
+
+    return "managementUsers";
+  }
+
+  @RequestMapping(value = { "/settingWebsite/categories" }, method = RequestMethod.GET)
+  public String managementCategory(Model model) {
+    model.addAttribute(CATEGORIES, categoryService.findAllCategory());
+    return "managementCategories";
   }
 
 }

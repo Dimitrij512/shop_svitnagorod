@@ -12,4 +12,17 @@
        <put-attribute name="title" value="setting page" />  
        <put-attribute name="body" value="/WEB-INF/views/pages/admin/settingWebSite.jsp" />  
    </definition>
+   
+          <!-- Page for management user-->
+   <definition name="managementUsers" extends="base-definition">  
+       <put-attribute name="title" value="page for management users" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/admin/managementUsers.jsp" />  
+   </definition>
+   
+             <!-- Page for management categories-->
+   <definition name="managementCategories" extends="base-definition">  
+       <put-attribute name="title" value="page for management categories" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/admin/managementCategories.jsp" />  
+   </definition>
+
 </tiles-definitions>

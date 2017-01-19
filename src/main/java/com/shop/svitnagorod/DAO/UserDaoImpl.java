@@ -1,6 +1,9 @@
 package com.shop.svitnagorod.DAO;
 
+import java.util.List;
+
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -25,6 +28,14 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
     crit.add(Restrictions.eq("login", login));
     User user = (User) crit.uniqueResult();
     return user;
+  }
+
+  @SuppressWarnings("unchecked")
+  @Override
+  public List<User> findAllUsers() {
+    Criteria crit = createEntityCriteria();
+    crit.addOrder(Order.desc("id"));
+    return (List<User>) crit.list();
   }
 
 }

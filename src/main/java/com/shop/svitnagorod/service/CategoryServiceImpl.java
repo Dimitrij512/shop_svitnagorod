@@ -1,5 +1,7 @@
 package com.shop.svitnagorod.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,8 +17,13 @@ public class CategoryServiceImpl implements CategoryService {
   @Transactional
   @Override
   public void save(Category category) {
-    System.out.println("Service save");
     dao.save(category);
+  }
+
+  @Transactional
+  @Override
+  public List<Category> findAllCategory() {
+    return dao.findAllCategories();
   }
 
 }
