@@ -19,3 +19,9 @@
     </c:forEach>
   </tbody>
 </table>
+<div class = "form-group">
+	<form:form action="" method = "POST" modelAttribute="category" class = "">
+		<form:input path="name" class = "form-control"/>
+		<button type="submit" class="btn btn-default">Submit</button>
+	</form:form>
+</div>

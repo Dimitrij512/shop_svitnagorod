@@ -35,7 +35,7 @@ public class Product implements Serializable {
   }
 
   @ManyToOne
-  @JoinColumn(name = "category_id", referencedColumnName="id", nullable = false)
+  @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
   public Category geCategory() {
     return category;
   }
