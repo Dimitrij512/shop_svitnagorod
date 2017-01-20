@@ -54,4 +54,11 @@ public class UserServiceImpl implements UserService {
     return dao.findAllUsers();
   }
 
+  @Transactional
+  @Override
+  public void delete(int id) {
+    dao.delete(id);
+
+  }
+
 }

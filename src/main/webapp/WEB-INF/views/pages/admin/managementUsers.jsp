@@ -27,7 +27,15 @@
         <td>
           <c:out value="${user.role}"></c:out>
         </td>
+        <td>
+          <button id="${user.id}" class="btn btn-danger delete">delete</button>
+        </td>
       </tr>
     </c:forEach>
   </tbody>
 </table>
+
+<input id="contextPath" type="hidden" value="${pageContext.request.contextPath}" />
+
+<!-- Main script -->
+<script src=<c:url value="/static/js/users/user.js" />></script>

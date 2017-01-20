@@ -8,6 +8,8 @@ public interface UserDao {
 
   void save(User user);
 
+  void delete(int id);
+
   User findById(Integer id);
 
   User findByLogin(String login);

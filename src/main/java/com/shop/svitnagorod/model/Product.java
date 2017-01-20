@@ -9,10 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "product")
 public class Product implements Serializable {
 
   private static final long serialVersionUID = -846256523776995760L;
@@ -35,7 +33,7 @@ public class Product implements Serializable {
   }
 
   @ManyToOne
-  @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
+  @JoinColumn(name = "category_id", referencedColumnName = "id")
   public Category geCategory() {
     return category;
   }

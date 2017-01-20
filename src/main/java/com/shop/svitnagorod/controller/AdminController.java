@@ -1,11 +1,14 @@
 package com.shop.svitnagorod.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.shop.svitnagorod.model.Category;
 import com.shop.svitnagorod.service.CategoryService;
@@ -56,6 +59,21 @@ public class AdminController {
     categoryService.save(category);
 
     return "redirect:/admin/settingWebsite/categories";
+  }
+
+  @RequestMapping(value = { "/settingWebsite/categories/delete" }, method = RequestMethod.DELETE)
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void deleteCategory(@RequestBody int id) {
+    System.out.println("ID = " + id);
+
+    categoryService.delete(id);
+  }
+
+  @RequestMapping(value = { "/settingWebsite/user/delete" }, method = RequestMethod.DELETE)
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void deleteUser(@RequestBody int id) {
+    System.out.println("ID USER = " + id);
+    userService.delete(id);
   }
 
 }

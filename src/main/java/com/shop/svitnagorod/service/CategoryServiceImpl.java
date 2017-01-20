@@ -22,6 +22,12 @@ public class CategoryServiceImpl implements CategoryService {
 
   @Transactional
   @Override
+  public void delete(int id) {
+    dao.delete(id);
+  }
+
+  @Transactional
+  @Override
   public List<Category> findAllCategory() {
     return dao.findAllCategories();
   }
