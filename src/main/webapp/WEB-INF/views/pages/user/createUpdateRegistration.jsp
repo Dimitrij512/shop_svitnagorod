@@ -5,13 +5,20 @@
 
 
 <div class="container-fluid">
-  <form:form action="" method="POST" modelAttribute="registration" class="">
+  <form:form action="" method="POST" modelAttribute="registration" class="" enctype="multipart/form-data">
 
     <c:if test="${not empty param.registrationSuccess}">
       <div class="">
         <strong>Success!</strong> Account has been successfully created!
       </div>
     </c:if>
+    <div class="row">
+    <div class = "col-md-3 col-sm-3 col-lg-3">
+     <label for="avatar"> AVATAR </label>
+     <form:input type ="file" path="avatar" class="form-control"/>
+    </div>
+    </div>
+    
     <div class="row">
       <div class="col-md-3 col-sm-3 col-lg-3">
         <label for="name">NAME</label>

@@ -1,26 +1,29 @@
 package com.shop.svitnagorod.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements Serializable {
+
+  private static final long serialVersionUID = 8887501901530994903L;
+
   private Integer id;
-
   private String name;
-
   private String surname;
-
   private String login;
-
   private String password;
+  private byte[] avatar;
   private String role = UserRole.CUSTOMER.getUserRole();
 
   @Id
@@ -81,6 +84,16 @@ public class User {
 
   public void setRole(String role) {
     this.role = role;
+  }
+
+  @Lob
+  @Column(name = "avatar")
+  public byte[] getAvatar() {
+    return avatar;
+  }
+
+  public void setAvatar(byte[] avatar) {
+    this.avatar = avatar;
   }
 
 }

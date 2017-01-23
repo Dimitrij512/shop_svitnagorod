@@ -2,11 +2,12 @@ package com.shop.svitnagorod.service;
 
 import java.util.List;
 
+import com.shop.svitnagorod.DTO.UserDTO;
 import com.shop.svitnagorod.model.User;
 
 public interface UserService {
 
-  void save(User user);
+  void save(UserDTO userDTO);
 
   void delete(int id);
 

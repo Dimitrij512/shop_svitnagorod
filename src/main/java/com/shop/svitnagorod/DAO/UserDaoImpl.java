@@ -14,6 +14,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
   @Override
   public void save(User user) {
+    System.out.println("Persist dao save before");
     persist(user);
   }
 

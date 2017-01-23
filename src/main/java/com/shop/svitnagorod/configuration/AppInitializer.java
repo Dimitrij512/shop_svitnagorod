@@ -5,8 +5,6 @@ import javax.servlet.Filter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import com.shop.svitnagorod.filter.ErrorHandlerFilter;
-
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
   @Override
@@ -33,5 +31,4 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
     return new Filter[] { characterEncodingFilter };
   }
-
 }
