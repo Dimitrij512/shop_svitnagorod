@@ -10,6 +10,7 @@
       <th>SURNAME</th>
       <th>LOGIN</th>
       <th>ROLE</th>
+      <th>AVATAR</th>
     </tr>
   </thead>
   <tbody>
@@ -26,6 +27,9 @@
         </td>
         <td>
           <c:out value="${user.role}"></c:out>
+        </td>
+        <td>
+          <img alt="" src=<c:url value="/users/${user.id}/avatar" />>
         </td>
         <td>
           <button id="${user.id}" class="btn btn-danger delete">delete</button>
