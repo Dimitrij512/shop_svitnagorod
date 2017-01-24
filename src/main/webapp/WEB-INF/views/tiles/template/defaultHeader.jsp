@@ -20,12 +20,17 @@
         <li role="presentation"><a href="${pageContext.request.contextPath}/admin/welcome">For Admin</a></li>
         <li role="presentation"><a href="${pageContext.request.contextPath}/user/welcome">For User</a></li>
       </ul>
-      
-      <sec:authorize access="isAuthenticated()">
+       <sec:authorize access="isAuthenticated()">
+       	        <div>
+	      		<sec:authentication var="user" property="principal" />
+	       		<p>${user.username}</p>
+      		 </div>
 	      <ul class="nav navbar-nav navbar-right">
 	        <li class="dropdown">
-	          <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">
-	          <span class="caret"></span><img src="assets/img/avatar.jpg" class="dropdown-image"></a>
+
+		          <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">
+		          <span class="caret"></span><img class = "img-circle" alt="not image" src=<c:url value="/usersInfo/${user.username}/avatar"/>></a>
+
 	          <ul class="dropdown-menu dropdown-menu-right" role="menu">
 	            <li><a href="#">Settings your accaunt </a></li>
 	            <li><a href="${pageContext.request.contextPath}/admin/settingWebsite">Settings webSite </a></li>
