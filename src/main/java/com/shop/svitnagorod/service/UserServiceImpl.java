@@ -32,20 +32,12 @@ public class UserServiceImpl implements UserService {
     try {
       user.setAvatar(avatar.getBytes());
     } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
-
     try {
-
-      // user.setAvatar(avatar.getBytes());
-      System.out.println("before Save");
       dao.save(user);
-
     } catch (DataAccessException dae) {
-
       System.out.println(dae);
-
     }
   }
 
@@ -83,5 +75,4 @@ public class UserServiceImpl implements UserService {
     dao.delete(id);
 
   }
-
 }
