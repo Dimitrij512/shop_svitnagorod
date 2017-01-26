@@ -18,6 +18,9 @@ public class UserServiceImpl implements UserService {
   @Autowired
   UserDao dao;
 
+  @Autowired
+  GeneralService generalService;
+
   @Transactional
   @Override
   public void save(UserDTO userDTO) {
@@ -29,8 +32,17 @@ public class UserServiceImpl implements UserService {
     user.setPassword(userDTO.getPassword());
     user.setRole(userDTO.getRole());
     MultipartFile avatar = userDTO.getAvatar();
+
+    System.out.println("AVATAR :");
+    System.out.println(avatar);
+
     try {
-      user.setAvatar(avatar.getBytes());
+      if (avatar.isEmpty()) {
+        user.setAvatar(generalService.getDefoultImageUser());
+      } else {
+        user.setAvatar(avatar.getBytes());
+      }
+
     } catch (IOException e) {
       e.printStackTrace();
     }

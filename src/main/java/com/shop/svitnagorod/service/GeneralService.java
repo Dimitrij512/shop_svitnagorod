@@ -5,4 +5,6 @@ public interface GeneralService {
 
   byte[] resizeImage(byte[] data, int width, int height);
 
+  byte[] getDefoultImageUser();
+
 }

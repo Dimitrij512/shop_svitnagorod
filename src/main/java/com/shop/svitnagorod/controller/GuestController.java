@@ -23,9 +23,7 @@ import com.shop.svitnagorod.service.UserService;
 @Controller
 @RequestMapping("/")
 public class GuestController {
-
   private static final String REGISTRATION = "registration";
-  private static final String USERDATA = "userData";
 
   // size for image an avatar
   private static final int avatarSmallWidth = 50;
@@ -86,28 +84,25 @@ public class GuestController {
   @RequestMapping(value = { "/users/{id}/avatar" }, method = RequestMethod.GET)
   public void getUserAvatar(HttpServletResponse response, @PathVariable int id) {
     byte[] data = userService.findById(id).getAvatar();
-    if (data != null) {
-      data = generalService.resizeImage(data, avatarAvarageWidth, avatarAvarageHeight);
-      response.setContentType(MediaType.IMAGE_JPEG_VALUE);
-      response.setContentLength(data.length);
-      try (ServletOutputStream outputStream = response.getOutputStream()) {
-        FileCopyUtils.copy(data, outputStream);
-      } catch (IOException e) {
-      }
+
+    data = generalService.resizeImage(data, avatarAvarageWidth, avatarAvarageHeight);
+    response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+    response.setContentLength(data.length);
+    try (ServletOutputStream outputStream = response.getOutputStream()) {
+      FileCopyUtils.copy(data, outputStream);
+    } catch (IOException e) {
     }
   }
 
   @RequestMapping(value = { "/usersInfo/{name}/avatar" }, method = RequestMethod.GET)
   public void getUserAvatarByLogin(HttpServletResponse response, @PathVariable String name) {
     byte[] data = userService.findByLogin(name).getAvatar();
-    if (data != null) {
-      data = generalService.resizeImage(data, avatarSmallWidth, avatarSmallHeight);
-      response.setContentType(MediaType.IMAGE_JPEG_VALUE);
-      response.setContentLength(data.length);
-      try (ServletOutputStream outputStream = response.getOutputStream()) {
-        FileCopyUtils.copy(data, outputStream);
-      } catch (IOException e) {
-      }
+    data = generalService.resizeImage(data, avatarSmallWidth, avatarSmallHeight);
+    response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+    response.setContentLength(data.length);
+    try (ServletOutputStream outputStream = response.getOutputStream()) {
+      FileCopyUtils.copy(data, outputStream);
+    } catch (IOException e) {
     }
   }
 }
