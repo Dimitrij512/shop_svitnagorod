@@ -10,29 +10,33 @@ import org.springframework.stereotype.Repository;
 import com.shop.svitnagorod.model.Product;
 
 @Repository
-public class ProductDaoImpl extends AbstractDao<Integer, Product>
-    implements ProductDao {
+public class ProductDaoImpl extends AbstractDao<Integer, Product> implements ProductDao {
 
-	@Override
-	public void save(Product product) {
-		persist(product);
-	}
+  @Override
+  public void save(Product product) {
+    persist(product);
+  }
 
-	@Override
-	public void delete(int id) {
-		Criteria crit = createEntityCriteria();
-		crit.add(Restrictions.eq("id", id));
-		Product product = (Product) crit.uniqueResult();
-		delete(product);
+  @Override
+  public void delete(int id) {
+    Criteria crit = createEntityCriteria();
+    crit.add(Restrictions.eq("id", id));
+    Product product = (Product) crit.uniqueResult();
+    delete(product);
 
-	}
+  }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Product> findAllProducts() {
-		Criteria crit = createEntityCriteria();
-		crit.addOrder(Order.desc("id"));
-		return (List<Product>) crit.list();
-	}
+  @SuppressWarnings("unchecked")
+  @Override
+  public List<Product> findAllProducts() {
+    Criteria crit = createEntityCriteria();
+    crit.addOrder(Order.desc("id"));
+    return (List<Product>) crit.list();
+  }
+
+  @Override
+  public Product findById(int id) {
+    return getById(id);
+  }
 
 }

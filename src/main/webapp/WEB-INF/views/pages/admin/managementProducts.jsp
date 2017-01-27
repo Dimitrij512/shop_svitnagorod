@@ -6,6 +6,7 @@
 <table class="table table-inverse">
   <thead>
     <tr>
+      <th>IMAGE</th>
       <th>NAME</th>
       <th>DESCRIPTION</th>
       <th>PRICE</th>
@@ -16,8 +17,9 @@
     <c:forEach items="${products}" var="product">
       <tr>
         <td>
-          <c:out value="${product.name}"></c:out>
+          <img alt="" src=<c:url value="/productInfo/${product.id}/image" />>
         </td>
+          <c:out value="${product.name}"></c:out>
         <td>
           <c:out value="${product.description}"></c:out>
         </td>
@@ -25,7 +27,7 @@
           <c:out value="${product.price}"></c:out>
         </td>
         <td>
-<%--           <c:out value="${product.category.name}"></c:out> --%>
+ 			<c:out value="${product.category_id}"></c:out>
         </td>
         
         <td>
@@ -37,6 +39,10 @@
 </table>
 <div class="">
   <form:form action="" method="POST" modelAttribute="product" class="form-group">
+    
+    <div class="col-md-3">
+      <form:input path="image" type = "file"  class="form-control" />
+    </div>
     <div class="col-md-3">
       <form:input path="name" class="form-control" />
     </div>
@@ -46,9 +52,11 @@
     <div class="col-md-3">
       <form:input path="price" class="form-control" />
     </div>
-<!--     <div class="col-md-3"> -->
-<%--       <form:input path="category" class="form-control" /> --%>
-<!--     </div> -->
+    <div class="col-md-3">
+	    
+	    <form:select id="" path="category_id" items="${categories}" class="form-control" data-placeholder="category" itemLabel="name"
+	            itemValue="id" cssErrorClass="error form-control" />
+    </div>
     <div class="coll-md-3">
       <button type="submit" class="btn btn-default">Submit</button>
     </div>

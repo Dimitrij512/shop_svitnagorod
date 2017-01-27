@@ -6,6 +6,7 @@
 <table class="table table-inverse">
   <thead>
     <tr>
+       <th>ID</th>
       <th>NAME</th>
       <th>DELETE</th>
     </tr>
@@ -13,6 +14,9 @@
   <tbody>
     <c:forEach items="${categories}" var="category">
       <tr>
+        <td>
+          <c:out value="${category.id}"></c:out>
+        </td>
         <td>
           <c:out value="${category.name}"></c:out>
         </td>

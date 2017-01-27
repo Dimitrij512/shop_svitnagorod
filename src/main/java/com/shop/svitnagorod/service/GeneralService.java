@@ -7,4 +7,6 @@ public interface GeneralService {
 
   byte[] getDefoultImageUser();
 
+  byte[] getDefoultImageProduct();
+
 }

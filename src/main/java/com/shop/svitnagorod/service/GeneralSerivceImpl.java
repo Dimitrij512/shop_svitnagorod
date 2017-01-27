@@ -74,4 +74,21 @@ public class GeneralSerivceImpl implements GeneralService {
     }
     return data;
   }
+
+  @Override
+  public byte[] getDefoultImageProduct() {
+    String defoultImage = context.getRealPath("/static/img/product_image.jpg");
+    byte data[] = null;
+    try {
+      BufferedImage defoultUser = ImageIO.read(new File(defoultImage));
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      ImageIO.write(defoultUser, "jpg", baos);
+      baos.flush();
+      data = baos.toByteArray();
+      baos.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return data;
+  }
 }

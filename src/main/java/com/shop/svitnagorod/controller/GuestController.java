@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,102 +19,116 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.shop.svitnagorod.DTO.UserDTO;
 import com.shop.svitnagorod.service.GeneralService;
+import com.shop.svitnagorod.service.ProductService;
 import com.shop.svitnagorod.service.UserService;
 
 @Controller
 @RequestMapping("/")
 public class GuestController {
-	private static final String REGISTRATION = "registration";
+  private static final String REGISTRATION = "registration";
 
-	// size for image an avatar
-	private static final int avatarSmallWidth = 50;
-	private static final int avatarSmallHeight = 50;
-	private static final int avatarAvarageWidth = 150;
-	private static final int avatarAvarageHeight = 200;
+  // size for image an avatar
+  private static final int avatarSmallWidth = 50;
+  private static final int avatarSmallHeight = 50;
+  private static final int avatarAvarageWidth = 150;
+  private static final int avatarAvarageHeight = 200;
 
-	private BCryptPasswordEncoder cryptor = new BCryptPasswordEncoder();
+  private static final int productAvarageWidth = 150;
+  private static final int productAvarageHeight = 150;
 
-	// @Autowired
-	// UserValidator userValidator;
+  private BCryptPasswordEncoder cryptor = new BCryptPasswordEncoder();
 
-	@Autowired
-	UserService userService;
-	@Autowired
-	GeneralService generalService;
+  // @Autowired
+  // UserValidator userValidator;
 
-	// @InitBinder
-	// public void initBinder(WebDataBinder binder) {
-	// binder.addValidators(userValidator);
-	// }
+  @Autowired
+  UserService userService;
+  @Autowired
+  GeneralService generalService;
 
-	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
-	public String homePage(Model model) {
-		return "home";
-	}
+  @Autowired
+  ProductService productSrvice;
 
-	@RequestMapping(value = { "/products" }, method = RequestMethod.GET)
-	public String productsPage(Model model) {
-		return "products";
-	}
+  // @InitBinder
+  // public void initBinder(WebDataBinder binder) {
+  // binder.addValidators(userValidator);
+  // }
 
-	@RequestMapping(value = { "/contactus" }, method = RequestMethod.GET)
-	public String contactUsPage(Model model) {
-		return "contactus";
-	}
+  @RequestMapping(value = { "/" }, method = RequestMethod.GET)
+  public String homePage(Model model) {
+    return "home";
+  }
 
-	@RequestMapping(value = { "/registration" }, method = RequestMethod.GET)
-	public String getRegistration(Model model) {
-		model.addAttribute(REGISTRATION, new UserDTO());
-		return "createUpdateRegistration";
-	}
+  @RequestMapping(value = { "/products" }, method = RequestMethod.GET)
+  public String productsPage(Model model) {
+    return "products";
+  }
 
-	@RequestMapping(value = { "/registration" }, method = RequestMethod.POST)
-	public String createUser(
-	    @ModelAttribute(REGISTRATION) UserDTO userDTO, Model model
-	) {
-		// if (bindingResult.hasErrors()) {
-		// model.addAttribute(REGISTRATION, userDTO);
-		// return "createUpdateRegistration";
-		// }
-		System.out.println("controller");
-		String userPassword = userDTO.getPassword();
-		userDTO.setPassword(cryptor.encode(userPassword));
-		System.out.println("befor service");
-		userService.save(userDTO);
-		return "redirect:/registration?registrationSuccess=true";
-	}
+  @RequestMapping(value = { "/contactus" }, method = RequestMethod.GET)
+  public String contactUsPage(Model model) {
+    return "contactus";
+  }
 
-	@RequestMapping(value = { "/users/{id}/avatar" }, method = RequestMethod.GET)
-	public void getUserAvatar(
-	    HttpServletResponse response, @PathVariable int id
-	) {
-		byte[] data = userService.findById(id).getAvatar();
+  @RequestMapping(value = { "/registration" }, method = RequestMethod.GET)
+  public String getRegistration(Model model) {
+    model.addAttribute(REGISTRATION, new UserDTO());
+    return "createUpdateRegistration";
+  }
 
-		if (data != null) {
-			data = generalService.resizeImage(data, avatarAvarageWidth, avatarAvarageHeight);
-			response.setContentType(MediaType.IMAGE_JPEG_VALUE);
-			response.setContentLength(data.length);
-			try (ServletOutputStream outputStream = response.getOutputStream()) {
-				FileCopyUtils.copy(data, outputStream);
-			} catch (IOException e) {
-			}
-		}
-	}
+  @RequestMapping(value = { "/registration" }, method = RequestMethod.POST)
+  public String createUser(@ModelAttribute(REGISTRATION) UserDTO userDTO, Model model) {
+    // if (bindingResult.hasErrors()) {
+    // model.addAttribute(REGISTRATION, userDTO);
+    // return "createUpdateRegistration";
+    // }
+    System.out.println("controller");
+    String userPassword = userDTO.getPassword();
+    userDTO.setPassword(cryptor.encode(userPassword));
+    System.out.println("befor service");
+    userService.save(userDTO);
+    return "redirect:/registration?registrationSuccess=true";
+  }
 
-	@RequestMapping(value = {
-	    "/usersInfo/{name}/avatar" }, method = RequestMethod.GET)
-	public void getUserAvatarByLogin(
-	    HttpServletResponse response, @PathVariable String name
-	) {
-		byte[] data = userService.findByLogin(name).getAvatar();
-		if (data != null) {
-			data = generalService.resizeImage(data, avatarSmallWidth, avatarSmallHeight);
-			response.setContentType(MediaType.IMAGE_JPEG_VALUE);
-			response.setContentLength(data.length);
-			try (ServletOutputStream outputStream = response.getOutputStream()) {
-				FileCopyUtils.copy(data, outputStream);
-			} catch (IOException e) {
-			}
-		}
-	}
+  @RequestMapping(value = { "/users/{id}/avatar" }, method = RequestMethod.GET)
+  public void getUserAvatar(HttpServletResponse response, @PathVariable int id) {
+    byte[] data = userService.findById(id).getAvatar();
+
+    if (data != null) {
+      data = generalService.resizeImage(data, avatarAvarageWidth, avatarAvarageHeight);
+      response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+      response.setContentLength(data.length);
+      try (ServletOutputStream outputStream = response.getOutputStream()) {
+        FileCopyUtils.copy(data, outputStream);
+      } catch (IOException e) {
+      }
+    }
+  }
+
+  @GetMapping("/usersInfo/{name}/avatar")
+  public void getUserAvatarByLogin(HttpServletResponse response, @PathVariable String name) {
+    byte[] data = userService.findByLogin(name).getAvatar();
+    if (data != null) {
+      data = generalService.resizeImage(data, avatarSmallWidth, avatarSmallHeight);
+      response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+      response.setContentLength(data.length);
+      try (ServletOutputStream outputStream = response.getOutputStream()) {
+        FileCopyUtils.copy(data, outputStream);
+      } catch (IOException e) {
+      }
+    }
+  }
+
+  @GetMapping("/productInfo/{id}/image")
+  public void getProductImage(HttpServletResponse response, @PathVariable int id) {
+    byte[] data = productSrvice.findById(id).getImage();
+    if (data != null) {
+      data = generalService.resizeImage(data, productAvarageWidth, productAvarageHeight);
+      response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+      response.setContentLength(data.length);
+      try (ServletOutputStream outputStream = response.getOutputStream()) {
+        FileCopyUtils.copy(data, outputStream);
+      } catch (IOException e) {
+      }
+    }
+  }
 }

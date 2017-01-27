@@ -5,9 +5,11 @@ import java.util.List;
 import com.shop.svitnagorod.model.Product;
 
 public interface ProductDao {
-	void save(Product product);
+  void save(Product product);
 
-	void delete(int id);
+  void delete(int id);
 
-	List<Product> findAllProducts();
+  List<Product> findAllProducts();
+
+  Product findById(int id);
 }

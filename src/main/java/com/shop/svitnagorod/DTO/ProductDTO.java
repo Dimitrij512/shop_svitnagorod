@@ -1,32 +1,21 @@
-package com.shop.svitnagorod.model;
-
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+package com.shop.svitnagorod.DTO;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.springframework.web.multipart.MultipartFile;
 
-@Entity
-public class Product implements Serializable {
+public class ProductDTO {
 
   private static final long serialVersionUID = -846256523776995760L;
 
   private int id;
-  private byte[] image;
   private String name;
   private String description;
   private float price;
   private int category_id;
+  private MultipartFile image;
 
-  @Id
-  @Column(name = "id")
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   public int getId() {
     return id;
   }
@@ -35,7 +24,6 @@ public class Product implements Serializable {
     this.id = id;
   }
 
-  @Column(name = "name")
   public String getName() {
     return name;
   }
@@ -44,7 +32,6 @@ public class Product implements Serializable {
     this.name = name;
   }
 
-  @Column(name = "description")
   public String getDescription() {
     return description;
   }
@@ -53,7 +40,6 @@ public class Product implements Serializable {
     this.description = description;
   }
 
-  @Column(name = "price")
   public float getPrice() {
     return price;
   }
@@ -62,22 +48,12 @@ public class Product implements Serializable {
     this.price = price;
   }
 
-  @Column(name = "category_id")
   public int getCategory_id() {
     return category_id;
   }
 
   public void setCategory_id(int category_id) {
     this.category_id = category_id;
-  }
-
-  @Column(name = "image")
-  public byte[] getImage() {
-    return image;
-  }
-
-  public void setImage(byte[] image) {
-    this.image = image;
   }
 
   @Override
@@ -95,4 +71,13 @@ public class Product implements Serializable {
   public String toString() {
     return ToStringBuilder.reflectionToString(this);
   }
+
+  public MultipartFile getImage() {
+    return image;
+  }
+
+  public void setImage(MultipartFile image) {
+    this.image = image;
+  }
+
 }
