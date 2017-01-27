@@ -38,7 +38,7 @@
   </tbody>
 </table>
 <div class="">
-  <form:form action="" method="POST" modelAttribute="product" class="form-group">
+  <form:form action="" method="POST" modelAttribute="product" class="form-group" enctype="multipart/form-data">
     
     <div class="col-md-3">
       <form:input path="image" type = "file"  class="form-control" />
@@ -55,7 +55,7 @@
     <div class="col-md-3">
 	    
 	    <form:select id="" path="category_id" items="${categories}" class="form-control" data-placeholder="category" itemLabel="name"
-	            itemValue="id" cssErrorClass="error form-control" />
+	            itemValue="id"/>
     </div>
     <div class="coll-md-3">
       <button type="submit" class="btn btn-default">Submit</button>
