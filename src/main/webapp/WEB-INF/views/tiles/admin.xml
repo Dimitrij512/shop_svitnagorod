@@ -24,5 +24,10 @@
        <put-attribute name="title" value="page for management categories" />  
        <put-attribute name="body" value="/WEB-INF/views/pages/admin/managementCategories.jsp" />  
    </definition>
+                <!-- Page for management products-->
+   <definition name="managementProducts" extends="base-definition">  
+       <put-attribute name="title" value="page for management products" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/admin/managementProducts.jsp" />  
+   </definition>
 
 </tiles-definitions>

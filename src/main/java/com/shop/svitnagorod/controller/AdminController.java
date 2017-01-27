@@ -4,76 +4,107 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.shop.svitnagorod.model.Category;
+import com.shop.svitnagorod.model.Product;
 import com.shop.svitnagorod.service.CategoryService;
+import com.shop.svitnagorod.service.ProductService;
 import com.shop.svitnagorod.service.UserService;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
 
-  public static final String USERS = "users";
-  public static final String CATEGORIES = "categories";
-  public static final String CATEGORY = "category";
+	public static final String USERS = "users";
+	public static final String CATEGORIES = "categories";
+	public static final String CATEGORY = "category";
+	public static final String PRODUCTS = "products";
+	public static final String PRODUCT = "product";
 
-  @Autowired
-  CategoryService categoryService;
-  @Autowired
-  UserService userService;
+	@Autowired
+	ProductService productService;
+	@Autowired
+	CategoryService categoryService;
+	@Autowired
+	UserService userService;
 
-  @RequestMapping(value = { "/welcome" }, method = RequestMethod.GET)
-  public String loginPage(Model model) {
+	@RequestMapping(value = { "/welcome" }, method = RequestMethod.GET)
+	public String loginPage(Model model) {
 
-    return "admin";
-  }
+		return "admin";
+	}
 
-  @RequestMapping(value = { "/settingWebsite" }, method = RequestMethod.GET)
-  public String settingWebsite(Model model) {
+	@GetMapping("/settingWebsite")
+	public String settingWebsite(Model model) {
 
-    return "settingWebSite";
-  }
+		return "settingWebSite";
+	}
 
-  @RequestMapping(value = { "/settingWebsite/users" }, method = RequestMethod.GET)
-  public String managementUsers(Model model) {
-    model.addAttribute(USERS, userService.findAllUser());
+	@GetMapping("/settingWebsite/users")
+	public String managementUsers(Model model) {
+		model.addAttribute(USERS, userService.findAllUser());
 
-    return "managementUsers";
-  }
+		return "managementUsers";
+	}
 
-  @RequestMapping(value = { "/settingWebsite/categories" }, method = RequestMethod.GET)
-  public String managementCategory(Model model) {
-    model.addAttribute(CATEGORIES, categoryService.findAllCategory());
-    model.addAttribute(CATEGORY, new Category());
+	@GetMapping("/settingWebsite/categories")
+	public String managementCategory(Model model) {
+		model.addAttribute(CATEGORIES, categoryService.findAllCategory());
+		model.addAttribute(CATEGORY, new Category());
 
-    return "managementCategories";
-  }
+		return "managementCategories";
+	}
 
-  @RequestMapping(value = { "/settingWebsite/categories" }, method = RequestMethod.POST)
-  public String addCategory(@ModelAttribute(CATEGORIES) Category category) {
-    categoryService.save(category);
+	@GetMapping("/settingWebsite/products")
+	public String managementProduct(Model model) {
+		System.out.println("Products are doing ...............");
 
-    return "redirect:/admin/settingWebsite/categories";
-  }
+		System.out.println(productService.findAllProducts());
+		model.addAttribute(PRODUCTS, productService.findAllProducts());
+		model.addAttribute(PRODUCT, new Product());
 
-  @RequestMapping(value = { "/settingWebsite/categories/delete" }, method = RequestMethod.DELETE)
-  @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void deleteCategory(@RequestBody int id) {
-    System.out.println("ID = " + id);
+		return "managementProducts";
+	}
 
-    categoryService.delete(id);
-  }
+	@PostMapping("/settingWebsite/products")
+	public String addProduct(@ModelAttribute(PRODUCTS) Product product) {
+		productService.save(product);
 
-  @RequestMapping(value = { "/settingWebsite/user/delete" }, method = RequestMethod.DELETE)
-  @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void deleteUser(@RequestBody int id) {
-    System.out.println("ID USER = " + id);
-    userService.delete(id);
-  }
+		return "redirect:/admin/settingWebsite/products";
+	}
+
+	@PostMapping("/settingWebsite/categories")
+	public String addCategory(@ModelAttribute(CATEGORIES) Category category) {
+		categoryService.save(category);
+
+		return "redirect:/admin/settingWebsite/categories";
+	}
+
+	@DeleteMapping("/settingWebsite/categories/delete")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteCategory(@RequestBody int id) {
+		categoryService.delete(id);
+	}
+
+	@DeleteMapping("/settingWebsite/user/delete")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteUser(@RequestBody int id) {
+		System.out.println("ID USER = " + id);
+		userService.delete(id);
+	}
+
+	@DeleteMapping("/settingWebsite/products/delete")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteProduct(@RequestBody int id) {
+		productService.delete(id);
+	}
 
 }

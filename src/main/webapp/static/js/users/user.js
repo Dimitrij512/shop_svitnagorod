@@ -2,12 +2,12 @@ $(function() {
   var contextPath = $('#contextPath').val();
   $(document).on('click', '.delete', function() {
     if (confirm('Do you really want to delete this USER ?')) {
-      deleteWorkType($(this));
+      deleteUser($(this));
     }
     return false;
   });
 
-  function deleteWorkType(butObj) {
+  function deleteUser(butObj) {
 	  var idWorkType = butObj.prop('id');
     $.ajax({
       type: 'DELETE',

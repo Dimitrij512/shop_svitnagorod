@@ -5,6 +5,6 @@
 
 <ul class="breadcrumb">
 	<li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin/settingWebsite/categories">Categories</a></li>
-	<li class="breadcrumb-item"><a href="#">Products</a></li>
+	<li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin/settingWebsite/products">Products</a></li>
 	<li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin/settingWebsite/users">Users</a></li>
 </ul>

@@ -1,17 +1,17 @@
 $(function() {
   var contextPath = $('#contextPath').val();
   $(document).on('click', '.delete', function() {
-    if (confirm('Do you really want to delete this type of Work?')) {
-      deleteCategory($(this));
+    if (confirm('Do you really want to delete this product?')) {
+      deleteProduct($(this));
     }
     return false;
   });
 
-  function deleteCategory(butObj) {
+  function deleteProduct(butObj) {
 	  var idWorkType = butObj.prop('id');
     $.ajax({
       type: 'DELETE',
-      url: contextPath + '/admin/settingWebsite/categories/delete',
+      url: contextPath + '/admin/settingWebsite/products/delete',
       contentType: 'application/json',
       data: butObj.prop('id'),
       success: function() {
