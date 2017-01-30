@@ -1,34 +1,26 @@
-package com.shop.svitnagorod.model;
+package com.shop.svitnagorod.DTO;
 
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.springframework.web.multipart.MultipartFile;
 
-@Entity(name = "super_category")
-public class SuperCategory implements Serializable {
+import com.shop.svitnagorod.model.Category;
 
-  private static final long serialVersionUID = 7566134743107664993L;
+public class SuperCategoryDTO implements Serializable {
+
+  private static final long serialVersionUID = 3859450396508786950L;
+
   private int id;
   private String name;
+  private MultipartFile image;
   private List<Category> categories;
-  private byte[] image;
 
-  @Id
-  @Column(name = "id")
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   public int getId() {
     return id;
   }
@@ -46,8 +38,6 @@ public class SuperCategory implements Serializable {
     this.name = name;
   }
 
-  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "super_category_id")
   public List<Category> getCategories() {
     return categories;
   }
@@ -56,12 +46,11 @@ public class SuperCategory implements Serializable {
     this.categories = categories;
   }
 
-  @Column(name = "image")
-  public byte[] getImage() {
+  public MultipartFile getImage() {
     return image;
   }
 
-  public void setImage(byte[] image) {
+  public void setImage(MultipartFile image) {
     this.image = image;
   }
 
@@ -80,5 +69,4 @@ public class SuperCategory implements Serializable {
   public String toString() {
     return ToStringBuilder.reflectionToString(this);
   }
-
 }

@@ -19,6 +19,12 @@
        <put-attribute name="body" value="/WEB-INF/views/pages/admin/managementUsers.jsp" />  
    </definition>
    
+                   <!-- Page for management SuperCategory-->
+   <definition name="managementSuperCategories" extends="base-definition">  
+       <put-attribute name="title" value="page for managementmanagement SuperCategories" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/admin/managementSuperCategories.jsp" />  
+   </definition>
+   
              <!-- Page for management categories-->
    <definition name="managementCategories" extends="base-definition">  
        <put-attribute name="title" value="page for management categories" />  
