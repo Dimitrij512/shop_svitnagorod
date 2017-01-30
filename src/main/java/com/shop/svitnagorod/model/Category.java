@@ -25,6 +25,7 @@ public class Category implements Serializable {
   private int id;
   private String name;
   private Set<Product> products;
+  private int super_category_id;
 
   @Id
   @Column(name = "id")
@@ -56,6 +57,15 @@ public class Category implements Serializable {
     this.name = name;
   }
 
+  @Column(name = "super_category_id")
+  public int getSuper_category_id() {
+    return super_category_id;
+  }
+
+  public void setSuper_category_id(int super_category_id) {
+    this.super_category_id = super_category_id;
+  }
+
   @Override
   public int hashCode() {
     return HashCodeBuilder.reflectionHashCode(this, true);
@@ -71,4 +81,5 @@ public class Category implements Serializable {
   public String toString() {
     return ToStringBuilder.reflectionToString(this);
   }
+
 }
