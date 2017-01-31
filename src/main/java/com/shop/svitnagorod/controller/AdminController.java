@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.shop.svitnagorod.DTO.CategoryDTO;
 import com.shop.svitnagorod.DTO.ProductDTO;
 import com.shop.svitnagorod.DTO.SuperCategoryDTO;
-import com.shop.svitnagorod.model.Category;
 import com.shop.svitnagorod.service.CategoryService;
 import com.shop.svitnagorod.service.ProductService;
 import com.shop.svitnagorod.service.SuperCategoryService;
@@ -63,8 +63,10 @@ public class AdminController {
 
   @GetMapping("/settingWebsite/categories")
   public String managementCategory(Model model) {
+
     model.addAttribute(CATEGORIES, categoryService.findAllCategory());
-    model.addAttribute(CATEGORY, new Category());
+    model.addAttribute(CATEGORY, new CategoryDTO());
+    model.addAttribute(SUPERCATEGORIES, superCategoryService.findAllCategory());
 
     return "managementCategories";
   }
@@ -79,6 +81,7 @@ public class AdminController {
 
   @GetMapping("/settingWebsite/superCategory")
   public String managementSuperCategory(Model model) {
+
     System.out.println(superCategoryService.findAllCategory());
 
     model.addAttribute(SUPERCATEGORIES, superCategoryService.findAllCategory());
@@ -88,6 +91,7 @@ public class AdminController {
 
   @PostMapping("/settingWebsite/superCategory")
   public String addSuperCategory(@ModelAttribute(SUPERCATEGORIES) SuperCategoryDTO superCategoryDTO) {
+
     superCategoryService.save(superCategoryDTO);
 
     return "redirect:/admin/settingWebsite/superCategory";
@@ -95,14 +99,16 @@ public class AdminController {
 
   @PostMapping("/settingWebsite/products")
   public String addProduct(@ModelAttribute(PRODUCTS) ProductDTO productDTO) {
+
     productService.save(productDTO);
 
     return "redirect:/admin/settingWebsite/products";
   }
 
   @PostMapping("/settingWebsite/categories")
-  public String addCategory(@ModelAttribute(CATEGORIES) Category category) {
-    categoryService.save(category);
+  public String addCategory(@ModelAttribute(CATEGORIES) CategoryDTO categoryDTO) {
+
+    categoryService.save(categoryDTO);
 
     return "redirect:/admin/settingWebsite/categories";
   }

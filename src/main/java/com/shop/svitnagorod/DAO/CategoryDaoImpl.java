@@ -35,4 +35,9 @@ public class CategoryDaoImpl extends AbstractDao<Integer, Category> implements C
     return (List<Category>) crit.list();
   }
 
+  @Override
+  public Category findById(int id) {
+    return getById(id);
+  }
+
 }

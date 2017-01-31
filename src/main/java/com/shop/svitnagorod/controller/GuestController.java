@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.shop.svitnagorod.DTO.UserDTO;
+import com.shop.svitnagorod.service.CategoryService;
 import com.shop.svitnagorod.service.GeneralService;
 import com.shop.svitnagorod.service.ProductService;
 import com.shop.svitnagorod.service.SuperCategoryService;
@@ -44,6 +45,10 @@ public class GuestController {
 
   @Autowired
   SuperCategoryService superCategoryService;
+
+  @Autowired
+  CategoryService categoryService;
+
   @Autowired
   UserService userService;
   @Autowired
@@ -138,6 +143,22 @@ public class GuestController {
   @GetMapping("/superCategoryInfo/{id}/image")
   public void getSuperCategoryImage(HttpServletResponse response, @PathVariable int id) {
     byte[] data = superCategoryService.findById(id).getImage();
+    if (data != null) {
+      data = generalService.resizeImage(data, productAvarageWidth, productAvarageHeight);
+      response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+      response.setContentLength(data.length);
+      try (ServletOutputStream outputStream = response.getOutputStream()) {
+        FileCopyUtils.copy(data, outputStream);
+      } catch (IOException e) {
+      }
+    }
+  }
+
+  @GetMapping("/categoryInfo/{id}/image")
+  public void getCategoryImage(HttpServletResponse response, @PathVariable int id) {
+    System.out.println("In controller category for image ............" + id);
+    byte[] data = categoryService.findById(id).getImage();
+    System.out.println(" AFTER ______In controller category for image ............");
     if (data != null) {
       data = generalService.resizeImage(data, productAvarageWidth, productAvarageHeight);
       response.setContentType(MediaType.IMAGE_JPEG_VALUE);
