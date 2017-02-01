@@ -24,6 +24,9 @@
 	<script src="<c:url value = "/static/js/jquery.min.js" />"></script>
 	  <!-- Bootstrap JS -->
 	<script src="<c:url value = "/static/bootstrap/js/bootstrap.min.js" />"></script>
+	
+		  <!-- Main JS -->
+	<script src="<c:url value = "/static/js/main.js" />"></script>
 </head>
  
 <body>

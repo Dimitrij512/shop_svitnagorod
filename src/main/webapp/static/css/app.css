@@ -1,4 +1,7 @@
-
+.file {
+  visibility: hidden;
+  position: absolute;
+}
 
 .site-footer{
   padding:20px 0;
@@ -44,7 +47,7 @@
 
 footer{
   background-color:#292c2f;
-  box-shadow:0 1px 1px 0 rgba(0, 0, 0, 0.12);
+  box-shadow:0 1px 1px 0ï¿½rgba(0, 0, 0, 0.12);
   box-sizing:border-box;
   width:100%;
   text-align:left;
@@ -254,14 +257,14 @@ div.social-links{
   color:#e9ac09 !important;
 }
 
-input.error, textarea.error{
-    border: 2px solid #ccc;
-    border-color: #a94442;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
-    color: #555;
-    display: block;
-    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
-}
+/* input.error, textarea.error{ */
+/*     border: 2px solid #ccc; */
+/*     border-color: #a94442; */
+/*     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset; */
+/*     color: #555; */
+/*     display: block; */
+/*     transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s; */
+/* } */
 
 .help-block {
  color: #a94442;
