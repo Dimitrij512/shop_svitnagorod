@@ -29,7 +29,7 @@
           <c:out value="${user.role}"></c:out>
         </td>
         <td>
-          <img alt="" src=<c:url value="/users/${user.id}/avatar" />>
+          <img alt="" style="width: 100px; height: 100px;" class = "img-circle" src=<c:url value="/users/${user.id}/avatar"/>>
         </td>
         <td>
           <button id="${user.id}" class="btn btn-danger delete">delete</button>

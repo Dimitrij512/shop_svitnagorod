@@ -16,7 +16,7 @@
     <c:forEach items="${superCategories}" var="spuerCategory">
       <tr>
         <td>
-          <img alt="" src=<c:url value="/superCategoryInfo/${spuerCategory.id}/image" />>
+          <img alt="" style="width: 50px; height: 50px;" src=<c:url value="/superCategoryInfo/${spuerCategory.id}/image" />>
         </td>
         <td>
           <c:out value="${spuerCategory.id}"></c:out>

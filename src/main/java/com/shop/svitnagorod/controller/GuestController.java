@@ -29,15 +29,6 @@ import com.shop.svitnagorod.service.UserService;
 public class GuestController {
   private static final String REGISTRATION = "registration";
 
-  // size for image an avatar
-  private static final int avatarSmallWidth = 50;
-  private static final int avatarSmallHeight = 50;
-  private static final int avatarAvarageWidth = 150;
-  private static final int avatarAvarageHeight = 200;
-
-  private static final int productAvarageWidth = 150;
-  private static final int productAvarageHeight = 150;
-
   private BCryptPasswordEncoder cryptor = new BCryptPasswordEncoder();
 
   // @Autowired
@@ -102,7 +93,7 @@ public class GuestController {
     byte[] data = userService.findById(id).getAvatar();
 
     if (data != null) {
-      data = generalService.resizeImage(data, avatarAvarageWidth, avatarAvarageHeight);
+      // data = generalService.resizeImage(data, avatarAvarageWidth, avatarAvarageHeight);
       response.setContentType(MediaType.IMAGE_JPEG_VALUE);
       response.setContentLength(data.length);
       try (ServletOutputStream outputStream = response.getOutputStream()) {
@@ -116,7 +107,7 @@ public class GuestController {
   public void getUserAvatarByLogin(HttpServletResponse response, @PathVariable String name) {
     byte[] data = userService.findByLogin(name).getAvatar();
     if (data != null) {
-      data = generalService.resizeImage(data, avatarSmallWidth, avatarSmallHeight);
+      // data = generalService.resizeImage(data, avatarSmallWidth, avatarSmallHeight);
       response.setContentType(MediaType.IMAGE_JPEG_VALUE);
       response.setContentLength(data.length);
       try (ServletOutputStream outputStream = response.getOutputStream()) {
@@ -130,7 +121,8 @@ public class GuestController {
   public void getProductImage(HttpServletResponse response, @PathVariable int id) {
     byte[] data = productSrvice.findById(id).getImage();
     if (data != null) {
-      data = generalService.resizeImage(data, productAvarageWidth, productAvarageHeight);
+      // data = generalService.resizeImage(data, productAvarageWidth,
+      // productAvarageHeight);
       response.setContentType(MediaType.IMAGE_JPEG_VALUE);
       response.setContentLength(data.length);
       try (ServletOutputStream outputStream = response.getOutputStream()) {
@@ -144,7 +136,8 @@ public class GuestController {
   public void getSuperCategoryImage(HttpServletResponse response, @PathVariable int id) {
     byte[] data = superCategoryService.findById(id).getImage();
     if (data != null) {
-      data = generalService.resizeImage(data, productAvarageWidth, productAvarageHeight);
+      // data = generalService.resizeImage(data, productAvarageWidth,
+      // productAvarageHeight);
       response.setContentType(MediaType.IMAGE_JPEG_VALUE);
       response.setContentLength(data.length);
       try (ServletOutputStream outputStream = response.getOutputStream()) {
@@ -156,11 +149,10 @@ public class GuestController {
 
   @GetMapping("/categoryInfo/{id}/image")
   public void getCategoryImage(HttpServletResponse response, @PathVariable int id) {
-    System.out.println("In controller category for image ............" + id);
     byte[] data = categoryService.findById(id).getImage();
-    System.out.println(" AFTER ______In controller category for image ............");
     if (data != null) {
-      data = generalService.resizeImage(data, productAvarageWidth, productAvarageHeight);
+      // data = generalService.resizeImage(data, productAvarageWidth,
+      // productAvarageHeight);
       response.setContentType(MediaType.IMAGE_JPEG_VALUE);
       response.setContentLength(data.length);
       try (ServletOutputStream outputStream = response.getOutputStream()) {

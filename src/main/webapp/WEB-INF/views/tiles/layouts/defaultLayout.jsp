@@ -15,6 +15,9 @@
 	
 	<!-- Main CSS -->
 	<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
+	
+	 <!-- Modal window CSS -->
+  <link href="<c:url value='/static/css/modalWindow.css'/>" rel="stylesheet"></link>
 
 	  
 	  <!-- jQuery -->

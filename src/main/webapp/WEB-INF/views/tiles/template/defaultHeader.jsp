@@ -27,10 +27,8 @@
       		 </div>
 	      <ul class="nav navbar-nav navbar-right">
 	        <li class="dropdown">
-
 		          <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">
-		          <span class="caret"></span><img class = "img-circle" alt="not image" src=<c:url value="/usersInfo/${user.username}/avatar"/>></a>
-
+		          <span class="caret"></span><img class = "img-circle" style="width: 30px; height: 30px;" alt="not image" src=<c:url value="/usersInfo/${user.username}/avatar"/>></a>
 	          <ul class="dropdown-menu dropdown-menu-right" role="menu">
 	            <li><a href="#">Settings your accaunt </a></li>
 	            <li><a href="${pageContext.request.contextPath}/admin/settingWebsite">Settings webSite </a></li>
@@ -41,7 +39,7 @@
       </sec:authorize>
       <sec:authorize access = "isAnonymous()" >
       	   <ul class="nav navbar-nav links navbar-right">
- 			<li role="presentation"><a href="${pageContext.request.contextPath}/login">Enter</a></li>
+ 			<li role="presentation"><a href="${pageContext.request.contextPath}/login"  >Log in</a></li>
 	      </ul>
       </sec:authorize>
     </div>
