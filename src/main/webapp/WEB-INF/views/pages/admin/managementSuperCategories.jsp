@@ -12,7 +12,7 @@
           <span class="input-group-addon"><span class="glyphicon glyphicon-picture"></span></span>
           <input type="text" class="form-control" disabled placeholder="Upload Image" />
           <span class="input-group-btn">
-        <button class="browse btn btn-primary" type="button">
+        <button class="browse btn btn-info" type="button">
         <i class="glyphicon glyphicon-search"></i> Browse</button>
       </span>
 
@@ -24,7 +24,7 @@
         </div>
       </div>
       <div class="coll-md-3">
-        <button type="submit" class="btn btn">Submit</button>
+        <button type="submit" class="btn btn-success">Submit</button>
       </div>
       </form:form>
 
@@ -49,7 +49,8 @@
           <c:out value="${spuerCategory.name}"></c:out>
         </td>
         <td>
-         <button id="myBtn">DELETE</button>
+          <a id="myBtn" class="btn btn-danger btn-sm btnModal">
+          	<span class="glyphicon glyphicon-remove"></span>remove</a>
           <div id="myModal" class="modal">
             <!-- Modal content -->
             <div class="modal-content">

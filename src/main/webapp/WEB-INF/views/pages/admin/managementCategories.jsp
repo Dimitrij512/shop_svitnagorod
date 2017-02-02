@@ -29,7 +29,8 @@
           <c:out value="${category.super_category_id}"></c:out>
         </td>
         <td>
-          <button id="myBtn">DELETE</button>
+           <a id="myBtn" class="btn btn-danger btn-sm btnModal">
+          	 <span class="glyphicon glyphicon-remove"></span>remove</a>
           <div id="myModal" class="modal">
             <!-- Modal content -->
             <div class="modal-content">
