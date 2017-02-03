@@ -1,6 +1,31 @@
 $(function() {
   var contextPath = $('#contextPath').val();
+  
 
+  $(document).ready(function() {
+	    $('#superCategories').DataTable({
+	      language: {
+	        search: "Enter the name of super category:",
+	        searchPlaceholder: "search...",
+	        zeroRecords: "According to the parameters matches found",
+	        paginate: {
+	          next: "Next",
+	          previous: "Previos"
+	        }
+	      },
+	      order: [1, 'asc'],
+	      columnDefs: [{
+	        targets: [0,2],
+	        orderable: false,
+	      }, {
+	        targets: [1],
+	        searchable: true,
+	      }],
+	      bLengthChange: false,
+	      info: true,
+	    });
+	  });
+  
   $(document).on('click', '.delete', function() {
     deleteSuperCategory($(this));
   });

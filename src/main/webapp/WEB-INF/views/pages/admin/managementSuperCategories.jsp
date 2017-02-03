@@ -35,7 +35,7 @@
   </div>
 </div>
 
-<table class="table table-inverse">
+<table id = "superCategories"  class="table table-striped table-bordered">
   <thead>
     <tr>
       <th>IMAGE</th>

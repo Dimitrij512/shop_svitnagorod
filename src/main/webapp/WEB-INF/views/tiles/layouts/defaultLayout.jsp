@@ -18,6 +18,9 @@
 	
 	 <!-- Modal window CSS -->
   <link href="<c:url value='/static/css/modalWindow.css'/>" rel="stylesheet"></link>
+  
+    <!-- Bootstrap Data table css-->
+  <link href="<c:url value = "/static/js/bootstrap-dataTables/css/dataTables.bootstrap.min.css" />" rel="stylesheet">
 
 	  
 	  <!-- jQuery -->
@@ -27,6 +30,10 @@
 	
 		  <!-- Main JS -->
 	<script src="<c:url value = "/static/js/main.js" />"></script>
+	
+	  <!-- Bootstrap Data table js-->
+  <script src="<c:url value = "/static/js/bootstrap-dataTables/js/jquery.dataTables.min.js" />"></script>
+  <script src="<c:url value = "/static/js/bootstrap-dataTables/js/dataTables.bootstrap.min.js" />"></script>
 </head>
  
 <body>
