@@ -1,8 +1,35 @@
 $(function() {
   var contextPath = $('#contextPath').val();
+  
 
-  var contextPath = $('#contextPath').val();
-
+  $(document).ready(function() {
+	    $('#categories').DataTable({
+	      language: {
+	        search: "Enter the name of category:",
+	        searchPlaceholder: "search...",
+	        zeroRecords: "According to the parameters matches found",
+	        paginate: {
+	          next: "Next",
+	          previous: "Previos"
+	        }
+	      },
+	      order: [1, 'asc'],
+	      columnDefs: [{
+	        targets: [0,3],
+	        orderable: false,
+	      }, {
+	        targets: [1,2],
+	        searchable: true,
+	      }],
+	      bLengthChange: false,
+	      info: true,
+	    });
+	  });
+  
+  
+  
+  
+  
   $(document).on('click', '.delete', function() {
 	  deleteCategory($(this));
   });

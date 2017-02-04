@@ -10,34 +10,34 @@ import org.springframework.stereotype.Repository;
 import com.shop.svitnagorod.model.Category;
 
 @Repository
-public class CategoryDaoImpl extends AbstractDao<Integer, Category> implements CategoryDao {
+public class CategoryDaoImpl extends AbstractDao<Integer, Category>
+    implements CategoryDao {
 
-  @Override
-  public void save(Category category) {
-    persist(category);
-  }
+	@Override
+	public void save(Category category) {
+		persist(category);
+	}
 
-  @Override
-  public void delete(int id) {
-    Criteria crit = createEntityCriteria();
-    crit.add(Restrictions.eq("id", id));
-    Category category = (Category) crit.uniqueResult();
-    System.out.println("NAME " + category.getName());
-    delete(category);
+	@Override
+	public void delete(int id) {
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("id", id));
+		Category category = (Category) crit.uniqueResult();
+		delete(category);
 
-  }
+	}
 
-  @SuppressWarnings("unchecked")
-  @Override
-  public List<Category> findAllCategories() {
-    Criteria crit = createEntityCriteria();
-    crit.addOrder(Order.desc("id"));
-    return (List<Category>) crit.list();
-  }
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Category> findAllCategories() {
+		Criteria crit = createEntityCriteria();
+		crit.addOrder(Order.desc("id"));
+		return (List<Category>) crit.list();
+	}
 
-  @Override
-  public Category findById(int id) {
-    return getById(id);
-  }
+	@Override
+	public Category findById(int id) {
+		return getById(id);
+	}
 
 }
