@@ -1,6 +1,5 @@
 $(function() {
   var contextPath = $('#contextPath').val();
-  
 
   $(document).ready(function() {
 	    $('#categories').DataTable({
@@ -25,11 +24,7 @@ $(function() {
 	      info: true,
 	    });
 	  });
-  
-  
-  
-  
-  
+
   $(document).on('click', '.delete', function() {
 	  deleteCategory($(this));
   });

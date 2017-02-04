@@ -64,8 +64,7 @@
          	<c:if test="${category.super_category_id == superCategory.id}">
          		<c:out value="${superCategory.name}"></c:out>
          	</c:if>
-         </c:forEach>
-          
+         </c:forEach> 
         </td>
         <td>
            <a id="myBtn" class="btn btn-danger btn-sm btnModal">
