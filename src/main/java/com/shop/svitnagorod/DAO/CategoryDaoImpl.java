@@ -3,6 +3,7 @@ package com.shop.svitnagorod.DAO;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -32,12 +33,20 @@ public class CategoryDaoImpl extends AbstractDao<Integer, Category>
 	public List<Category> findAllCategories() {
 		Criteria crit = createEntityCriteria();
 		crit.addOrder(Order.desc("id"));
-		return (List<Category>) crit.list();
+		List<Category> listCat = crit.list();
+		for (Category cat : listCat) {
+			Hibernate.initialize(cat.getProducts());
+		}
+		return listCat;
 	}
 
 	@Override
 	public Category findById(int id) {
-		return getById(id);
+		Category category = getById(id);
+		if (category != null) {
+			Hibernate.initialize(category.getProducts());
+		}
+		return category;
 	}
 
 }
