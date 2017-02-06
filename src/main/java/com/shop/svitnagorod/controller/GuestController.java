@@ -48,6 +48,10 @@ public class GuestController {
   @Autowired
   ProductService productSrvice;
 
+  @Autowired
+  ProductService productService;
+
+  private static final String PRODUCTS = "products";
   // @InitBinder
   // public void initBinder(WebDataBinder binder) {
   // binder.addValidators(userValidator);
@@ -55,6 +59,7 @@ public class GuestController {
 
   @RequestMapping(value = { "/" }, method = RequestMethod.GET)
   public String homePage(Model model) {
+    model.addAttribute(PRODUCTS, productService.findAllProducts());
     return "home";
   }
 
