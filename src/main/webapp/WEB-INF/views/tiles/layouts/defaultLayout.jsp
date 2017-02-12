@@ -22,7 +22,6 @@
     <!-- Bootstrap Data table css-->
   <link href="<c:url value = "/static/js/bootstrap-dataTables/css/dataTables.bootstrap.min.css" />" rel="stylesheet">
 
-	  
 	  <!-- jQuery -->
 	<script src="<c:url value = "/static/js/jquery.min.js" />"></script>
 	  <!-- Bootstrap JS -->

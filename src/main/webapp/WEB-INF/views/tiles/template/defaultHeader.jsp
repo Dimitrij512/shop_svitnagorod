@@ -19,7 +19,10 @@
         <li role="presentation"><a href="${pageContext.request.contextPath}/contactus">Contact Us</a></li>
         <li role="presentation"><a href="${pageContext.request.contextPath}/admin/welcome">For Admin</a></li>
         <li role="presentation"><a href="${pageContext.request.contextPath}/user/welcome">For User</a></li>
+        <li role="presentation"><a href="${pageContext.request.contextPath}/basket">basket</a></li>
       </ul>
+      
+      
        <sec:authorize access="isAuthenticated()">
        	      <div>
 	      		<sec:authentication var="user" property="principal" />

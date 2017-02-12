@@ -3,10 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%> 
 
+
+<h2>cart page</h2>
+
+<button class="btn btn-default pull-right right-btn back-btn">Back</button>
+<button class="btn btn-default pull-right right-btn">Sand</button>
 <div class="container">
   <div class="row">
     <c:forEach items="${products}" var="product">
-      <div class="col-sm-3 col-lg-3 col-md-3">
+      <div class="col-sm-3 col-lg-3 col-md-3 product">
         <div class="thumbnail">
           <div class="hover">
             <img alt="" style="width: 50px; height: 50px;" src=<c:url value="/productInfo/${product.id}/image"
@@ -18,9 +23,12 @@
               <h4>
                 <c:out value="${product.name}" />
               </h4>
-              <button id="${product.id}" class="addTobakset btn btn-primary right-btn">
-                    <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to Cart
-                  </button>
+              <h4>
+                <input type="number" value="opera"> count
+              </h4>
+              <button id="${product.id}" class="delete pull-right btn btn-default right-btn">
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete 
+              </button>
             </div>
           </div>
         </div>

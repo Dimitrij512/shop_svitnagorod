@@ -17,6 +17,7 @@ import com.shop.svitnagorod.DTO.CategoryDTO;
 import com.shop.svitnagorod.DTO.ProductDTO;
 import com.shop.svitnagorod.DTO.SuperCategoryDTO;
 import com.shop.svitnagorod.service.CategoryService;
+import com.shop.svitnagorod.service.OrdersService;
 import com.shop.svitnagorod.service.ProductService;
 import com.shop.svitnagorod.service.SuperCategoryService;
 import com.shop.svitnagorod.service.UserService;
@@ -25,117 +26,119 @@ import com.shop.svitnagorod.service.UserService;
 @RequestMapping("/admin")
 public class AdminController {
 
-  public static final String USERS = "users";
-  private static final String SUPERCATEGORIES = "superCategories";
-  private static final String SUPERCATEGORY = "spuerCategory";
-  private static final String CATEGORIES = "categories";
-  private static final String CATEGORY = "category";
-  private static final String PRODUCTS = "products";
-  private static final String PRODUCT = "product";
+	public static final String USERS = "users";
+	private static final String SUPERCATEGORIES = "superCategories";
+	private static final String SUPERCATEGORY = "spuerCategory";
+	private static final String CATEGORIES = "categories";
+	private static final String CATEGORY = "category";
+	private static final String PRODUCTS = "products";
+	private static final String PRODUCT = "product";
 
-  @Autowired
-  SuperCategoryService superCategoryService;
-  @Autowired
-  CategoryService categoryService;
-  @Autowired
-  ProductService productService;
-  @Autowired
-  UserService userService;
+	@Autowired
+	SuperCategoryService superCategoryService;
+	@Autowired
+	CategoryService categoryService;
+	@Autowired
+	ProductService productService;
+	@Autowired
+	UserService userService;
+	@Autowired
+	OrdersService orderService;
 
-  @RequestMapping(value = { "/welcome" }, method = RequestMethod.GET)
-  public String loginPage(Model model) {
+	@RequestMapping(value = { "/welcome" }, method = RequestMethod.GET)
+	public String loginPage(Model model) {
+		return "admin";
+	}
 
-    return "admin";
-  }
+	@GetMapping("/settingWebsite")
+	public String settingWebsite(Model model) {
 
-  @GetMapping("/settingWebsite")
-  public String settingWebsite(Model model) {
+		return "settingWebSite";
+	}
 
-    return "settingWebSite";
-  }
+	@GetMapping("/settingWebsite/users")
+	public String managementUsers(Model model) {
+		model.addAttribute(USERS, userService.findAllUser());
 
-  @GetMapping("/settingWebsite/users")
-  public String managementUsers(Model model) {
-    model.addAttribute(USERS, userService.findAllUser());
+		return "managementUsers";
+	}
 
-    return "managementUsers";
-  }
+	@GetMapping("/settingWebsite/categories")
+	public String managementCategory(Model model) {
 
-  @GetMapping("/settingWebsite/categories")
-  public String managementCategory(Model model) {
+		model.addAttribute(CATEGORIES, categoryService.findAllCategory());
+		model.addAttribute(CATEGORY, new CategoryDTO());
+		model.addAttribute(SUPERCATEGORIES, superCategoryService.findAllCategory());
 
-    model.addAttribute(CATEGORIES, categoryService.findAllCategory());
-    model.addAttribute(CATEGORY, new CategoryDTO());
-    model.addAttribute(SUPERCATEGORIES, superCategoryService.findAllCategory());
+		return "managementCategories";
+	}
 
-    return "managementCategories";
-  }
+	@GetMapping("/settingWebsite/products")
+	public String managementProduct(Model model) {
+		model.addAttribute(PRODUCTS, productService.findAllProducts());
+		model.addAttribute(PRODUCT, new ProductDTO());
+		model.addAttribute(CATEGORIES, categoryService.findAllCategory());
+		return "managementProducts";
+	}
 
-  @GetMapping("/settingWebsite/products")
-  public String managementProduct(Model model) {
-    model.addAttribute(PRODUCTS, productService.findAllProducts());
-    model.addAttribute(PRODUCT, new ProductDTO());
-    model.addAttribute(CATEGORIES, categoryService.findAllCategory());
-    return "managementProducts";
-  }
+	@GetMapping("/settingWebsite/superCategory")
+	public String managementSuperCategory(Model model) {
+		model.addAttribute(SUPERCATEGORIES, superCategoryService.findAllCategory());
+		model.addAttribute(SUPERCATEGORY, new SuperCategoryDTO());
+		return "managementSuperCategories";
+	}
 
-  @GetMapping("/settingWebsite/superCategory")
-  public String managementSuperCategory(Model model) {
+	@PostMapping("/settingWebsite/superCategory")
+	public String addSuperCategory(
+	    @ModelAttribute(SUPERCATEGORIES) SuperCategoryDTO superCategoryDTO
+	) {
 
-    System.out.println(superCategoryService.findAllCategory());
+		superCategoryService.save(superCategoryDTO);
 
-    model.addAttribute(SUPERCATEGORIES, superCategoryService.findAllCategory());
-    model.addAttribute(SUPERCATEGORY, new SuperCategoryDTO());
-    return "managementSuperCategories";
-  }
+		return "redirect:/admin/settingWebsite/superCategory";
+	}
 
-  @PostMapping("/settingWebsite/superCategory")
-  public String addSuperCategory(@ModelAttribute(SUPERCATEGORIES) SuperCategoryDTO superCategoryDTO) {
+	@PostMapping("/settingWebsite/products")
+	public String addProduct(@ModelAttribute(PRODUCTS) ProductDTO productDTO) {
 
-    superCategoryService.save(superCategoryDTO);
+		productService.save(productDTO);
 
-    return "redirect:/admin/settingWebsite/superCategory";
-  }
+		return "redirect:/admin/settingWebsite/products";
+	}
 
-  @PostMapping("/settingWebsite/products")
-  public String addProduct(@ModelAttribute(PRODUCTS) ProductDTO productDTO) {
+	@PostMapping("/settingWebsite/categories")
+	public String addCategory(
+	    @ModelAttribute(CATEGORIES) CategoryDTO categoryDTO
+	) {
 
-    productService.save(productDTO);
+		categoryService.save(categoryDTO);
 
-    return "redirect:/admin/settingWebsite/products";
-  }
+		return "redirect:/admin/settingWebsite/categories";
+	}
 
-  @PostMapping("/settingWebsite/categories")
-  public String addCategory(@ModelAttribute(CATEGORIES) CategoryDTO categoryDTO) {
+	@DeleteMapping("/settingWebsite/superCategory/delete")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleterSuperCategory(@RequestBody int id) {
+		superCategoryService.delete(id);
+	}
 
-    categoryService.save(categoryDTO);
+	@DeleteMapping("/settingWebsite/categories/delete")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteCategory(@RequestBody int id) {
+		categoryService.delete(id);
+	}
 
-    return "redirect:/admin/settingWebsite/categories";
-  }
+	@DeleteMapping("/settingWebsite/user/delete")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteUser(@RequestBody int id) {
+		System.out.println("ID USER = " + id);
+		userService.delete(id);
+	}
 
-  @DeleteMapping("/settingWebsite/superCategory/delete")
-  @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void deleterSuperCategory(@RequestBody int id) {
-    superCategoryService.delete(id);
-  }
-
-  @DeleteMapping("/settingWebsite/categories/delete")
-  @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void deleteCategory(@RequestBody int id) {
-    categoryService.delete(id);
-  }
-
-  @DeleteMapping("/settingWebsite/user/delete")
-  @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void deleteUser(@RequestBody int id) {
-    System.out.println("ID USER = " + id);
-    userService.delete(id);
-  }
-
-  @DeleteMapping("/settingWebsite/products/delete")
-  @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void deleteProduct(@RequestBody int id) {
-    productService.delete(id);
-  }
+	@DeleteMapping("/settingWebsite/products/delete")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteProduct(@RequestBody int id) {
+		productService.delete(id);
+	}
 
 }
