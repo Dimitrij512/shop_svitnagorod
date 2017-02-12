@@ -8,4 +8,10 @@
        <put-attribute name="title" value="your basket" />  
        <put-attribute name="body" value="/WEB-INF/views/pages/order/basket.jsp" />  
    </definition> 
+   
+      <!-- order -->
+   <definition name="order" extends="base-definition">  
+       <put-attribute name="title" value="your order" />  
+       <put-attribute name="body" value="/WEB-INF/views/pages/order/order.jsp" />  
+   </definition> 
 </tiles-definitions> 

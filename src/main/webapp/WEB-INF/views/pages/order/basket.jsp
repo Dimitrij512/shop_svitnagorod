@@ -7,7 +7,7 @@
 <h2>cart page</h2>
 
 <button class="btn btn-default pull-right right-btn back-btn">Back</button>
-<button class="btn btn-default pull-right right-btn">Sand</button>
+<a href="${pageContext.request.contextPath}/getOrder"> create order </a>
 <div class="container">
   <div class="row">
     <c:forEach items="${products}" var="product">
