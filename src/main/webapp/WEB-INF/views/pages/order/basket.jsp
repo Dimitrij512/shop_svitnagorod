@@ -10,7 +10,9 @@
 <a href="${pageContext.request.contextPath}/getOrder"> create order </a>
 <div class="container">
   <div class="row">
+  <c:set var="summOrder" value="${0}" />
     <c:forEach items="${products}" var="product">
+    <c:set var="summOrder" value="${summOrder + product.price}" />
       <div class="col-sm-3 col-lg-3 col-md-3 product">
         <div class="thumbnail">
           <div class="hover">
@@ -24,7 +26,11 @@
                 <c:out value="${product.name}" />
               </h4>
               <h4>
-                <input type="number" value="opera"> count
+                <input id = "${product.id}price" type="hidden" value="${product.price}">
+                <input id = "${product.id}" class ="numberProducts" type="number" value="1"> count
+              </h4>
+              <h4>
+                <input id="${product.id}summ" type="text" value="${product.price}"> summ
               </h4>
               <button id="${product.id}" class="delete pull-right btn btn-default right-btn">
                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete 
@@ -34,6 +40,7 @@
         </div>
       </div>
     </c:forEach>
+    <input id="orderSumm" type="text" value="${summOrder}"> order summ
   </div>
 </div>
 

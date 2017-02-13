@@ -1,11 +1,30 @@
 $(function() {
   var contextPath = $('#contextPath').val();
   $(document).on('click', '.addTobakset', function() {
-	console.log(contextPath);
     addItemsToUserCart($(this).prop('id'));
     return false;
   });
 
+  $(document).ready(function(){
+    $(".numberProducts").change(function(){
+      
+      var idNumb = $(this).prop('id');
+      var valueNumb = $(this).val();
+      var price = $('#'+idNumb+'price').val();
+      
+      var oldSumm = $('#'+idNumb+'summ').val();
+      
+      var newSumm = price * valueNumb;
+      
+      $('#'+idNumb+'summ').val(newSumm);
+      
+      var orderSumm = $('#orderSumm').val();
+      orderSumm = (orderSumm - oldSumm) + newSumm;
+      $('#orderSumm').val(orderSumm);
+      
+    });
+});
+  
   function addItemsToUserCart(input) {
     $.ajax({
       type: 'POST',
@@ -41,7 +60,8 @@ $(function() {
       },
     });
   };
-	
+  
+
   $(document).on('click', '.back-btn', function() {
 	  window.history.back();
   });
