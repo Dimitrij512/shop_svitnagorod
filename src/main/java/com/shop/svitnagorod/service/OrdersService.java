@@ -12,4 +12,6 @@ public interface OrdersService {
 
   Orders findById(int id);
 
+  List<Orders> findByUserId(int userId);
+
 }

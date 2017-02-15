@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.shop.svitnagorod.DTO.OrderDetailsDTO;
 import com.shop.svitnagorod.model.OrderDetails;
 import com.shop.svitnagorod.model.Orders;
 import com.shop.svitnagorod.model.Product;
@@ -46,6 +48,7 @@ public class OrdersController {
 
   private static final String PRODUCTS = "products";
   private static final String ORDER = "order";
+  private static final String ORDERS = "orders";
 
   private List<OrderDetails> listOrderDetails = new ArrayList<OrderDetails>();
 
@@ -98,7 +101,6 @@ public class OrdersController {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     if (!(authentication instanceof AnonymousAuthenticationToken)) {
       User user = userService.findByLogin(authentication.getName());
-      order.setUser_id(user.getId());
       order.setName(user.getName());
     }
     model.addAttribute(ORDER, order);
@@ -107,6 +109,13 @@ public class OrdersController {
 
   @PostMapping("/getOrder")
   public String createOrder(@ModelAttribute(ORDER) Orders order) {
+
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    if (!(authentication instanceof AnonymousAuthenticationToken)) {
+      User user = userService.findByLogin(authentication.getName());
+      order.setUser_id(user.getId());
+    }
+    System.out.println("ORder user _id : " + order.getUser_id());
     if (!listOrderDetails.isEmpty()) {
       for (int i = 0; i < listOrderDetails.size(); i++) {
         listOrderDetails.get(i).setOrder(order);
@@ -116,5 +125,21 @@ public class OrdersController {
       listOrderDetails.clear();
     }
     return "redirect:/basket";
+  }
+
+  @RequestMapping(value = "/setCountProduct", headers = "Accept=*/*", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void setCountProduct(@RequestBody OrderDetailsDTO detailsDTO) {
+    for (int i = 0; i < listOrderDetails.size(); i++) {
+      if (listOrderDetails.get(i).getProduct_id() == detailsDTO.getProduct_id()) {
+        listOrderDetails.get(i).setCount(detailsDTO.getCount());
+      }
+    }
+  }
+
+  @GetMapping("/viewOrder/{id}")
+  public String getOrderByUserId(@PathVariable int id, Model model) {
+    model.addAttribute(ORDERS, orderService.findByUserId(id));
+    return "orders";
   }
 }

@@ -12,4 +12,6 @@ public interface OrdersDao {
 
   Orders findById(int id);
 
+  List<Orders> findByUserId(int userId);
+
 }

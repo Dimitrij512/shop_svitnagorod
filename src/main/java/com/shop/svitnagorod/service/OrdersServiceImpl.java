@@ -32,4 +32,10 @@ public class OrdersServiceImpl implements OrdersService {
     return dao.findById(id);
   }
 
+  @Transactional
+  @Override
+  public List<Orders> findByUserId(int userId) {
+    return dao.findByUserId(userId);
+  }
+
 }

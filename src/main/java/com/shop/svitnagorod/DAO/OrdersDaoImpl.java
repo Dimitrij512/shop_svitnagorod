@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.shop.svitnagorod.model.Orders;
@@ -38,4 +39,15 @@ public class OrdersDaoImpl extends AbstractDao<Integer, Orders> implements Order
     return order;
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
+  public List<Orders> findByUserId(int userId) {
+    Criteria crit = createEntityCriteria();
+    crit.add(Restrictions.eq("user_id", userId));
+    List<Orders> ordersList = (List<Orders>) crit.list();
+    for (Orders order : ordersList) {
+      Hibernate.initialize(order.getOrderDetails());
+    }
+    return ordersList;
+  }
 }

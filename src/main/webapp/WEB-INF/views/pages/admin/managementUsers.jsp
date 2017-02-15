@@ -33,6 +33,7 @@
         </td>
         <td>
           <button id="${user.id}" class="btn btn-danger delete">delete</button>
+          <a href="${pageContext.request.contextPath}/viewOrder/${user.id}" class="btn btn-primary">view orders...</a>
         </td>
       </tr>
     </c:forEach>
