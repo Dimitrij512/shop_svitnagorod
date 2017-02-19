@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -16,7 +17,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 public class OrderDetails {
 	private int id;
 	private Orders order;
-	private int product_id;
+	private Product product;
 	private int count;
 
 	@Id
@@ -40,13 +41,14 @@ public class OrderDetails {
 		this.order = order;
 	}
 
-	@Column(name = "product_id")
-	public int getProduct_id() {
-		return product_id;
+	@OneToOne
+	@JoinColumn(name = "product_id")
+	public Product getProduct() {
+		return product;
 	}
 
-	public void setProduct_id(int product_id) {
-		this.product_id = product_id;
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 	@Column(name = "count")
