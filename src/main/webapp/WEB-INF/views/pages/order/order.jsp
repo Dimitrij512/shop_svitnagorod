@@ -28,7 +28,11 @@
     </div>
 
     <div class="form-group">
-      <button type="submit" class="btn btn-success">sand</button>
+      <button type="submit" class="btn btn-success orderMessage">sand</button>
     </div>
   </form:form>
 </div>
+
+<input id="contextPath" type="hidden" value="${pageContext.request.contextPath}" />
+<!-- Main JS -->
+<script src="<c:url value = "/static/js/order/createOrder.js" />"></script>

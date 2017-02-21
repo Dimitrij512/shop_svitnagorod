@@ -30,4 +30,5 @@
      </c:forEach>
   </div> 
 </div>
+<input id="contextPath" type="hidden" value="${pageContext.request.contextPath}" />
     

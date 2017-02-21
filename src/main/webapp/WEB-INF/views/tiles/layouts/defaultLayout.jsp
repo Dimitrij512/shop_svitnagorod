@@ -27,7 +27,11 @@
 	  <!-- Bootstrap JS -->
 	<script src="<c:url value = "/static/bootstrap/js/bootstrap.min.js" />"></script>
 	
-		  <!-- Main JS -->
+	<!-- WebSocket JS -->
+	<script src="<c:url value = "/static/js/web_socket/sockjs.min.js" />"></script>
+	<script src="<c:url value = "/static/js/web_socket/stomp.min.js" />"></script>
+	
+	<!-- Main JS -->
 	<script src="<c:url value = "/static/js/main.js" />"></script>
 	
 	  <!-- Bootstrap Data table js-->
