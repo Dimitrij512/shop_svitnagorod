@@ -29,6 +29,7 @@ import com.shop.svitnagorod.model.OrderDetails;
 import com.shop.svitnagorod.model.Orders;
 import com.shop.svitnagorod.model.Product;
 import com.shop.svitnagorod.model.User;
+import com.shop.svitnagorod.service.MailService;
 import com.shop.svitnagorod.service.OrdersService;
 import com.shop.svitnagorod.service.ProductService;
 import com.shop.svitnagorod.service.UserService;
@@ -45,6 +46,8 @@ public class OrdersController {
   UserService userService;
   @Autowired
   OrdersService orderService;
+  @Autowired
+  MailService mailService;
 
   private static final String PRODUCTS = "products";
   private static final String ORDER = "order";
@@ -122,6 +125,8 @@ public class OrdersController {
       order.setOrderDetails(listOrderDetails);
       orderService.save(order);
       listOrderDetails.clear();
+
+      mailService.sendMail("hflfran@gmail.com", "text message");
     }
     return "redirect:/basket";
   }
