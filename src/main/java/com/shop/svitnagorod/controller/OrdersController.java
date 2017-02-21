@@ -38,112 +38,112 @@ import com.shop.svitnagorod.service.UserService;
 @Scope("session")
 @RequestMapping("/")
 public class OrdersController {
-  @Autowired
-  ApplicationContext appContext;
-  @Autowired
-  ProductService productService;
-  @Autowired
-  UserService userService;
-  @Autowired
-  OrdersService orderService;
-  @Autowired
-  MailService mailService;
+	@Autowired
+	ApplicationContext appContext;
+	@Autowired
+	ProductService productService;
+	@Autowired
+	UserService userService;
+	@Autowired
+	OrdersService orderService;
+	@Autowired
+	MailService mailService;
 
-  private static final String PRODUCTS = "products";
-  private static final String ORDER = "order";
-  private static final String ORDERS = "orders";
+	private static final String PRODUCTS = "products";
+	private static final String ORDER = "order";
+	private static final String ORDERS = "orders";
 
-  private List<OrderDetails> listOrderDetails = new ArrayList<OrderDetails>();
+	private List<OrderDetails> listOrderDetails = new ArrayList<OrderDetails>();
 
-  @GetMapping("/basket")
-  public String showAllProductsFromBasket(Model model) {
-    List<Product> listProducts = new ArrayList<Product>();
+	@GetMapping("/basket")
+	public String showAllProductsFromBasket(Model model) {
+		List<Product> listProducts = new ArrayList<Product>();
 
-    if (!listOrderDetails.isEmpty()) {
-      for (int i = 0; i < listOrderDetails.size(); i++) {
-        Product product = productService.findById(listOrderDetails.get(i).getProduct().getId());
-        listProducts.add(product);
-      }
-    }
-    model.addAttribute(PRODUCTS, listProducts);
-    return "basket";
-  }
+		if (!listOrderDetails.isEmpty()) {
+			for (int i = 0; i < listOrderDetails.size(); i++) {
+				Product product = productService.findById(listOrderDetails.get(i).getProduct().getId());
+				listProducts.add(product);
+			}
+		}
+		model.addAttribute(PRODUCTS, listProducts);
+		return "basket";
+	}
 
-  @RequestMapping(value = "/addProductToBasket", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
-      "text/html; charset=UTF-8" })
-  @ResponseStatus(HttpStatus.NO_CONTENT)
-  public @ResponseBody String addProductToBusket(@RequestBody int id) {
-    if (!listOrderDetails.isEmpty()) {
-      for (int i = 0; i < listOrderDetails.size(); i++) {
-        if (listOrderDetails.get(i).getProduct().getId() == id) {
-          return appContext.getMessage("Item.already.exist", null, null);
-        }
-      }
-    }
-    OrderDetails orderDetails = new OrderDetails();
-    orderDetails.setProduct(productService.findById(id));
-    listOrderDetails.add(orderDetails);
-    return appContext.getMessage("Item.succes", null, null);
-  }
+	@RequestMapping(value = "/addProductToBasket", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
+	    "text/html; charset=UTF-8" })
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public @ResponseBody String addProductToBusket(@RequestBody int id) {
+		if (!listOrderDetails.isEmpty()) {
+			for (int i = 0; i < listOrderDetails.size(); i++) {
+				if (listOrderDetails.get(i).getProduct().getId() == id) {
+					return appContext.getMessage("Item.already.exist", null, null);
+				}
+			}
+		}
+		OrderDetails orderDetails = new OrderDetails();
+		orderDetails.setProduct(productService.findById(id));
+		listOrderDetails.add(orderDetails);
+		return appContext.getMessage("Item.succes", null, null);
+	}
 
-  @DeleteMapping("/deletFromBasket")
-  @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void deleteProduct(@RequestBody int id) {
-    if (!listOrderDetails.isEmpty()) {
-      for (int i = 0; i < listOrderDetails.size(); i++) {
-        if (listOrderDetails.get(i).getProduct().getId() == id) {
-          listOrderDetails.remove(i);
-        }
-      }
-    }
-  }
+	@DeleteMapping("/deletFromBasket")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteProduct(@RequestBody int id) {
+		if (!listOrderDetails.isEmpty()) {
+			for (int i = 0; i < listOrderDetails.size(); i++) {
+				if (listOrderDetails.get(i).getProduct().getId() == id) {
+					listOrderDetails.remove(i);
+				}
+			}
+		}
+	}
 
-  @GetMapping("/getOrder")
-  public String getOrder(Model model) {
-    Orders order = new Orders();
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    if (!(authentication instanceof AnonymousAuthenticationToken)) {
-      User user = userService.findByLogin(authentication.getName());
-      order.setName(user.getName());
-    }
-    model.addAttribute(ORDER, order);
-    return "order";
-  }
+	@GetMapping("/getOrder")
+	public String getOrder(Model model) {
+		Orders order = new Orders();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (!(authentication instanceof AnonymousAuthenticationToken)) {
+			User user = userService.findByLogin(authentication.getName());
+			order.setName(user.getName());
+		}
+		model.addAttribute(ORDER, order);
+		return "order";
+	}
 
-  @PostMapping("/getOrder")
-  public String createOrder(@ModelAttribute(ORDER) Orders order) {
+	@PostMapping("/getOrder")
+	public String createOrder(@ModelAttribute(ORDER) Orders order) {
 
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    if (!(authentication instanceof AnonymousAuthenticationToken)) {
-      User user = userService.findByLogin(authentication.getName());
-      order.setUser_id(user.getId());
-    }
-    if (!listOrderDetails.isEmpty()) {
-      for (int i = 0; i < listOrderDetails.size(); i++) {
-        listOrderDetails.get(i).setOrder(order);
-      }
-      order.setOrderDetails(listOrderDetails);
-      orderService.save(order);
-      listOrderDetails.clear();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (!(authentication instanceof AnonymousAuthenticationToken)) {
+			User user = userService.findByLogin(authentication.getName());
+			order.setUser_id(user.getId());
+		}
+		if (!listOrderDetails.isEmpty()) {
+			for (int i = 0; i < listOrderDetails.size(); i++) {
+				listOrderDetails.get(i).setOrder(order);
+			}
+			order.setOrderDetails(listOrderDetails);
+			orderService.save(order);
+			listOrderDetails.clear();
 
-      mailService.sendMail("hflfran@gmail.com", "text message");
-    }
-    return "redirect:/basket";
-  }
+			mailService.sendMail("hfl-if@ukr.net", "text message");
+		}
+		return "redirect:/basket";
+	}
 
-  @RequestMapping(value = "/setCountProduct", headers = "Accept=*/*", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
-  @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void setCountProduct(@RequestBody OrderDetailsDTO detailsDTO) {
-    for (int i = 0; i < listOrderDetails.size(); i++) {
-      if (listOrderDetails.get(i).getProduct().getId() == detailsDTO.getProduct_id()) {
-        listOrderDetails.get(i).setCount(detailsDTO.getCount());
-      }
-    }
-  }
+	@RequestMapping(value = "/setCountProduct", headers = "Accept=*/*", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void setCountProduct(@RequestBody OrderDetailsDTO detailsDTO) {
+		for (int i = 0; i < listOrderDetails.size(); i++) {
+			if (listOrderDetails.get(i).getProduct().getId() == detailsDTO.getProduct_id()) {
+				listOrderDetails.get(i).setCount(detailsDTO.getCount());
+			}
+		}
+	}
 
-  @GetMapping("/viewOrder/{id}")
-  public String getOrderByUserId(@PathVariable int id, Model model) {
-    model.addAttribute(ORDERS, orderService.findByUserId(id));
-    return "orders";
-  }
+	@GetMapping("/viewOrder/{id}")
+	public String getOrderByUserId(@PathVariable int id, Model model) {
+		model.addAttribute(ORDERS, orderService.findByUserId(id));
+		return "orders";
+	}
 }
