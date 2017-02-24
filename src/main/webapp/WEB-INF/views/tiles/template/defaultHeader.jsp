@@ -10,11 +10,8 @@
         <ul>
           <li class="shopping-cart-items"><i class="glyphicon glyphicon-shopping-cart icon-white"></i> <a href="${pageContext.request.contextPath}/basket"><b>3 items</b></a></li>
           <sec:authorize access="isAuthenticated()">
-            <div>
-              <sec:authentication var="user" property="principal" />
-            </div>
-            <ul class="nav navbar-nav navbar-right">
               <li class="dropdown">
+              <sec:authentication var="user" property="principal" />
                 <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">${user.username}
 							          <span class="caret"></span>
 							          <img class = "img-circle" style="width: 30px; height: 30px;" alt="not image" src=<c:url value="/usersInfo/${user.username}/avatar"/>></a>
@@ -24,14 +21,10 @@
                   <li><a href="${pageContext.request.contextPath}/logout">Logout </a></li>
                 </ul>
               </li>
-            </ul>
           </sec:authorize>
           <sec:authorize access="isAnonymous()">
-            <ul class="nav navbar-nav links navbar-right">
-              <li><a href="${pageContext.request.contextPath}/login" style="padding-top:0px"><b>Mій аккаунт</b></a></li>
-            </ul>
+              <li><a href="${pageContext.request.contextPath}/login"><b>Mій аккаунт</b></a></li>
           </sec:authorize>
-
 
         </ul>
       </div>

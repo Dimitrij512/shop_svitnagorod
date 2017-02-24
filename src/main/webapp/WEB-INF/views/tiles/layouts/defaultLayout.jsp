@@ -24,13 +24,13 @@
 	 -->
   <link href="<c:url value='/static/css/main.css' />" rel="stylesheet"></link>
 
-  <script src="<c:url value = " /static/js/modernizr-2.6.2-respond-1.1.0.min.js " />"></script>
+  <script src="<c:url value = "/static/js/modernizr-2.6.2-respond-1.1.0.min.js " />"></script>
 
   <!-- Modal window CSS -->
   <link href="<c:url value='/static/css/modalWindow.css'/>" rel="stylesheet"></link>
 
   <!-- Bootstrap Data table css-->
-  <link href="<c:url value = " /static/js/bootstrap-dataTables/css/dataTables.bootstrap.min.css " />" rel="stylesheet">
+  <link href="<c:url value = "/static/js/bootstrap-dataTables/css/dataTables.bootstrap.min.css" />" rel="stylesheet">
 
   <!-- jQuery -->
 
@@ -40,26 +40,26 @@
   </script>
   <%-- 	<script src="<c:url value = "/static/js/jquery.min.js" />"></script> --%>
     <!-- Bootstrap JS -->
-    <script src="<c:url value = " /static/bootstrap/js/bootstrap.min.js " />"></script>
+    <script src="<c:url value = "/static/bootstrap/js/bootstrap.min.js " />"></script>
 
     <script src="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.js"></script>
 
-    <script src="<c:url value = " /static/js/jquery.fitvids.js " />"></script>
-    <script src="<c:url value = " /static/js/jquery.sequence-min.js " />"></script>
-    <script src="<c:url value = " /static/js/jquery.bxslider.js " />"></script>
+    <script src="<c:url value = "/static/js/jquery.fitvids.js " />"></script>
+    <script src="<c:url value = "/static/js/jquery.sequence-min.js " />"></script>
+    <script src="<c:url value = "/static/js/jquery.bxslider.js " />"></script>
 
-    <script src="<c:url value = " /static/js/jquery.bxslider.js " />"></script>
+    <script src="<c:url value = "/static/js/jquery.bxslider.js " />"></script>
 
     <!-- WebSocket JS -->
-    <script src="<c:url value = " /static/js/web_socket/sockjs.min.js " />"></script>
-    <script src="<c:url value = " /static/js/web_socket/stomp.min.js " />"></script>
+    <script src="<c:url value = "/static/js/web_socket/sockjs.min.js " />"></script>
+    <script src="<c:url value = "/static/js/web_socket/stomp.min.js " />"></script>
 
     <!-- Main JS 
 	<script src="<c:url value = "/static/js/main.js" />"></script>
 	-->
     <!-- Bootstrap Data table js-->
-    <script src="<c:url value = " /static/js/bootstrap-dataTables/js/jquery.dataTables.min.js " />"></script>
-    <script src="<c:url value = " /static/js/bootstrap-dataTables/js/dataTables.bootstrap.min.js " />"></script>
+    <script src="<c:url value = "/static/js/bootstrap-dataTables/js/jquery.dataTables.min.js " />"></script>
+    <script src="<c:url value = "/static/js/bootstrap-dataTables/js/dataTables.bootstrap.min.js " />"></script>
 </head>
 
 <body>

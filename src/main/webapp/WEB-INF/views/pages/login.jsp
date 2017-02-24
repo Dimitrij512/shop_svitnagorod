@@ -2,46 +2,60 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
-<link href="<c:url value = " /static/css/login/login.css " />" rel="stylesheet">
-<div class="container">
-  <div class="row">
-    <div class="col-md-offset-5 col-md-3">
-        <c:if test="${succes==true}">
-          <div class="">
-            <div class="">
-              <p><strong>Ви успішно увійшли до системи!</strong></p>
-              <p><a href=<c:url value="/logout" /> class="">Вийти</a>
-              </p>
-            </div>
-          </div>
-        </c:if>
+<div class="section section-breadcrumbs">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Логінізація</h1>
+      </div>
+    </div>
+  </div>
+</div>
 
-        <c:if test="${succes!=true}">
-          <div class="form-login">
-            <h4>Welcome</h4>
-            <c:if test="${not empty param.error}">
-              <div class="">
-                <strong>Wrong password or login</strong>
-              </div>
-            </c:if>
+<div class="section">
+  <div class="container">
+    <c:if test="${succes==true}">
+      <div class="">
+        <div class="">
+          <p><strong>Ви успішно увійшли до системи!</strong></p>
+          <p><a href=<c:url value="/logout" /> class="">Вийти</a>
+          </p>
+        </div>
+      </div>
+    </c:if>
+    <div class="row">
+      <div class="col-sm-5">
+        <div class="basic-login">
+          <c:if test="${not empty param.error}">
+            <div class="">
+              <strong>Помилка вводу !</strong>
+            </div>
+          </c:if>
+          
+          <c:if test="${succes!=true}">
             <form role="" action="${pageContext.request.contextPath}/login" method="POST">
-                <input type="text" id="userName" class="form-control input-sm chat-input" name="login" placeholder="username" autofocus
-                  required/>
-              </br>
-              <input type="password" id="userPassword" class="form-control input-sm chat-input" name="password" placeholder="password"
-              />
-              </br>
-              <div class="wrapper">
-            <span class="group-btn">
-                <input type = "submit" value ="login" class="btn btn-primary btn-md">
-            </span>
-            <span class="group-btn">     
-                <a href="${pageContext.request.contextPath}/registration" class="btn btn-primary btn-md">registration <i class="glyphicon glyphicon-registration-mark"></i></a>
-            </span>
+              <div class="form-group">
+                <label for="login-username"><i class="icon-user"></i> <b>Ваш eлектронна пошта</b></label>
+                <input class="form-control" id="userName" name="login" type="text" placeholder="">
+              </div>
+              <div class="form-group">
+                <label for="login-password"><i class="icon-lock"></i> <b>Пароль</b></label>
+                <input class="form-control" id="userPassword" type="password" name="password" placeholder="">
+              </div>
+              <div class="form-group">
+                <button type="submit" value="login" class="btn pull-right">Ввійти</button>
+                <div class="clearfix"></div>
               </div>
             </form>
-          </div>
-        </c:if>
+          </c:if>
+        </div>
+      </div>
+
+      <div class="col-sm-7 social-login">
+        <div class="not-member">
+          <p>Ви не зареєстровані? <a href="${pageContext.request.contextPath}/registration">Зареєструватись</a></p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

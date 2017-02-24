@@ -1,29 +1,55 @@
-<div class="row">
-  <div class="col-md-4 col-sm-6 footer-navigation">
-    <h3><a href="#">Company<span>logo </span></a></h3>
-    <p class="links"><a href="#">Home</a><strong> · </strong><a href="#">Blog</a><strong> · </strong><a
-        href="#">Pricing</a><strong> · </strong><a href="#">About</a><strong> · </strong><a
-        href="#">Faq</a><strong> · </strong><a href="#">Contact</a></p>
-    <p class="company-name">Company Name © 2015 </p>
-  </div>
-  <div class="col-md-4 col-sm-6 footer-contacts">
-    <div><span class="fa fa-map-marker footer-contacts-icon"> </span>
-      <p><span class="new-line-span">21 Revolution Street</span> Paris, France</p>
+<!-- Footer -->
+<div class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-footer col-md-3 col-xs-6">
+        <h3>Our Latest Work</h3>
+        <div class="portfolio-item">
+          <div class="portfolio-image">
+            <a href="page-portfolio-item.html"><img src="static/img/photoFooter.jpg" alt="Project Name"></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-footer col-md-3 col-xs-6">
+        <h3>Navigate</h3>
+        <ul class="no-list-style footer-navigate-section">
+          <li><a href="page-blog-posts.html">Blog</a></li>
+          <li><a href="page-portfolio-3-columns-2.html">Portfolio</a></li>
+          <li><a href="page-products-3-columns.html">eShop</a></li>
+          <li><a href="page-services-3-columns.html">Services</a></li>
+          <li><a href="page-pricing.html">Pricing</a></li>
+          <li><a href="page-faq.html">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="col-footer col-md-4 col-xs-6">
+        <h3>Contacts</h3>
+        <p class="contact-us-details">
+          <b>Address:</b> 123 Fake Street, LN1 2ST, London, United Kingdom<br/>
+          <b>Phone:</b> +44 123 654321<br/>
+          <b>Fax:</b> +44 123 654321<br/>
+          <b>Email:</b> <a href="mailto:getintoutch@yourcompanydomain.com">getintoutch@yourcompanydomain.com</a>
+        </p>
+      </div>
+      <div class="col-footer col-md-2 col-xs-6">
+        <h3>Stay Connected</h3>
+        <ul class="footer-stay-connected no-list-style">
+          <li>
+            <a href="#" class="facebook"></a>
+          </li>
+          <li>
+            <a href="#" class="twitter"></a>
+          </li>
+          <li>
+            <a href="#" class="googleplus"></a>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div><span class="fa fa-phone footer-contacts-icon"></span>
-      <p class="footer-center-info email text-left"> +1 555 123456</p>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="footer-copyright">&copy; 2017 mPurpose. All rights reserved.</div>
+      </div>
     </div>
-    <div><span class="fa fa-envelope footer-contacts-icon"></span>
-      <p> <a href="#" target="_blank">support@company.com</a></p>
-    </div>
-  </div>
-  <div class="clearfix visible-sm-block"></div>
-  <div class="col-md-4 footer-about">
-    <h4>About the company</h4>
-    <p> Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce euismod convallis
-      velit, eu auctor lacus vehicula sit amet.
-    </p>
-    <div class="social-links social-icons"><a href="#"><span class="fa fa-facebook"></span></a><a href="#"><span class="fa fa-twitter"></span></a><a
-        href="#"><span class="fa fa-linkedin"></span></a><a href="#"><span class="fa fa-github"></span></a></div>
   </div>
 </div>
