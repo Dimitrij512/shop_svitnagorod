@@ -4,44 +4,102 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%> 
 
 
-<h2>cart page</h2>
 
-<button class="btn btn-default pull-right right-btn back-btn">Back</button>
-<a href="${pageContext.request.contextPath}/getOrder"> create order </a>
-<div class="container">
-  <div class="row">
-  <c:set var="summOrder" value="${0}" />
+
+
+
+
+     <!-- Page Title -->
+<div class="section section-breadcrumbs">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h1>Корзина покупок</h1>
+			</div>
+		</div>
+	</div>
+</div>
+      
+      <div class="section">
+   	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<!-- Action Buttons -->
+			<div class="pull-right">
+				<a href="${pageContext.request.contextPath}/getOrder" class="btn"><i class="glyphicon glyphicon-shopping-cart icon-white"></i> Оформити замовлення</a>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+
+		<div class="col-md-12">
+			<!-- Shopping Cart Items -->
+			<table class="shopping-cart">
+			  <c:set var="summOrder" value="${0}" />
     <c:forEach items="${products}" var="product">
     <c:set var="summOrder" value="${summOrder + product.price}" />
-      <div class="col-sm-3 col-lg-3 col-md-3 product">
-        <div class="thumbnail">
-          <div class="hover">
-            <img alt="" style="width: 50px; height: 50px;" src=<c:url value="/productInfo/${product.id}/image"
-            />>
-            <div class="caption">
-              <h4 class="pull-right">
-                <c:out value="$ ${product.price}" />
-              </h4>
-              <h4>
-                <c:out value="${product.name}" />
-              </h4>
-              <h4>
-                <input id = "${product.id}price" type="hidden" value="${product.price}">
-                <input id = "${product.id}" class ="numberProducts" type="number" value="1"> count
-              </h4>
-              <h4>
-                <input id="${product.id}summ" type="text" value="${product.price}"> summ
-              </h4>
-              <button id="${product.id}" class="delete pull-right btn btn-default right-btn">
-                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete 
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </c:forEach>
-    <input id="orderSumm" type="text" value="${summOrder}"> order summ
-  </div>
+    
+				<!-- Shopping Cart Item -->
+				<tr>
+					<!-- Shopping Cart Item Image -->
+					<td class="image"><a href=""> <img alt="" style="width: 90px; height: 90px;" src=<c:url value="/productInfo/${product.id}/image"
+            />></a></td>
+					<!-- Shopping Cart Item Description & Features -->
+					<td>
+						<div class="cart-item-title"><a href=""><c:out value="${product.name}" /></a></div>
+					</td>
+					<!-- Shopping Cart Item Quantity -->
+					<td class="quantity">
+						<input id = "${product.id}price" type="hidden" value="${product.price}">
+						<input id = "${product.id}" class="form-control input-sm input-micro numberProducts" type="number" value="1">
+					</td>
+					<!-- Shopping Cart Item Price -->
+					<td class="price"><input id="${product.id}summ" class="price form-control input-sm input-micro" type="text" value="${product.price}" readonly="readonly"></td>
+					<!-- Shopping Cart Item Actions -->
+					<td class="actions">
+						<a class="btn btn-xs btn-grey delete" id="${product.id}"><i class="glyphicon glyphicon-trash"></i></a>
+					</td>
+				</tr>
+		 </c:forEach>
+			</table>
+			<!-- End Shopping Cart Items -->
+		</div>
+	</div>
+	<div class="row">
+		<!-- Promotion Code -->
+		<div class="col-md-4  col-md-offset-0 col-sm-6 col-sm-offset-6">
+			<div class="cart-promo-code">
+				<div class="input-group">
+					<span class="input-group-btn">
+					</span>
+				</div>
+			</div>
+		</div>
+		<!-- Shipment Options -->
+		<div class="col-md-4 col-md-offset-0 col-sm-6 col-sm-offset-6">
+			<div class="cart-shippment-options">
+				<div class="input-append">
+				</div>
+			</div>
+		</div>
+		
+		<!-- Shopping Cart Totals -->
+		<div class="col-md-4 col-md-offset-0 col-sm-6 col-sm-offset-6">
+			<table class="cart-totals">
+				<tr>
+				</tr>
+				<tr class="cart-grand-total">
+					<td><b>Загальна сума</b></td>
+					<td><b><input id="orderSumm" class = " price input-sm input-micro" type="text" value="${summOrder}" readonly="readonly"></b></td>
+				</tr>
+			</table>
+			<!-- Action Buttons -->
+				<div class="pull-right">
+					<a href="${pageContext.request.contextPath}/getOrder" class="btn"><i class="glyphicon glyphicon-shopping-cart icon-white"></i> Оформити замовлення</a>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <input id="contextPath" type="hidden" value="${pageContext.request.contextPath}" />

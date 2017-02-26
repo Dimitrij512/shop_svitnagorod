@@ -59,10 +59,7 @@ $(function() {
   };
 
   $(document).on('click', '.delete', function() {
-    if (confirm('Do you really want to delete this item?')) {
       deleteItem($(this));
-    }
-    return false;
   });
 
   function deleteItem(butObj) {
@@ -72,7 +69,7 @@ $(function() {
       contentType: 'application/json',
       data: JSON.stringify(butObj.prop('id')),
       success: function() {
-        butObj.closest('div.product').remove();
+        butObj.closest('tr').remove();
       },
       error: function(jqXHR) {
         alert('Smth wrong... code: ' + jqXHR.status);
