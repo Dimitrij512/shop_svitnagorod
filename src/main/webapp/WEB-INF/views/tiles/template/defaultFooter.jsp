@@ -1,3 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
 <!-- Footer -->
 <div class="footer">
   <div class="container">
@@ -6,7 +11,8 @@
         <h3>Our Latest Work</h3>
         <div class="portfolio-item">
           <div class="portfolio-image">
-            <a href="page-portfolio-item.html"><img src="static/img/photoFooter.jpg" alt="Project Name"></a>
+          <c:set var="context" value="${pageContext.request.contextPath}" />
+            <a href=""><img src="${context}\static\img\photoFooter.jpg" alt="Project Name"></a>
           </div>
         </div>
       </div>

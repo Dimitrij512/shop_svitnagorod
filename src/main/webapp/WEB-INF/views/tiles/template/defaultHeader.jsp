@@ -32,7 +32,8 @@
     <nav id="mainmenu" class="mainmenu">
       <ul>
         <li class="logo-wrapper">
-          <a href=""><img src="static/img/mPurpose-logo.png" alt="Multipurpose Twitter Bootstrap Template"></a>
+        <c:set var="context" value="${pageContext.request.contextPath}" />
+          <a href=""><img src="${context}/static/img/mPurpose-logo.png" alt="Multipurpose Twitter Bootstrap Template"></a>
         </li>
         <li class="active">
           <a href="${pageContext.request.contextPath}/">Головна</a>

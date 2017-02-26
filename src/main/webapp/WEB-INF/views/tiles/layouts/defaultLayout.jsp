@@ -38,7 +38,6 @@
   <script>
     window.jQuery || document.write('<script src="/static/js/jquery.min.js"><\/script>')
   </script>
-  <%-- 	<script src="<c:url value = "/static/js/jquery.min.js" />"></script> --%>
     <!-- Bootstrap JS -->
     <script src="<c:url value = "/static/bootstrap/js/bootstrap.min.js " />"></script>
 
@@ -57,6 +56,9 @@
     <!-- Main JS 
 	<script src="<c:url value = "/static/js/main.js" />"></script>
 	-->
+	<!-- Template JS
+	<script src="<c:url value = "/static/js/template.js" />"></script>
+	 -->
     <!-- Bootstrap Data table js-->
     <script src="<c:url value = "/static/js/bootstrap-dataTables/js/jquery.dataTables.min.js " />"></script>
     <script src="<c:url value = "/static/js/bootstrap-dataTables/js/dataTables.bootstrap.min.js " />"></script>
