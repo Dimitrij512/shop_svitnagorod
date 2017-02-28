@@ -56,9 +56,9 @@
     <!-- Main JS 
 	<script src="<c:url value = "/static/js/main.js" />"></script>
 	-->
-	<!-- Template JS
+	<!-- Template JS -->
 	<script src="<c:url value = "/static/js/template.js" />"></script>
-	 -->
+	 
     <!-- Bootstrap Data table js-->
     <script src="<c:url value = "/static/js/bootstrap-dataTables/js/jquery.dataTables.min.js " />"></script>
     <script src="<c:url value = "/static/js/bootstrap-dataTables/js/dataTables.bootstrap.min.js " />"></script>
