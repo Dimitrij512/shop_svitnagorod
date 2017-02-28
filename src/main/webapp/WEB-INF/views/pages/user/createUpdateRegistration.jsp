@@ -43,8 +43,14 @@
               <form:errors path="surname" class="help-block with-errors" cssErrorClass="" />
             </div>
             <div class="form-group">
+              <label for="user_phone"><i class="icon-lock"></i> <b>Телефон</b></label>
+              <form:input name="phone" id="user_phone" path="phone" class="form-control" cssErrorClass="error form-control" type="text"
+              />
+              <form:errors path="phone" class="help-block with-errors" cssErrorClass="" />
+            </div>
+            <div class="form-group">
               <label for="user_login"><i class="icon-lock"></i> <b>Email</b></label>
-              <form:input name="email" id="user_login" path="login" class="form-control" cssErrorClass="error form-control" />
+              <form:input name="login" id="user_login" path="login" class="form-control" cssErrorClass="error form-control" />
               <form:errors path="login" class="help-block with-errors" cssErrorClass="" />
             </div>
             <div class="form-group">

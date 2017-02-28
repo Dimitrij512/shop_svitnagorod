@@ -16,42 +16,34 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-  @Autowired
-  DataSource dataSource;
+	@Autowired
+	DataSource dataSource;
 
-  @Autowired
-  public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
-    auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder())
-        .usersByUsernameQuery("select login,password, 1 from user where login=?")
-        .authoritiesByUsernameQuery("select login, role from user where login=?");
-  }
+		auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder()).usersByUsernameQuery("select login,password, 1 from user where login=?").authoritiesByUsernameQuery("select login, role from user where login=?");
+	}
 
-  @Override
-  protected void configure(HttpSecurity http) throws Exception {
-    http.authorizeRequests()
-        .antMatchers("/", "/403", "/login", "/logout", "/registration", "/products", "/contactus",
-            "/spring-websocket/**")
-        .permitAll().antMatchers("/user/**").access("hasAuthority('CUSTOMER')").antMatchers("/admin/**")
-        .access("hasAuthority('ADMIN')").and().formLogin().loginPage("/login").loginProcessingUrl("/login")
-        .usernameParameter("login").passwordParameter("password").successHandler(authenticationHandler())
-        .failureUrl("/login?error=true").and().exceptionHandling().accessDeniedPage("/403").and().csrf().disable();
-  }
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests().antMatchers("/", "/403", "/login", "/logout", "/registration", "/products", "/contactus", "/spring-websocket/**").permitAll().antMatchers("/user/**").access("hasAuthority('CUSTOMER')").antMatchers("/admin/**").access("hasAuthority('ADMIN')").and().formLogin().loginPage("/login").loginProcessingUrl("/login").usernameParameter("login").passwordParameter("password").successHandler(authenticationHandler()).failureUrl("/login?error=true").and().exceptionHandling().accessDeniedPage("/403").and().csrf().disable();
+	}
 
-  @Override
-  public void configure(WebSecurity web) throws Exception {
+	@Override
+	public void configure(WebSecurity web) throws Exception {
 
-    web.ignoring().antMatchers("/resources/**");
-  }
+		web.ignoring().antMatchers("/resources/**");
+	}
 
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
-  @Bean
-  public CustomSuccessHandler authenticationHandler() {
-    return new CustomSuccessHandler();
-  }
+	@Bean
+	public CustomSuccessHandler authenticationHandler() {
+		return new CustomSuccessHandler();
+	}
 
 }

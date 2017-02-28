@@ -40,4 +40,26 @@ public class MailServiceImpl implements MailService {
 		return preparator;
 	}
 
+	@Override
+	public void sendRegistrationMail(String mail, String name, String surname) {
+
+		MimeMessagePreparator preparator = messageForRegistration(mail, name, surname);
+		mailSender.send(preparator);
+
+	}
+
+	private MimeMessagePreparator messageForRegistration(String mail, String name, String surname) {
+
+		MimeMessagePreparator preparator = new MimeMessagePreparator() {
+
+			public void prepare(MimeMessage mimeMessage) throws Exception {
+				mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(mail));
+				mimeMessage.setText("Дорогий " + name + " " + surname + " ми вітаємо Вам з успішною реєстрацією на нашому сайті!!!"
+				    + "Дякуємо за співпрацю");
+				mimeMessage.setSubject("Demoapp - реєстрація");
+			}
+		};
+		return preparator;
+	}
+
 }

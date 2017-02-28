@@ -15,76 +15,73 @@ import com.shop.svitnagorod.model.User;
 
 @Service
 public class UserServiceImpl implements UserService {
-  @Autowired
-  UserDao dao;
+	@Autowired
+	UserDao dao;
 
-  @Autowired
-  GeneralService generalService;
+	@Autowired
+	GeneralService generalService;
 
-  @Transactional
-  @Override
-  public void save(UserDTO userDTO) {
-    User user = new User();
-    user.setId(userDTO.getId());
-    user.setSurname(userDTO.getSurname());
-    user.setName(userDTO.getName());
-    user.setLogin(userDTO.getLogin());
-    user.setPassword(userDTO.getPassword());
-    user.setRole(userDTO.getRole());
-    MultipartFile avatar = userDTO.getAvatar();
+	@Transactional
+	@Override
+	public void save(UserDTO userDTO) {
+		User user = new User();
+		user.setId(userDTO.getId());
+		user.setSurname(userDTO.getSurname());
+		user.setName(userDTO.getName());
+		user.setLogin(userDTO.getLogin());
+		user.setPassword(userDTO.getPassword());
+		user.setPhone(userDTO.getPhone());
+		user.setRole(userDTO.getRole());
+		MultipartFile avatar = userDTO.getAvatar();
+		try {
+			if (avatar.isEmpty()) {
+				user.setAvatar(generalService.getDefoultImageUser());
+			} else {
+				user.setAvatar(avatar.getBytes());
+			}
 
-    System.out.println("AVATAR :");
-    System.out.println(avatar);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			dao.save(user);
+		} catch (DataAccessException dae) {
+			System.out.println(dae);
+		}
+	}
 
-    try {
-      if (avatar.isEmpty()) {
-        user.setAvatar(generalService.getDefoultImageUser());
-      } else {
-        user.setAvatar(avatar.getBytes());
-      }
+	@Transactional
+	@Override
+	public User findById(int id) {
+		return dao.findById(id);
+	}
 
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    try {
-      dao.save(user);
-    } catch (DataAccessException dae) {
-      System.out.println(dae);
-    }
-  }
+	@Transactional
+	@Override
+	public User findByLogin(String login) {
 
-  @Transactional
-  @Override
-  public User findById(int id) {
-    return dao.findById(id);
-  }
+		return dao.findByLogin(login);
+	}
 
-  @Transactional
-  @Override
-  public User findByLogin(String login) {
+	@Transactional
+	@Override
+	public boolean isUserUnique(String login, Integer id) {
+		User user = null;
+		user = findByLogin(login);
+		return (user == null || ((id != null) && (user.getId() == id)));
+	}
 
-    return dao.findByLogin(login);
-  }
+	@Transactional
+	@Override
+	public List<User> findAllUser() {
 
-  @Transactional
-  @Override
-  public boolean isUserUnique(String login, Integer id) {
-    User user = null;
-    user = findByLogin(login);
-    return (user == null || ((id != null) && (user.getId() == id)));
-  }
+		return dao.findAllUsers();
+	}
 
-  @Transactional
-  @Override
-  public List<User> findAllUser() {
+	@Transactional
+	@Override
+	public void delete(int id) {
+		dao.delete(id);
 
-    return dao.findAllUsers();
-  }
-
-  @Transactional
-  @Override
-  public void delete(int id) {
-    dao.delete(id);
-
-  }
+	}
 }

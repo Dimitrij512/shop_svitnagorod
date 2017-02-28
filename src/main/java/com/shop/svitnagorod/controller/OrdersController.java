@@ -105,6 +105,8 @@ public class OrdersController {
 		if (!(authentication instanceof AnonymousAuthenticationToken)) {
 			User user = userService.findByLogin(authentication.getName());
 			order.setName(user.getName());
+			order.setEmail(user.getLogin());
+			order.setPhone(user.getPhone());
 		}
 		model.addAttribute(ORDER, order);
 		return "order";
@@ -126,7 +128,7 @@ public class OrdersController {
 			orderService.save(order);
 			listOrderDetails.clear();
 
-			mailService.sendMail("hfl-if@ukr.net", "text message");
+			mailService.sendMail(order.getEmail(), "text message");
 		}
 		return "redirect:/basket";
 	}
