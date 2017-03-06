@@ -4,12 +4,12 @@ $(function() {
   $(document).ready(function() {
 	    $('#categories').DataTable({
 	      language: {
-	        search: "Enter the name of category:",
-	        searchPlaceholder: "search...",
-	        zeroRecords: "According to the parameters matches found",
+	        search: "Введіть назву категорії:",
+	        searchPlaceholder: "пошук...",
+	        zeroRecords: "Незнайдено даних згідно ваших параметрів",
 	        paginate: {
-	          next: "Next",
-	          previous: "Previos"
+	          next: "Наступна",
+	          previous: "Попередня"
 	        }
 	      },
 	      order: [1, 'asc'],

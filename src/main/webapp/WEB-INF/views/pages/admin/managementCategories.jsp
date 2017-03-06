@@ -13,9 +13,9 @@
             <span class="input-group-addon"><span class="glyphicon glyphicon-picture"></span></span>
             <input type="text" class="form-control" disabled placeholder="Upload Image" />
             <span class="input-group-btn">
-        <button class="browse btn btn-info" type="button">
-        <i class="glyphicon glyphicon-search"></i> Browse</button>
-      </span>
+              <button class="browse btn btn-info" type="button">
+              <i class="glyphicon glyphicon-search"></i> Browse</button>
+              </span>
           </div>
         </div>
       </div>
@@ -70,6 +70,7 @@
            <a id="myBtn" class="btn btn-danger btn-sm btnModal">
           	 <span class="glyphicon glyphicon-remove"></span>remove</a>
           <div id="myModal" class="modal">
+          
             <!-- Modal content -->
             <div class="modal-content">
               <div class="modal-header">

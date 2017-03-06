@@ -7,14 +7,14 @@ $(document).ready(function(){
         pagination: true,
         animateStartingFrameIn: true,
         autoPlay: true,
-        autoPlayDelay: 3000,
+        autoPlayDelay: 2000,
         preloader: true
     };
     
     var mySequence = $("#sequence").sequence(options).data("sequence");
 
     //Main menu Initialization
-    mainMenu.init();
+    //mainMenu.init();
 
 	//Products slider
 	var produxtsSlider = $('.products-slider').bxSlider({

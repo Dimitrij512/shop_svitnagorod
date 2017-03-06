@@ -29,8 +29,16 @@
 
             <div class="form-group">
               <label for="user_foto"><i class="icon-user"></i> <b>Ваше фото</b></label>
-              <form:input type="file" path="avatar" id="user_foto" class="form-control" />
-              <form:errors path="avatar" class="help-block" cssErrorClass="" />
+               <form:input type="file" path="avatar" name="img[]" id="user_foto" class="file" />
+               
+		          <div class="input-group">
+		            <input type="text" class="form-control" disabled/>
+		            <span class="input-group-btn">
+		              <button class="browse btn btn-info" type="button">
+		              <i class="glyphicon glyphicon-search"></i> завантажити</button>
+		              </span>
+		          </div>
+		          <form:errors path="avatar" class="help-block" cssErrorClass="" />
             </div>
             <div class="form-group">
               <label for="user_name"><i class="icon-lock"></i> <b>Ім'я</b></label>

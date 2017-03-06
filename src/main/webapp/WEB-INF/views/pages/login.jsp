@@ -16,7 +16,7 @@
   <div class="container">
     <c:if test="${succes==true}">
       <div class="">
-        <div class="">
+        <div class="success">
           <p><strong>Ви успішно увійшли до системи!</strong></p>
           <p><a href=<c:url value="/logout" /> class="">Вийти</a>
           </p>
@@ -27,7 +27,7 @@
       <div class="col-sm-5">
         <div class="basic-login">
           <c:if test="${not empty param.error}">
-            <div class="">
+            <div class="warning">
               <strong>Помилка вводу !</strong>
             </div>
           </c:if>

@@ -134,4 +134,6 @@
 
 <input id="contextPath" type="hidden" value="${pageContext.request.contextPath}" />
 <!-- Main page script -->
+  <!-- Template JS -->
+<script src="<c:url value = "/static/js/template.js" />"></script>
 <script src=<c:url value="/static/js/basket/basket.js" />></script>
