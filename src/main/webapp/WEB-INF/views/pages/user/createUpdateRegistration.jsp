@@ -22,7 +22,7 @@
         <div class="basic-login">
           <form:form action="" method="POST" modelAttribute="registration" class="" enctype="multipart/form-data">
             <c:if test="${not empty param.registrationSuccess}">
-              <div class="">
+              <div class="success">
                 <strong>Вітаємо!</strong> Ваш аккаунт успішно створений!
               </div>
             </c:if>
@@ -30,11 +30,12 @@
             <div class="form-group">
               <label for="user_foto"><i class="icon-user"></i> <b>Ваше фото</b></label>
               <form:input type="file" path="avatar" id="user_foto" class="form-control" />
+              <form:errors path="avatar" class="help-block" cssErrorClass="" />
             </div>
             <div class="form-group">
               <label for="user_name"><i class="icon-lock"></i> <b>Ім'я</b></label>
               <form:input name="name" id="user_name" path="name" class="form-control" cssErrorClass="error form-control" type="text" />
-              <form:errors path="name" class="help-block with-errors" cssErrorClass="" />
+              <form:errors path="name" class="help-block" cssErrorClass="" />
             </div>
             <div class="form-group">
               <label for="user_surname"><i class="icon-lock"></i> <b>Фамілія</b></label>
@@ -50,7 +51,7 @@
             </div>
             <div class="form-group">
               <label for="user_login"><i class="icon-lock"></i> <b>Email</b></label>
-              <form:input name="login" id="user_login" path="login" class="form-control" cssErrorClass="error form-control" />
+              <form:input type = "email" name="login" id="user_login" path="login" class="form-control" cssErrorClass="error form-control" />
               <form:errors path="login" class="help-block with-errors" cssErrorClass="" />
             </div>
             <div class="form-group">
