@@ -1,3 +1,5 @@
+
+//changed style for input type file
 $(document).on('click', '.browse', function(){
   var file = $(this).parent().parent().parent().find('.file');
   file.trigger('click');

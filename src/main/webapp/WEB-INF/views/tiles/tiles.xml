@@ -8,19 +8,19 @@
        template="/WEB-INF/views/tiles/layouts/defaultLayout.jsp">  
        <put-attribute name="title" value="" />  
        <put-attribute name="header" value="/WEB-INF/views/tiles/template/defaultHeader.jsp" />  
-<!--   <put-attribute name="menu" value="/WEB-INF/views/tiles/template/defaultMenu.jsp" />   -->
-       <put-attribute name="body" value="" />  
+       <put-attribute name="body" value="" /> 
+       <put-attribute name="menu" value="" />  
        <put-attribute name="footer" value="/WEB-INF/views/tiles/template/defaultFooter.jsp" />  
    </definition>  
         
    <!-- Login-us Page -->
     <definition name="login" extends="base-definition">  
-       <put-attribute name="title" value="login page" />  
+       <put-attribute name="title" value="Логінізація" />  
        <put-attribute name="body" value="/WEB-INF/views/pages/login.jsp" />  
    </definition>  
     <!-- Error Page -->
     <definition name="error" extends="base-definition">  
-       <put-attribute name="title" value="error page" />  
+       <put-attribute name="title" value="Помилка" />  
        <put-attribute name="body" value="/WEB-INF/views/pages/error.jsp" />  
    </definition>        
  

@@ -9,31 +9,31 @@
    </definition>
        <!-- Page for settings website -->
    <definition name="settingWebSite" extends="base-definition">  
-       <put-attribute name="title" value="setting page" />  
+       <put-attribute name="title" value="загальні налаштування" />  
        <put-attribute name="body" value="/WEB-INF/views/pages/admin/settingWebSite.jsp" />  
    </definition>
    
           <!-- Page for management user-->
-   <definition name="managementUsers" extends="base-definition">  
-       <put-attribute name="title" value="page for management users" />  
-       <put-attribute name="body" value="/WEB-INF/views/pages/admin/managementUsers.jsp" />  
+   <definition name="managementUsers" extends="settingWebSite">  
+       <put-attribute name="title" value="користувачі" />  
+       <put-attribute name="menu" value="/WEB-INF/views/pages/admin/managementUsers.jsp" />  
+   </definition>
+
+         <!-- Page for management SuperCategory-->
+   <definition name="managementSuperCategories" extends="settingWebSite">  
+       <put-attribute name="title" value="управління супер категоріями" />  
+       <put-attribute name="menu" value="/WEB-INF/views/pages/admin/managementSuperCategories.jsp" />  
    </definition>
    
-                   <!-- Page for management SuperCategory-->
-   <definition name="managementSuperCategories" extends="base-definition">  
-       <put-attribute name="title" value="page for managementmanagement SuperCategories" />  
-       <put-attribute name="body" value="/WEB-INF/views/pages/admin/managementSuperCategories.jsp" />  
-   </definition>
-   
-             <!-- Page for management categories-->
-   <definition name="managementCategories" extends="base-definition">  
-       <put-attribute name="title" value="page for management categories" />  
-       <put-attribute name="body" value="/WEB-INF/views/pages/admin/managementCategories.jsp" />  
+        <!-- Page for management categories-->
+   <definition name="managementCategories" extends="settingWebSite">  
+       <put-attribute name="title" value="управління категоріями" />  
+       <put-attribute name="menu" value="/WEB-INF/views/pages/admin/managementCategories.jsp" />  
    </definition>
                 <!-- Page for management products-->
-   <definition name="managementProducts" extends="base-definition">  
-       <put-attribute name="title" value="page for management products" />  
-       <put-attribute name="body" value="/WEB-INF/views/pages/admin/managementProducts.jsp" />  
+   <definition name="managementProducts" extends="settingWebSite">  
+       <put-attribute name="title" value="управління продуктами" />  
+       <put-attribute name="menu" value="/WEB-INF/views/pages/admin/managementProducts.jsp" />  
    </definition>
 
 </tiles-definitions>

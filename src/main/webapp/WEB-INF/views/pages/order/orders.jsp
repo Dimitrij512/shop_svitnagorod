@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <div class="container">
-  <h2>Orders</h2>
-  <p><strong>Note:</strong> Information about orders</p>
+  <h2>Замовлення</h2>
+  <p><strong>Нотатка:</strong> Інформація про замовлення :</p>
   <div class="panel-group" id="accordion">
   <c:forEach items="${orders}" var="order">
     <div class="panel panel-default">

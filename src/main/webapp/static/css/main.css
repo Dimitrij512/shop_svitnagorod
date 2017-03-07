@@ -22,7 +22,7 @@ body {
   font-weight: 700;
 }
 .input-micro {
-  width: 50px;
+  width: 80px;
   margin-bottom: 0 !important;
 }
 textarea:focus,
@@ -2717,4 +2717,12 @@ input:invalid {
 input:required {
   border-color: #800000;
   border-width: 3px;
+}
+
+.breadcrumb{
+	padding-top: 0px;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+  background-color: transparent;
+	
 }
