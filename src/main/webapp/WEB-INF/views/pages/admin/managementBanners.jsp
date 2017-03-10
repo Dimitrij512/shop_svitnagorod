@@ -10,7 +10,7 @@
       <form:input type="file" path="image" name="img[]" class="file" />
       <div class="input-group">
         <span class="input-group-addon"><span class="glyphicon glyphicon-picture"></span></span>
-        <input type="text" class="form-control" disabled placeholder="Upload Image" />
+        <input type="text" class="form-control" disabled placeholder="завантажити зображення" />
         <span class="input-group-btn">
         <button class="browse btn btn-info" type="button">
         <i class="glyphicon glyphicon-search"></i> завантажити</button>

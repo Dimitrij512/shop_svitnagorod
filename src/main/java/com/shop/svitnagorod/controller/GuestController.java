@@ -77,6 +77,7 @@ public class GuestController {
   MailService mailService;
 
   private static final String PRODUCTS = "products";
+  private static final String BANNERS = "banners";
 
   @InitBinder
   public void initBinder(WebDataBinder binder) {
@@ -86,6 +87,7 @@ public class GuestController {
   @RequestMapping(value = { "/" }, method = RequestMethod.GET)
   public String homePage(Model model) {
     model.addAttribute(PRODUCTS, productService.findAllProducts());
+    model.addAttribute(BANNERS, bannerService.findEnabled());
     return "home";
   }
 
