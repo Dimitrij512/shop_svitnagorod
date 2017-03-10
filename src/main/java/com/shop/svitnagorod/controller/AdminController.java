@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.shop.svitnagorod.DTO.BannerDTO;
 import com.shop.svitnagorod.DTO.CategoryDTO;
 import com.shop.svitnagorod.DTO.ProductDTO;
 import com.shop.svitnagorod.DTO.SuperCategoryDTO;
+import com.shop.svitnagorod.service.BannerService;
 import com.shop.svitnagorod.service.CategoryService;
 import com.shop.svitnagorod.service.OrdersService;
 import com.shop.svitnagorod.service.ProductService;
@@ -33,6 +35,8 @@ public class AdminController {
   private static final String CATEGORY = "category";
   private static final String PRODUCTS = "products";
   private static final String PRODUCT = "product";
+  private static final String BANNERS = "banners";
+  private static final String BANNER = "banner";
 
   @Autowired
   SuperCategoryService superCategoryService;
@@ -44,6 +48,8 @@ public class AdminController {
   UserService userService;
   @Autowired
   OrdersService orderService;
+  @Autowired
+  BannerService bannerService;
 
   @RequestMapping(value = { "/welcome" }, method = RequestMethod.GET)
   public String loginPage(Model model) {
@@ -85,6 +91,20 @@ public class AdminController {
     model.addAttribute(SUPERCATEGORIES, superCategoryService.findAllCategory());
     model.addAttribute(SUPERCATEGORY, new SuperCategoryDTO());
     return "managementSuperCategories";
+  }
+
+  @GetMapping("/settingWebsite/banners")
+  public String managementBanner(Model model) {
+    System.out.println("controller banner");
+    model.addAttribute(BANNERS, bannerService.findAll());
+    model.addAttribute(BANNER, new BannerDTO());
+    return "managementBanners";
+  }
+
+  @PostMapping("/settingWebsite/banners")
+  public String createBanner(@ModelAttribute(BANNERS) BannerDTO bannerDTO) {
+    bannerService.save(bannerDTO);
+    return "redirect:/admin/settingWebsite/banners";
   }
 
   @PostMapping("/settingWebsite/superCategory")
@@ -134,6 +154,12 @@ public class AdminController {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void deleteProduct(@RequestBody int id) {
     productService.delete(id);
+  }
+
+  @DeleteMapping("/settingWebsite/banner/delete")
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void deleteBanner(@RequestBody int id) {
+    bannerService.delete(id);
   }
 
 }

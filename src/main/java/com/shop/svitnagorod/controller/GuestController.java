@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.shop.svitnagorod.DTO.UserDTO;
 import com.shop.svitnagorod.model.Notification;
 import com.shop.svitnagorod.model.OrderMessage;
+import com.shop.svitnagorod.service.BannerService;
 import com.shop.svitnagorod.service.CategoryService;
 import com.shop.svitnagorod.service.GeneralService;
 import com.shop.svitnagorod.service.MailService;
@@ -68,6 +69,9 @@ public class GuestController {
 
   @Autowired
   OrderDetailsService orderDetailsServic;
+
+  @Autowired
+  BannerService bannerService;
 
   @Autowired
   MailService mailService;
@@ -173,6 +177,19 @@ public class GuestController {
   @GetMapping("/categoryInfo/{id}/image")
   public void getCategoryImage(HttpServletResponse response, @PathVariable int id) {
     byte[] data = categoryService.findById(id).getImage();
+    if (data != null) {
+      response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+      response.setContentLength(data.length);
+      try (ServletOutputStream outputStream = response.getOutputStream()) {
+        FileCopyUtils.copy(data, outputStream);
+      } catch (IOException e) {
+      }
+    }
+  }
+
+  @GetMapping("/bannerInfo/{id}/image")
+  public void getBannerImage(HttpServletResponse response, @PathVariable int id) {
+    byte[] data = bannerService.findById(id).getImage();
     if (data != null) {
       response.setContentType(MediaType.IMAGE_JPEG_VALUE);
       response.setContentLength(data.length);
