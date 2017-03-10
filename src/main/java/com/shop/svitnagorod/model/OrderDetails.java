@@ -15,67 +15,71 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Entity(name = "order_details")
 public class OrderDetails {
-	private int id;
-	private Orders order;
-	private Product product;
-	private int count;
+  private int id;
+  private Orders order;
+  private Product product;
+  private int count;
 
-	@Id
-	@Column(name = "id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int getId() {
-		return id;
-	}
+  @Id
+  @Column(name = "id")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  public int getId() {
+    return id;
+  }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+  public void setId(int id) {
+    this.id = id;
+  }
 
-	@ManyToOne
-	@JoinColumn(name = "order_id")
-	public Orders getOrder() {
-		return order;
-	}
+  @ManyToOne
+  @JoinColumn(name = "order_id")
+  public Orders getOrder() {
+    return order;
+  }
 
-	public void setOrder(Orders order) {
-		this.order = order;
-	}
+  public void setOrder(Orders order) {
+    this.order = order;
+  }
 
-	@OneToOne
-	@JoinColumn(name = "product_id")
-	public Product getProduct() {
-		return product;
-	}
+  @OneToOne
+  @JoinColumn(name = "product_id")
+  public Product getProduct() {
+    return product;
+  }
 
-	public void setProduct(Product product) {
-		this.product = product;
-	}
+  public void setProduct(Product product) {
+    this.product = product;
+  }
 
-	@Column(name = "count")
-	public int getCount() {
-		return count;
-	}
+  @Column(name = "count")
+  public int getCount() {
+    return count;
+  }
 
-	public void setCount(int count) {
-		this.count = count;
-	}
+  public void setCount(int count) {
+    if (count == 0) {
+      this.count = 1;
+    } else {
+      this.count = count;
+    }
+  }
 
-	@Override
-	public int hashCode() {
+  @Override
+  public int hashCode() {
 
-		return HashCodeBuilder.reflectionHashCode(this, true);
-	}
+    return HashCodeBuilder.reflectionHashCode(this, true);
+  }
 
-	@Override
-	public boolean equals(Object obj) {
+  @Override
+  public boolean equals(Object obj) {
 
-		return EqualsBuilder.reflectionEquals(this, obj, true);
-	}
+    return EqualsBuilder.reflectionEquals(this, obj, true);
+  }
 
-	@Override
-	public String toString() {
+  @Override
+  public String toString() {
 
-		return ToStringBuilder.reflectionToString(this);
-	}
+    return ToStringBuilder.reflectionToString(this);
+  }
 
 }

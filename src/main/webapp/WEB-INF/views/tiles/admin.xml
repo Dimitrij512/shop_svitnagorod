@@ -30,10 +30,15 @@
        <put-attribute name="title" value="управління категоріями" />  
        <put-attribute name="menu" value="/WEB-INF/views/pages/admin/managementCategories.jsp" />  
    </definition>
-                <!-- Page for management products-->
+        <!-- Page for management products-->
    <definition name="managementProducts" extends="settingWebSite">  
        <put-attribute name="title" value="управління продуктами" />  
        <put-attribute name="menu" value="/WEB-INF/views/pages/admin/managementProducts.jsp" />  
+   </definition>
+       <!-- Page for management banners-->
+   <definition name="managementBanners" extends="settingWebSite">  
+       <put-attribute name="title" value="Банери сайту" />  
+       <put-attribute name="menu" value="/WEB-INF/views/pages/admin/managementBanners.jsp" />  
    </definition>
 
 </tiles-definitions>

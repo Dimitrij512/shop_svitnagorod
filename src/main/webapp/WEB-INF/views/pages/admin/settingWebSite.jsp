@@ -13,6 +13,7 @@
 				  <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin/settingWebsite/categories">Категорії</a></li>
 				  <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin/settingWebsite/products">Продукти</a></li>
 				  <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin/settingWebsite/users">Користувачі</a></li>
+				  <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin/settingWebsite/banners">Банери</a></li>
       </ul>
       </div>
     </div>
