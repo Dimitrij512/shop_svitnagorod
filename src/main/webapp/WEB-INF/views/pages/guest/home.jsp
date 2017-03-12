@@ -63,7 +63,7 @@
         <div class="col-md-4 col-sm-6">
           <div class="portfolio-item">
             <div class="portfolio-image">
-              <a href="page-portfolio-item.html"><img alt="alter name" src=<c:url value="/categoryInfo/${category.id}/image" />></a>
+              <a href="page-portfolio-item.html"><img alt="alter name" style="width: 500px; height: 200px;" src=<c:url value="/categoryInfo/${category.id}/image" />></a>
             </div>
             <div class="portfolio-info">
               <ul>
@@ -80,11 +80,8 @@
   </div>
 </div>
 
-
 <!-- Press Coverage -->
 
-
-<!-- Services -->
 <div class="section">
   <div class="container">
     <div class="row">
