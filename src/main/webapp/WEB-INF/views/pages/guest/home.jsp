@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%> 
 
-
 <input id="contextPath" type="hidden" value="${pageContext.request.contextPath}" />
 <!-- Main page script -->
 
@@ -54,7 +53,36 @@
     </div>
   </div>
 </div>
+
+
+<div class="section">
+  <div class="container">
+    <h2>Групи товарів</h2>
+    <div class="row">
+      <c:forEach items="${categoryes}" var="category">
+        <div class="col-md-4 col-sm-6">
+          <div class="portfolio-item">
+            <div class="portfolio-image">
+              <a href="page-portfolio-item.html"><img alt="alter name" src=<c:url value="/categoryInfo/${category.id}/image" />></a>
+            </div>
+            <div class="portfolio-info">
+              <ul>
+                <li class="portfolio-project-name">
+                  <c:out value="${category.name}" />
+                </li>
+                <li class="read-more"><a href="page-portfolio-item.html" class="btn">Подивитись</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </c:forEach>
+    </div>
+  </div>
+</div>
+
+
 <!-- Press Coverage -->
+
 
 <!-- Services -->
 <div class="section">
@@ -64,7 +92,8 @@
         <div class="service-wrapper">
           <img src="static/img/service-icon/diamond.png" alt="Service 1">
           <h3>Aliquam in adipiscing</h3>
-          <p>Praesent rhoncus mauris ac sollicitudin vehicula. Nam fringilla turpis turpis, at posuere turpis aliquet sit amet condimentum</p>
+          <p>Praesent rhoncus mauris ac sollicitudin vehicula. Nam fringilla turpis turpis, at posuere turpis aliquet sit amet condimentum
+          </p>
           <a href="#" class="btn">Read more</a>
         </div>
       </div>
@@ -89,32 +118,43 @@
 </div>
 <!-- End Services -->
 
-<div class="container">
-  <div class="row">
-    <c:forEach items="${products}" var="product">
-      <div class="col-sm-3 col-lg-3 col-md-3">
-        <div class="thumbnail">
-          <div class="hover">
-            <img alt="" style="width: 50px; height: 50px;" src=<c:url value="/productInfo/${product.id}/image" />>
-            <div class="caption">
-              <h4 class="pull-right">
-                <c:out value="$ ${product.price}" />
-              </h4>
-              <h4>
-                <c:out value="${product.name}" />
-              </h4>
-              <button id="${product.id}" class="addTobakset btn btn-primary right-btn">
-                    <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to Cart
+<div class="section">
+  <div class="container">
+  <h2>Наші продукти</h2>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="products-slider">
+          <c:forEach items="${products}" var="product">
+            <div class="shop-item">
+              <!-- Product Image -->
+              <div class="image">
+                <a href=""><img alt="alter name" src=<c:url value="/productInfo/${product.id}/image" />></a>
+              </div>
+              <!-- Product Title -->
+              <div class="title">
+                <h3>
+                  <a href="">
+                    <c:out value="${product.name}" />
+                  </a>
+                </h3>
+              </div>
+              <!-- Product Price -->
+              <div class="price">
+                <c:out value="${product.price}" /> грн.
+              </div>
+              <!-- ADD TO SHOPPING CART BUTTON -->
+              <div class="actions">
+                <button id="${product.id}" class="addTobakset btn btn-small">
+                    <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> в корзину
                   </button>
+              </div>
             </div>
-          </div>
+          </c:forEach>
         </div>
       </div>
-    </c:forEach>
+    </div>
   </div>
 </div>
-
-
   <!-- Template JS -->
 <script src="<c:url value = "/static/js/template.js" />"></script>
 <script src=<c:url value="/static/js/basket/basket.js" />></script>
