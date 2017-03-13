@@ -14,7 +14,7 @@
             <input type="text" class="form-control" disabled placeholder="Upload Image" />
             <span class="input-group-btn">
               <button class="browse btn btn-info" type="button">
-              <i class="glyphicon glyphicon-search"></i> Browse</button>
+              <i class="glyphicon glyphicon-search"></i> завантажити</button>
               </span>
           </div>
         </div>
@@ -34,7 +34,7 @@
       </div> 
       <div class="form-group">
         <div class="col-lg-12">
-          <button type="submit" class="btn btn-success">Submit</button>
+          <button type="submit" class="btn btn-success">створити</button>
         </div>
       </div>
     </form:form>
@@ -44,13 +44,15 @@
 <table id = "categories" class="table table-striped table-bordered">
   <thead>
     <tr>
-      <th>IMAGE</th>
-      <th>NAME</th>
-      <th>SUPER CATEGORY</th>
-      <th>DELETE</th>
+      <th>Зображення</th>
+      <th>Назва</th>
+      <th>Супер категорія</th>
+      <th>Видалити</th>
     </tr>
   </thead>
   <tbody>
+  <c:if test="${category.super_category_id == superCategory.id}">
+  </c:if>
     <c:forEach items="${categories}" var="category">
       <tr>
         <td>
@@ -75,14 +77,14 @@
             <div class="modal-content">
               <div class="modal-header">
                 <span class="close">&times;</span>
-                <h2>Delete Category</h2>
+                <h2>Видалення категорії</h2>
               </div>
               <div class="modal-body">
-                <p>Do you really want delete this category ?? ??</p>
-                <p>If you will delete this category also will be deleted all products of this category !!!</p>
+                <p>Ви дійсно бажаєте видалити цю категорію?</p>
+                <p>Якщо ви видалити категорію, автоматично будуть видалені всі продукти даної категорії !!!</p>
               </div>
               <div class="modal-footer">
-                <button id="${category.id}" class="btn btn-danger delete">OK</button>
+                <button id="${category.id}" class="btn btn-danger delete">Видалити</button>
               </div>
             </div>
           </div>

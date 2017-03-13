@@ -34,6 +34,14 @@ public class ProductDaoImpl extends AbstractDao<Integer, Product> implements Pro
     return (List<Product>) crit.list();
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
+  public List<Product> findProductsByCategoryID(int id) {
+    Criteria crit = createEntityCriteria();
+    crit.add(Restrictions.eq("category_id", id));
+    return (List<Product>) crit.list();
+  }
+
   @Override
   public Product findById(int id) {
     return getById(id);

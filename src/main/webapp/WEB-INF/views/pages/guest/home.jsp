@@ -70,7 +70,7 @@
                 <li class="portfolio-project-name">
                   <c:out value="${category.name}" />
                 </li>
-                <li class="read-more"><a href="page-portfolio-item.html" class="btn">Подивитись</a></li>
+                <li class="read-more"><a href=<c:url value="/products/${category.id}"/> class="btn">Подивитись</a></li>
               </ul>
             </div>
           </div>

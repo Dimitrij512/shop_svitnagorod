@@ -60,4 +60,11 @@ public class ProductSrviceImpl implements ProductService {
     return dao.findById(id);
   }
 
+  @Transactional
+  @Override
+  public List<Product> findProductsByCategoryID(int id) {
+
+    return dao.findProductsByCategoryID(id);
+  }
+
 }

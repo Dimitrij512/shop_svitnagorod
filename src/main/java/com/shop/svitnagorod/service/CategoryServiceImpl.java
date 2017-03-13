@@ -56,7 +56,6 @@ public class CategoryServiceImpl implements CategoryService {
   @Transactional
   @Override
   public Category findById(int id) {
-    System.out.println("ServiceImpl findByID " + id);
     return dao.findById(id);
   }
 
