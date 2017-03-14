@@ -21,7 +21,7 @@ $(function() {
 	        searchable: true,
 	      }],
 	      bLengthChange: false,
-	      info: true,
+	      info: false,
 	    });
 	  });
 

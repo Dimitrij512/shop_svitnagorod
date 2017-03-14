@@ -4,12 +4,12 @@ $(function() {
   $(document).ready(function() {
 	    $('#products').DataTable({
 	      language: {
-	        search: "Enter the name of category:",
-	        searchPlaceholder: "search...",
-	        zeroRecords: "According to the parameters matches found",
+	        search: "Введіть назву проукта:",
+	        searchPlaceholder: "пошук...",
+	        zeroRecords: "Згідно вашого запиту збігів не знайдено",
 	        paginate: {
-	          next: "Next",
-	          previous: "Previos"
+	          next: "Наступна",
+	          previous: "Попередня"
 	        }
 	      },
 	      order: [1, 'asc'],
@@ -21,7 +21,7 @@ $(function() {
 	        searchable: true,
 	      }],
 	      bLengthChange: false,
-	      info: true,
+	      info: false,
 	    });
 	  });
   
@@ -30,7 +30,7 @@ $(function() {
   
   
   $(document).on('click', '.delete', function() {
-    if (confirm('Do you really want to delete this product?')) {
+    if (confirm('Ви дійсно бажаєте видалити даний продукт?')) {
       deleteProduct($(this));
     }
     return false;

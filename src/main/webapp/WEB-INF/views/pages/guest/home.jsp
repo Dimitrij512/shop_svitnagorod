@@ -63,7 +63,7 @@
         <div class="col-md-4 col-sm-6">
           <div class="portfolio-item">
             <div class="portfolio-image">
-              <a href="page-portfolio-item.html"><img alt="alter name" style="width: 500px; height: 200px;" src=<c:url value="/categoryInfo/${category.id}/image" />></a>
+              <a href="${pageContext.request.contextPath}/products/${category.id}"><img alt="alter name" style="width: 500px; height: 200px;" src=<c:url value="/categoryInfo/${category.id}/image" />></a>
             </div>
             <div class="portfolio-info">
               <ul>
@@ -99,7 +99,7 @@
           <img src="static/img/service-icon/ruler.png" alt="Service 2">
           <h3>Curabitur mollis</h3>
           <p>Suspendisse eget libero mi. Fusce ligula orci, vulputate nec elit ultrices, ornare faucibus orci. Aenean lectus sapien, vehicula</p>
-          <a href="#" class="btn">Read more</a>
+          <a href="#" class="btn">Read more</a> 
         </div>
       </div>
       <div class="col-md-4 col-sm-6">
@@ -125,7 +125,7 @@
             <div class="shop-item">
               <!-- Product Image -->
               <div class="image">
-                <a href=""><img alt="alter name" src=<c:url value="/productInfo/${product.id}/image" />></a>
+                <a href="${pageContext.request.contextPath}/productDetail/${product.id}"><img alt="alter name" src=<c:url value="/productInfo/${product.id}/image" />></a>
               </div>
               <!-- Product Title -->
               <div class="title">

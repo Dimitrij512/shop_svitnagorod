@@ -15,9 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -76,12 +74,13 @@ public class GuestController {
   private static final String BANNERS = "banners";
   private static final String CATEGORYES = "categoryes";
   private static final String PRODUCTS = "products";
+  private static final String PRODUCT = "product";
   private static final String CATEGORYNAME = "categoryName";
 
-  @InitBinder
-  public void initBinder(WebDataBinder binder) {
-    binder.addValidators(userValidator);
-  }
+  // @InitBinder
+  // public void initBinder(WebDataBinder binder) {
+  // binder.addValidators(userValidator);
+  // }
 
   @GetMapping("/")
   public String homePage(Model model) {
@@ -93,11 +92,18 @@ public class GuestController {
   }
 
   @RequestMapping(value = { "/products/{id}" }, method = RequestMethod.GET)
-  public String productsPage(@PathVariable int id, Model model) {
+  public String productsByCategoryID(@PathVariable int id, Model model) {
 
     model.addAttribute(CATEGORYNAME, categoryService.findById(id).getName());
     model.addAttribute(PRODUCTS, productSrvice.findProductsByCategoryID(id));
     return "products";
+  }
+
+  @RequestMapping(value = { "/productDetail/{id}" }, method = RequestMethod.GET)
+  public String productDetail(@PathVariable int id, Model model) {
+    model.addAttribute(PRODUCT, productSrvice.findById(id));
+
+    return "productDetail";
   }
 
   @RequestMapping(value = { "/contactus" }, method = RequestMethod.GET)

@@ -29,7 +29,7 @@
               <li class="read-more"><button id="${product.id}" class="addTobakset btn btn-small">
                     <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> в корзину
                   </button></li>
-              <li class="read-more"><a href="page-portfolio-item.html" class="btn">детальніше</a></li>
+              <li class="read-more"><a href="${pageContext.request.contextPath}/productDetail/${product.id}" class="btn">детальніше</a></li>
             </ul>
           </div>
         </div>

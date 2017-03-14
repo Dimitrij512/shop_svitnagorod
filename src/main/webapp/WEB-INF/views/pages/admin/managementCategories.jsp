@@ -11,7 +11,7 @@
          <form:input type="file" path="image" name="img[]"  class="file" />
           <div class="input-group">
             <span class="input-group-addon"><span class="glyphicon glyphicon-picture"></span></span>
-            <input type="text" class="form-control" disabled placeholder="Upload Image" />
+            <input type="text" class="form-control" disabled placeholder="зображення каегорії" />
             <span class="input-group-btn">
               <button class="browse btn btn-info" type="button">
               <i class="glyphicon glyphicon-search"></i> завантажити</button>
@@ -21,7 +21,7 @@
       </div>
       <div class="form-group">
         <div class="col-lg-12">
-          <div class="input-group"> <span class="input-group-addon"><span>name</span></span>
+          <div class="input-group"> <span class="input-group-addon"><span>назва</span></span>
             <form:input path="name" type="text" class="form-control" />
           </div>
         </div>
@@ -34,7 +34,7 @@
       </div> 
       <div class="form-group">
         <div class="col-lg-12">
-          <button type="submit" class="btn btn-success">створити</button>
+          <button type="submit" class="btn btn-success">Створити</button>
         </div>
       </div>
     </form:form>
@@ -87,6 +87,7 @@
                 <button id="${category.id}" class="btn btn-danger delete">Видалити</button>
               </div>
             </div>
+            
           </div>
         </td>
       </tr>
