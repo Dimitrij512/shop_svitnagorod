@@ -5,12 +5,12 @@ $(function() {
   $(document).ready(function() {
 	    $('#superCategories').DataTable({
 	      language: {
-	        search: "Enter the name of super category:",
-	        searchPlaceholder: "search...",
-	        zeroRecords: "According to the parameters matches found",
+	        search: "Введіть назву категрії:",
+	        searchPlaceholder: "пошук...",
+	        zeroRecords: "Згідно ваших параметрів збігів не знайдено",
 	        paginate: {
-	          next: "Next",
-	          previous: "Previos"
+	          next: "Наступна",
+	          previous: "Попередня"
 	        }
 	      },
 	      order: [1, 'asc'],
@@ -22,7 +22,7 @@ $(function() {
 	        searchable: true,
 	      }],
 	      bLengthChange: false,
-	      info: true,
+	      info: false,
 	    });
 	  });
   
@@ -64,4 +64,32 @@ $(function() {
       },
     });
   };
+});
+
+$(document).ready(function() {
+  $('#newSupCategory').formValidation({
+      framework: 'bootstrap',
+      excluded: ':disabled',
+      icon: {
+          valid: 'glyphicon glyphicon-ok',
+          invalid: 'glyphicon glyphicon-remove',
+          validating: 'glyphicon glyphicon-refresh'
+      },
+      fields: {
+          username: {
+              validators: {
+                  notEmpty: {
+                      message: 'The username is required'
+                  }
+              }
+          },
+          password: {
+              validators: {
+                  notEmpty: {
+                      message: 'The password is required'
+                  }
+              }
+          }
+      }
+  });
 });

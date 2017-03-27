@@ -10,40 +10,83 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.social.connect.ConnectionFactoryLocator;
+import org.springframework.social.connect.ConnectionSignUp;
+import org.springframework.social.connect.UsersConnectionRepository;
+import org.springframework.social.connect.mem.InMemoryUsersConnectionRepository;
+import org.springframework.social.connect.web.ProviderSignInController;
+
+import com.shop.svitnagorod.service.facebookOAuth.FacebookSignInAdapter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	@Autowired
-	DataSource dataSource;
+  @Autowired
+  DataSource dataSource;
 
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+  @Autowired
+  private UserDetailsService userDetailsService;
 
-		auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder()).usersByUsernameQuery("select login,password, 1 from user where login=?").authoritiesByUsernameQuery("select login, role from user where login=?");
-	}
+  @Autowired
+  private ConnectionFactoryLocator connectionFactoryLocator;
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/", "/403", "/login", "/logout", "/registration", "/products", "/contactus", "/spring-websocket/**").permitAll().antMatchers("/user/**").access("hasAuthority('CUSTOMER')").antMatchers("/admin/**").access("hasAuthority('ADMIN')").and().formLogin().loginPage("/login").loginProcessingUrl("/login").usernameParameter("login").passwordParameter("password").successHandler(authenticationHandler()).failureUrl("/login?error=true").and().exceptionHandling().accessDeniedPage("/403").and().csrf().disable();
-	}
+  @Autowired
+  private UsersConnectionRepository usersConnectionRepository;
 
-	@Override
-	public void configure(WebSecurity web) throws Exception {
+  @Autowired
+  private ConnectionSignUp facebookConnectionSignup;
 
-		web.ignoring().antMatchers("/resources/**");
-	}
+  @Autowired
+  private FacebookSignInAdapter facebookSignInAdapter;
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+  @Autowired
+  public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
-	@Bean
-	public CustomSuccessHandler authenticationHandler() {
-		return new CustomSuccessHandler();
-	}
+    auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder())
+        .usersByUsernameQuery("select login,password, 1 from user where login=?")
+        .authoritiesByUsernameQuery("select login, role from user where login=?");
+  }
+
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http.authorizeRequests()
+        .antMatchers("/", "/403", "/login", "/logout", "/registration", "/products", "/contactus",
+            "/spring-websocket/**")
+        .permitAll().antMatchers("/user/**").access("hasAuthority('CUSTOMER')").antMatchers("/admin/**")
+        .access("hasAuthority('ADMIN')").and().formLogin().loginPage("/login").loginProcessingUrl("/login")
+        .usernameParameter("login").passwordParameter("password").successHandler(authenticationHandler())
+        .failureUrl("/login?error=true").and().exceptionHandling().accessDeniedPage("/403").and().csrf().disable();
+  }
+
+  @Override
+  public void configure(WebSecurity web) throws Exception {
+
+    web.ignoring().antMatchers("/resources/**");
+  }
+
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
+
+  @Bean
+  public CustomSuccessHandler authenticationHandler() {
+    return new CustomSuccessHandler();
+  }
+
+  @Override
+  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
+    auth.userDetailsService(userDetailsService);
+  }
+
+  @Bean
+  public ProviderSignInController providerSignInController() {
+    ((InMemoryUsersConnectionRepository) usersConnectionRepository).setConnectionSignUp(facebookConnectionSignup);
+    return new ProviderSignInController(connectionFactoryLocator, usersConnectionRepository, facebookSignInAdapter);
+  }
 
 }
