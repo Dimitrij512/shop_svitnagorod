@@ -14,41 +14,45 @@ import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.mem.InMemoryUsersConnectionRepository;
 import org.springframework.social.connect.support.ConnectionFactoryRegistry;
+import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.connect.FacebookConnectionFactory;
 
 @Configuration
 @PropertySource("classpath:application.properties")
 public class SocialConfiguration {
-  @Autowired
-  private Environment environment;
+	@Autowired
+	private Environment environment;
 
-  @Bean
-  public ConnectionFactoryLocator connectionFactoryLocator() {
+	@Bean
+	public ConnectionFactoryLocator connectionFactoryLocator() {
 
-    ConnectionFactoryRegistry registry = new ConnectionFactoryRegistry();
-    registry.addConnectionFactory(new FacebookConnectionFactory(environment.getProperty("spring.social.facebook.appId"),
-        environment.getProperty("spring.social.facebook.appSecret")));
-    return registry;
-  }
+		ConnectionFactoryRegistry registry = new ConnectionFactoryRegistry();
+		registry.addConnectionFactory(new FacebookConnectionFactory(environment.getProperty("spring.social.facebook.appId"), environment.getProperty("spring.social.facebook.appSecret")));
+		return registry;
+	}
 
-  @Bean
-  public UsersConnectionRepository usersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
+	@Bean
+	public UsersConnectionRepository usersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
 
-    return new InMemoryUsersConnectionRepository(connectionFactoryLocator);
-  }
+		return new InMemoryUsersConnectionRepository(connectionFactoryLocator);
+	}
 
-  @Bean
-  @Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
-  public Facebook facebook(UsersConnectionRepository repository) {
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    Connection<Facebook> connection = null;
-    if (authentication != null) {
-      connection = repository.createConnectionRepository(authentication.getName())
-          .findPrimaryConnection(Facebook.class);
-    }
+	@Bean
+	public ProviderSignInUtils providerSignInUtils() {
+		return new ProviderSignInUtils(connectionFactoryLocator(), usersConnectionRepository(connectionFactoryLocator()));
+	}
 
-    return connection != null ? connection.getApi() : null;
-  }
+	@Bean
+	@Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
+	public Facebook facebook(UsersConnectionRepository repository) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Connection<Facebook> connection = null;
+		if (authentication != null) {
+			connection = repository.createConnectionRepository(authentication.getName()).findPrimaryConnection(Facebook.class);
+		}
+
+		return connection != null ? connection.getApi() : null;
+	}
 
 }

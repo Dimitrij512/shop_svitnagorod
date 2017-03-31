@@ -53,19 +53,18 @@
 
       <div class="col-sm-7 social-login">
       
-         <p>Or login with your Facebook or Twitter</p>
+         <p>Увійдіть через Facebook</p>
+
          <form action="signin/facebook" method="POST" class="">
 	          <input type="hidden" name="scope" value="email, public_profile" />
 	            <button type="submit" class="btn btn-primary btn-block">Увіти через Facebook</button>
           </form>
-              <a href="#" class="btn-twitter-login">Login with Twitter</a>
-            </div>
             <div class="clearfix"></div>
         <div class="not-member">
         
           <p>Ви не зареєстровані? <a href="${pageContext.request.contextPath}/registration">Зареєструватись</a></p>
         </div>
+        </div>
       </div>
     </div>
   </div>
-</div>

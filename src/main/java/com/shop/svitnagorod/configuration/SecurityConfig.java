@@ -5,18 +5,14 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.social.connect.ConnectionFactoryLocator;
-import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.social.connect.UsersConnectionRepository;
-import org.springframework.social.connect.mem.InMemoryUsersConnectionRepository;
 import org.springframework.social.connect.web.ProviderSignInController;
 
 import com.shop.svitnagorod.service.facebookOAuth.FacebookSignInAdapter;
@@ -24,69 +20,57 @@ import com.shop.svitnagorod.service.facebookOAuth.FacebookSignInAdapter;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-  @Autowired
-  DataSource dataSource;
+	@Autowired
+	DataSource dataSource;
 
-  @Autowired
-  private UserDetailsService userDetailsService;
+	@Autowired
+	private ConnectionFactoryLocator connectionFactoryLocator;
 
-  @Autowired
-  private ConnectionFactoryLocator connectionFactoryLocator;
+	@Autowired
+	private UsersConnectionRepository usersConnectionRepository;
 
-  @Autowired
-  private UsersConnectionRepository usersConnectionRepository;
+	@Autowired
+	private FacebookSignInAdapter facebookSignInAdapter;
 
-  @Autowired
-  private ConnectionSignUp facebookConnectionSignup;
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
-  @Autowired
-  private FacebookSignInAdapter facebookSignInAdapter;
+		auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery("select login,password, 1 from user where login=?").authoritiesByUsernameQuery("select login, role from user where login=?");
+	}
 
-  @Autowired
-  public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests().antMatchers("/", "/403", "/login", "/logout", "/registration", "/products", "/contactus", "/spring-websocket/**").permitAll().antMatchers("/user/**").access("hasAuthority('CUSTOMER')").antMatchers("/admin/**").access("hasAuthority('ADMIN')").and().formLogin().loginPage("/login").loginProcessingUrl("/login").usernameParameter("login").passwordParameter("password").successHandler(authenticationHandler()).failureUrl("/login?error=true").and().exceptionHandling().accessDeniedPage("/403").and().csrf().disable();
+	}
 
-    auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder())
-        .usersByUsernameQuery("select login,password, 1 from user where login=?")
-        .authoritiesByUsernameQuery("select login, role from user where login=?");
-  }
+	@Override
+	public void configure(WebSecurity web) throws Exception {
 
-  @Override
-  protected void configure(HttpSecurity http) throws Exception {
-    http.authorizeRequests()
-        .antMatchers("/", "/403", "/login", "/logout", "/registration", "/products", "/contactus",
-            "/spring-websocket/**")
-        .permitAll().antMatchers("/user/**").access("hasAuthority('CUSTOMER')").antMatchers("/admin/**")
-        .access("hasAuthority('ADMIN')").and().formLogin().loginPage("/login").loginProcessingUrl("/login")
-        .usernameParameter("login").passwordParameter("password").successHandler(authenticationHandler())
-        .failureUrl("/login?error=true").and().exceptionHandling().accessDeniedPage("/403").and().csrf().disable();
-  }
+		web.ignoring().antMatchers("/resources/**");
+	}
 
-  @Override
-  public void configure(WebSecurity web) throws Exception {
+	//	@Bean
+	//	public PasswordEncoder passwordEncoder() {
+	//		return new BCryptPasswordEncoder();
+	//	}
 
-    web.ignoring().antMatchers("/resources/**");
-  }
+	@Bean
+	public CustomSuccessHandler authenticationHandler() {
+		return new CustomSuccessHandler();
+	}
 
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
+	@Bean
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
 
-  @Bean
-  public CustomSuccessHandler authenticationHandler() {
-    return new CustomSuccessHandler();
-  }
+	@Bean
+	public ProviderSignInController providerSignInController() {
+		ProviderSignInController controller = new ProviderSignInController(connectionFactoryLocator, usersConnectionRepository, facebookSignInAdapter);
+		controller.setSignUpUrl("/facebook/signup");
 
-  @Override
-  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
-    auth.userDetailsService(userDetailsService);
-  }
-
-  @Bean
-  public ProviderSignInController providerSignInController() {
-    ((InMemoryUsersConnectionRepository) usersConnectionRepository).setConnectionSignUp(facebookConnectionSignup);
-    return new ProviderSignInController(connectionFactoryLocator, usersConnectionRepository, facebookSignInAdapter);
-  }
+		return controller;
+	}
 
 }

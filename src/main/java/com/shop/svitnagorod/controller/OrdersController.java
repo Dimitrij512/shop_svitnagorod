@@ -28,7 +28,7 @@ import com.shop.svitnagorod.DTO.OrderDetailsDTO;
 import com.shop.svitnagorod.model.OrderDetails;
 import com.shop.svitnagorod.model.Orders;
 import com.shop.svitnagorod.model.Product;
-import com.shop.svitnagorod.model.User;
+import com.shop.svitnagorod.model.Users;
 import com.shop.svitnagorod.service.MailService;
 import com.shop.svitnagorod.service.OrdersService;
 import com.shop.svitnagorod.service.ProductService;
@@ -103,7 +103,7 @@ public class OrdersController {
 		Orders order = new Orders();
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (!(authentication instanceof AnonymousAuthenticationToken)) {
-			User user = userService.findByLogin(authentication.getName());
+			Users user = userService.findByLogin(authentication.getName());
 			order.setName(user.getName());
 			order.setEmail(user.getLogin());
 			order.setPhone(user.getPhone());
@@ -117,7 +117,7 @@ public class OrdersController {
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (!(authentication instanceof AnonymousAuthenticationToken)) {
-			User user = userService.findByLogin(authentication.getName());
+			Users user = userService.findByLogin(authentication.getName());
 			order.setUser_id(user.getId());
 		}
 		if (!listOrderDetails.isEmpty()) {

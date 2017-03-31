@@ -2,17 +2,17 @@ package com.shop.svitnagorod.DAO;
 
 import java.util.List;
 
-import com.shop.svitnagorod.model.User;
+import com.shop.svitnagorod.model.Users;
 
 public interface UserDao {
 
-  void save(User user);
+  void save(Users user);
 
   void delete(int id);
 
-  User findById(Integer id);
+  Users findById(Integer id);
 
-  User findByLogin(String login);
+  Users findByLogin(String login);
 
-  List<User> findAllUsers();
+  List<Users> findAllUsers();
 }

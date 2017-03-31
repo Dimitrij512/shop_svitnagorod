@@ -2,21 +2,27 @@ package com.shop.svitnagorod.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.shop.svitnagorod.DTO.UserDTO;
-import com.shop.svitnagorod.model.User;
+import com.shop.svitnagorod.model.Users;
 
 public interface UserService {
 
-  void save(UserDTO userDTO);
+	void save(UserDTO userDTO);
 
-  void delete(int id);
+	void saveUser(Users users);
 
-  User findById(int id);
+	void delete(int id);
 
-  User findByLogin(String login);
+	Users findById(int id);
 
-  boolean isUserUnique(String login, Integer id);
+	Users findByLogin(String login);
 
-  List<User> findAllUser();
+	boolean isUserUnique(String login, Integer id);
+
+	List<Users> findAllUser();
+
+	void authenticateUserAndSetSession(Users users, HttpServletRequest request);
 
 }
