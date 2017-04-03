@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.shop.svitnagorod.model.Category;
@@ -29,6 +30,7 @@ public class SuperCategoryDTO implements Serializable {
     this.id = id;
   }
 
+  @NotBlank(message = "Заповніть поле назви категорії")
   @Column(name = "name")
   public String getName() {
     return name;

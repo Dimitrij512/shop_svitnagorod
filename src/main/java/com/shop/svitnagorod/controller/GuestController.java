@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.WebRequest;
 
 import com.shop.svitnagorod.DTO.UserDTO;
@@ -85,19 +84,18 @@ public class GuestController {
 
   @Autowired
   Facebook facebook;
+
   @Autowired
   ProviderSignInUtils providerSignInUtils;
 
   private static final String BANNERS = "banners";
   private static final String CATEGORYES = "categoryes";
   private static final String PRODUCTS = "products";
-  private static final String PRODUCT = "product";
-  private static final String CATEGORYNAME = "categoryName";
 
-  @InitBinder("userDTO")
-  public void initBinder(WebDataBinder binder) {
+  @InitBinder
+  public void initUserBinder(WebDataBinder binder) {
 
-    binder.setValidator(userValidator);
+    binder.addValidators(userValidator);
   }
 
   @GetMapping("/")
@@ -110,30 +108,13 @@ public class GuestController {
     return "home";
   }
 
-  @GetMapping("/products/{id}")
-  public String productsByCategoryID(@PathVariable int id, Model model) {
-
-    model.addAttribute(CATEGORYNAME, categoryService.findById(id).getName());
-    model.addAttribute(PRODUCTS, productSrvice.findProductsByCategoryID(id));
-
-    return "products";
-  }
-
-  @GetMapping("/productDetail/{id}")
-  public String productDetail(@PathVariable int id, Model model) {
-
-    model.addAttribute(PRODUCT, productSrvice.findById(id));
-
-    return "productDetail";
-  }
-
   @GetMapping("/contactus")
   public String contactUsPage(Model model) {
 
     return "contactus";
   }
 
-  @RequestMapping(value = { "/registration" }, method = RequestMethod.GET)
+  @GetMapping("/registration")
   public String getRegistration(Model model) {
 
     model.addAttribute(REGISTRATION, new UserDTO());
@@ -174,6 +155,7 @@ public class GuestController {
   public String createUser(@ModelAttribute(REGISTRATION) @Validated UserDTO userDTO, BindingResult bindingResult,
       Model model) {
     if (bindingResult.hasErrors()) {
+
       model.addAttribute(REGISTRATION, userDTO);
       return "createUpdateRegistration";
     }

@@ -20,7 +20,8 @@ public class UserValidator implements Validator {
 
   @Override
   public boolean supports(Class<?> clazz) {
-    return UserDTO.class.equals(clazz);
+    // return UserDTO.class.equals(clazz);
+    return UserDTO.class.isAssignableFrom(clazz);
   }
 
   @Override
@@ -42,6 +43,7 @@ public class UserValidator implements Validator {
         && !(avatar.getContentType().equals("image/png") || avatar.getContentType().equals("image/jpeg"))) {
       errors.rejectValue("avatar", "BadAvatar.avatar");
     }
+
   }
 
   public boolean checkInput(String regex, String input) {

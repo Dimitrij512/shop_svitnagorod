@@ -29,6 +29,7 @@ import com.shop.svitnagorod.model.OrderDetails;
 import com.shop.svitnagorod.model.Orders;
 import com.shop.svitnagorod.model.Product;
 import com.shop.svitnagorod.model.Users;
+import com.shop.svitnagorod.service.CategoryService;
 import com.shop.svitnagorod.service.MailService;
 import com.shop.svitnagorod.service.OrdersService;
 import com.shop.svitnagorod.service.ProductService;
@@ -48,12 +49,36 @@ public class OrdersController {
   OrdersService orderService;
   @Autowired
   MailService mailService;
+  @Autowired
+  ProductService productSrvice;
+
+  @Autowired
+  CategoryService categoryService;
 
   private static final String PRODUCTS = "products";
   private static final String ORDER = "order";
   private static final String ORDERS = "orders";
+  private static final String PRODUCT = "product";
+  private static final String CATEGORYNAME = "categoryName";
 
   private List<OrderDetails> listOrderDetails = new ArrayList<OrderDetails>();
+
+  @GetMapping("/products/{id}")
+  public String productsByCategoryID(@PathVariable int id, Model model) {
+
+    model.addAttribute(CATEGORYNAME, categoryService.findById(id).getName());
+    model.addAttribute(PRODUCTS, productSrvice.findProductsByCategoryID(id));
+
+    return "products";
+  }
+
+  @GetMapping("/productDetail/{id}")
+  public String productDetail(@PathVariable int id, Model model) {
+
+    model.addAttribute(PRODUCT, productSrvice.findById(id));
+
+    return "productDetail";
+  }
 
   @GetMapping("/basket")
   public String showAllProductsFromBasket(Model model) {

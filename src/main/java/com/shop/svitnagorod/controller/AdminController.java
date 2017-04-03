@@ -28,7 +28,6 @@ import com.shop.svitnagorod.service.UserService;
 @RequestMapping("/admin")
 public class AdminController {
 
-  public static final String USERS = "users";
   private static final String SUPERCATEGORIES = "superCategories";
   private static final String SUPERCATEGORY = "spuerCategory";
   private static final String CATEGORIES = "categories";
@@ -37,6 +36,7 @@ public class AdminController {
   private static final String PRODUCT = "product";
   private static final String BANNERS = "banners";
   private static final String BANNER = "banner";
+  public static final String USERS = "users";
 
   @Autowired
   SuperCategoryService superCategoryService;
@@ -71,6 +71,22 @@ public class AdminController {
     return "managementUsers";
   }
 
+  @GetMapping("/settingWebsite/createUpdateSuperCategory")
+  public String createSuperCategory(Model model) {
+
+    model.addAttribute(SUPERCATEGORY, new SuperCategoryDTO());
+
+    return "createUpdateSuperCategory";
+  }
+
+  @PostMapping("/settingWebsite/createUpdateSuperCategory")
+  public String addSuperCategory(@ModelAttribute(SUPERCATEGORIES) SuperCategoryDTO superCategoryDTO) {
+
+    superCategoryService.save(superCategoryDTO);
+
+    return "redirect:/admin/settingWebsite/superCategory";
+  }
+
   @GetMapping("/settingWebsite/categories")
   public String managementCategory(Model model) {
 
@@ -94,7 +110,6 @@ public class AdminController {
   @GetMapping("/settingWebsite/superCategory")
   public String managementSuperCategory(Model model) {
     model.addAttribute(SUPERCATEGORIES, superCategoryService.findAllCategory());
-    model.addAttribute(SUPERCATEGORY, new SuperCategoryDTO());
 
     return "managementSuperCategories";
   }
@@ -114,14 +129,6 @@ public class AdminController {
     bannerService.save(bannerDTO);
 
     return "redirect:/admin/settingWebsite/banners";
-  }
-
-  @PostMapping("/settingWebsite/superCategory")
-  public String addSuperCategory(@ModelAttribute(SUPERCATEGORIES) SuperCategoryDTO superCategoryDTO) {
-
-    superCategoryService.save(superCategoryDTO);
-
-    return "redirect:/admin/settingWebsite/superCategory";
   }
 
   @PostMapping("/settingWebsite/products")
