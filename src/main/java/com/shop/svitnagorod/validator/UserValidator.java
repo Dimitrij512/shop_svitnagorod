@@ -45,8 +45,8 @@ public class UserValidator implements Validator {
   }
 
   public boolean checkInput(String regex, String input) {
-    if (input == null) {
-      return false;
+    if (input == null || input.length() == 0) {
+      return true;
     }
     Pattern p = Pattern.compile(regex);
     Matcher m = p.matcher(input);

@@ -95,7 +95,6 @@ public class UserDTO implements Serializable {
     this.role = role;
   }
 
-  @NotBlank(message = "Вкажіть ваш телефон")
   public String getPhone() {
     return phone;
   }
