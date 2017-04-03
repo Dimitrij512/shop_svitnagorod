@@ -26,6 +26,7 @@ public class LoginLogoutController {
       return "login";
     }
     model.addAttribute(SUCCES, auth.isAuthenticated());
+
     return "login";
   }
 
@@ -43,6 +44,7 @@ public class LoginLogoutController {
   public String error403(Model model) {
 
     model.addAttribute("message", "You don't have permission to access this page");
+
     return "error";
   }
 

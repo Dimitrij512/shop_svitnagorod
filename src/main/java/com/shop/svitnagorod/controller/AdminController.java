@@ -53,16 +53,19 @@ public class AdminController {
 
   @RequestMapping(value = { "/welcome" }, method = RequestMethod.GET)
   public String loginPage(Model model) {
+
     return "admin";
   }
 
   @GetMapping("/settingWebsite")
   public String settingWebsite(Model model) {
+
     return "settingWebSite";
   }
 
   @GetMapping("/settingWebsite/users")
   public String managementUsers(Model model) {
+
     model.addAttribute(USERS, userService.findAllUser());
 
     return "managementUsers";
@@ -80,9 +83,11 @@ public class AdminController {
 
   @GetMapping("/settingWebsite/products")
   public String managementProduct(Model model) {
+
     model.addAttribute(PRODUCTS, productService.findAllProducts());
     model.addAttribute(PRODUCT, new ProductDTO());
     model.addAttribute(CATEGORIES, categoryService.findAllCategory());
+
     return "managementProducts";
   }
 
@@ -90,20 +95,24 @@ public class AdminController {
   public String managementSuperCategory(Model model) {
     model.addAttribute(SUPERCATEGORIES, superCategoryService.findAllCategory());
     model.addAttribute(SUPERCATEGORY, new SuperCategoryDTO());
+
     return "managementSuperCategories";
   }
 
   @GetMapping("/settingWebsite/banners")
   public String managementBanner(Model model) {
-    System.out.println("controller banner");
+
     model.addAttribute(BANNERS, bannerService.findAll());
     model.addAttribute(BANNER, new BannerDTO());
+
     return "managementBanners";
   }
 
   @PostMapping("/settingWebsite/banners")
   public String createBanner(@ModelAttribute(BANNERS) BannerDTO bannerDTO) {
+
     bannerService.save(bannerDTO);
+
     return "redirect:/admin/settingWebsite/banners";
   }
 
@@ -134,31 +143,35 @@ public class AdminController {
   @DeleteMapping("/settingWebsite/superCategory/delete")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void deleterSuperCategory(@RequestBody int id) {
+
     superCategoryService.delete(id);
   }
 
   @DeleteMapping("/settingWebsite/categories/delete")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void deleteCategory(@RequestBody int id) {
+
     categoryService.delete(id);
   }
 
   @DeleteMapping("/settingWebsite/user/delete")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void deleteUser(@RequestBody int id) {
-    System.out.println("ID USER = " + id);
+
     userService.delete(id);
   }
 
   @DeleteMapping("/settingWebsite/products/delete")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void deleteProduct(@RequestBody int id) {
+
     productService.delete(id);
   }
 
   @DeleteMapping("/settingWebsite/banner/delete")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void deleteBanner(@RequestBody int id) {
+
     bannerService.delete(id);
   }
 

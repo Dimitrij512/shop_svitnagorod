@@ -64,6 +64,7 @@ public class GuestController {
 
   @Autowired
   UserService userService;
+
   @Autowired
   GeneralService generalService;
 
@@ -93,10 +94,10 @@ public class GuestController {
   private static final String PRODUCT = "product";
   private static final String CATEGORYNAME = "categoryName";
 
-  @InitBinder
+  @InitBinder("userDTO")
   public void initBinder(WebDataBinder binder) {
 
-    binder.addValidators(userValidator);
+    binder.setValidator(userValidator);
   }
 
   @GetMapping("/")
