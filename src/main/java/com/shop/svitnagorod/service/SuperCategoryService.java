@@ -7,12 +7,14 @@ import com.shop.svitnagorod.model.SuperCategory;
 
 public interface SuperCategoryService {
 
-  void save(SuperCategoryDTO categoryDTO);
+	void save(SuperCategoryDTO categoryDTO);
 
-  void delete(int id);
+	void update(SuperCategoryDTO categoryDTO);
 
-  List<SuperCategory> findAllCategory();
+	void delete(int id);
 
-  SuperCategory findById(int id);
+	List<SuperCategory> findAllCategory();
+
+	SuperCategory findById(int id);
 
 }

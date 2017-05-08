@@ -85,6 +85,7 @@
               </div>
               <div class="modal-footer">
                 <button id="${category.id}" class="btn btn-danger delete">Видалити</button>
+                <button id="" class="btn btn-danger delete">Редагувати</button>
               </div>
             </div>
             

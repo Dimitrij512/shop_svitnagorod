@@ -48,209 +48,209 @@ import com.shop.svitnagorod.validator.UserValidator;
 @Controller
 @RequestMapping("/")
 public class GuestController {
-  private static final String REGISTRATION = "registration";
+	private static final String REGISTRATION = "registration";
 
-  // private BCryptPasswordEncoder cryptor = new BCryptPasswordEncoder();
+	// private BCryptPasswordEncoder cryptor = new BCryptPasswordEncoder();
 
-  @Autowired
-  UserValidator userValidator;
+	@Autowired
+	UserValidator userValidator;
 
-  @Autowired
-  SuperCategoryService superCategoryService;
+	@Autowired
+	SuperCategoryService superCategoryService;
 
-  @Autowired
-  CategoryService categoryService;
+	@Autowired
+	CategoryService categoryService;
 
-  @Autowired
-  UserService userService;
+	@Autowired
+	UserService userService;
 
-  @Autowired
-  GeneralService generalService;
+	@Autowired
+	GeneralService generalService;
 
-  @Autowired
-  ProductService productSrvice;
+	@Autowired
+	ProductService productSrvice;
 
-  @Autowired
-  OrdersService orderService;
+	@Autowired
+	OrdersService orderService;
 
-  @Autowired
-  OrderDetailsService orderDetailsServic;
+	@Autowired
+	OrderDetailsService orderDetailsServic;
 
-  @Autowired
-  BannerService bannerService;
+	@Autowired
+	BannerService bannerService;
 
-  @Autowired
-  MailService mailService;
+	@Autowired
+	MailService mailService;
 
-  @Autowired
-  Facebook facebook;
+	@Autowired
+	Facebook facebook;
 
-  @Autowired
-  ProviderSignInUtils providerSignInUtils;
+	@Autowired
+	ProviderSignInUtils providerSignInUtils;
 
-  private static final String BANNERS = "banners";
-  private static final String CATEGORYES = "categoryes";
-  private static final String PRODUCTS = "products";
+	private static final String BANNERS = "banners";
+	private static final String CATEGORYES = "categoryes";
+	private static final String PRODUCTS = "products";
 
-  @InitBinder
-  public void initUserBinder(WebDataBinder binder) {
+	@InitBinder
+	public void initUserBinder(WebDataBinder binder) {
 
-    binder.addValidators(userValidator);
-  }
+		binder.addValidators(userValidator);
+	}
 
-  @GetMapping("/")
-  public String homePage(Model model) {
+	@GetMapping("/")
+	public String homePage(Model model) {
 
-    model.addAttribute(BANNERS, bannerService.findEnabled());
-    model.addAttribute(CATEGORYES, categoryService.findAllCategory());
-    model.addAttribute(PRODUCTS, productSrvice.findAllProducts());
+		model.addAttribute(BANNERS, bannerService.findEnabled());
+		model.addAttribute(CATEGORYES, categoryService.findAllCategory());
+		model.addAttribute(PRODUCTS, productSrvice.findAllProducts());
 
-    return "home";
-  }
+		return "home";
+	}
 
-  @GetMapping("/contactus")
-  public String contactUsPage(Model model) {
+	@GetMapping("/contactus")
+	public String contactUsPage(Model model) {
 
-    return "contactus";
-  }
+		return "contactus";
+	}
 
-  @GetMapping("/registration")
-  public String getRegistration(Model model) {
+	@GetMapping("/registration")
+	public String getRegistration(Model model) {
 
-    model.addAttribute(REGISTRATION, new UserDTO());
+		model.addAttribute(REGISTRATION, new UserDTO());
 
-    return "createUpdateRegistration";
-  }
+		return "createUpdateRegistration";
+	}
 
-  @GetMapping("/facebook/signup")
-  public String signup(WebRequest request, HttpServletRequest requsts, Model model) {
-    Connection<?> connection = providerSignInUtils.getConnectionFromSession(request);
-    Users users = null;
-    if (connection != null) {
+	@GetMapping("/facebook/signup")
+	public String signup(WebRequest request, HttpServletRequest requsts, Model model) {
+		Connection<?> connection = providerSignInUtils.getConnectionFromSession(request);
+		Users users = null;
+		if (connection != null) {
 
-      facebook = (Facebook) connection.getApi();
-      String[] fields = { "id", "email", "age_range", "birthday", "first_name", "last_name", "gender" };
-      User userProfile = facebook.fetchObject("me", User.class, fields);
-      users = userService.findByLogin(userProfile.getEmail());
-      if (users == null) {
-        users = new Users();
-        users.setLogin(userProfile.getEmail());
-        users.setName(userProfile.getFirstName());
-        users.setSurname(userProfile.getLastName());
-        users.setRole("CUSTOMER");
-        users.setPassword(randomAlphabetic(15));
-        users.setAvatar(facebook.userOperations().getUserProfileImage());
+			facebook = (Facebook) connection.getApi();
+			String[] fields = { "id", "email", "age_range", "birthday", "first_name", "last_name", "gender" };
+			User userProfile = facebook.fetchObject("me", User.class, fields);
+			users = userService.findByLogin(userProfile.getEmail());
+			if (users == null) {
+				users = new Users();
+				users.setLogin(userProfile.getEmail());
+				users.setName(userProfile.getFirstName());
+				users.setSurname(userProfile.getLastName());
+				users.setRole("CUSTOMER");
+				users.setPassword(randomAlphabetic(15));
+				users.setAvatar(facebook.userOperations().getUserProfileImage());
 
-        userService.saveUser(users);
-        // mailService.sendRegistrationMail(users.getLogin(), users.getName(),
-        // users.getSurname());
-      }
-    }
-    userService.authenticateUserAndSetSession(users, requsts);
+				userService.saveUser(users);
+				mailService.sendRegistrationMail(users.getLogin(), users.getName(), users.getSurname());
+			}
+		}
+		userService.authenticateUserAndSetSession(users, requsts);
 
-    return "redirect:/";
-  }
+		return "redirect:/";
+	}
 
-  @PostMapping("/registration")
-  public String createUser(@ModelAttribute(REGISTRATION) @Validated UserDTO userDTO, BindingResult bindingResult,
-      Model model) {
-    if (bindingResult.hasErrors()) {
+	@PostMapping("/registration")
+	public String createUser(
+	    @ModelAttribute(REGISTRATION) @Validated UserDTO userDTO, BindingResult bindingResult,
+	    Model model
+	) {
+		if (bindingResult.hasErrors()) {
 
-      model.addAttribute(REGISTRATION, userDTO);
-      return "createUpdateRegistration";
-    }
+			model.addAttribute(REGISTRATION, userDTO);
+			return "createUpdateRegistration";
+		}
 
-    String userPassword = userDTO.getPassword();
-    userDTO.setPassword(userPassword);
-    userService.save(userDTO);
-    // mailService.sendRegistrationMail(userDTO.getLogin(), userDTO.getName(),
-    // userDTO.getSurname());
+		String userPassword = userDTO.getPassword();
+		userDTO.setPassword(userPassword);
+		userService.save(userDTO);
+		mailService.sendRegistrationMail(userDTO.getLogin(), userDTO.getName(), userDTO.getSurname());
 
-    return "redirect:/registration?registrationSuccess=true";
-  }
+		return "redirect:/registration?registrationSuccess=true";
+	}
 
-  @GetMapping("/users/{id}/avatar")
-  public void getUserAvatar(HttpServletResponse response, @PathVariable int id) {
-    byte[] data = userService.findById(id).getAvatar();
+	@GetMapping("/users/{id}/avatar")
+	public void getUserAvatar(HttpServletResponse response, @PathVariable int id) {
+		byte[] data = userService.findById(id).getAvatar();
 
-    if (data != null) {
-      response.setContentType(MediaType.IMAGE_JPEG_VALUE);
-      response.setContentLength(data.length);
-      try (ServletOutputStream outputStream = response.getOutputStream()) {
-        FileCopyUtils.copy(data, outputStream);
-      } catch (IOException e) {
-      }
-    }
-  }
+		if (data != null) {
+			response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+			response.setContentLength(data.length);
+			try (ServletOutputStream outputStream = response.getOutputStream()) {
+				FileCopyUtils.copy(data, outputStream);
+			} catch (IOException e) {
+			}
+		}
+	}
 
-  @GetMapping("/usersInfo/{name}/avatar")
-  public void getUserAvatarByLogin(HttpServletResponse response, @PathVariable String name) {
-    byte[] data = userService.findByLogin(name).getAvatar();
-    if (data != null) {
-      response.setContentType(MediaType.IMAGE_JPEG_VALUE);
-      response.setContentLength(data.length);
-      try (ServletOutputStream outputStream = response.getOutputStream()) {
-        FileCopyUtils.copy(data, outputStream);
-      } catch (IOException e) {
-      }
-    }
-  }
+	@GetMapping("/usersInfo/{name}/avatar")
+	public void getUserAvatarByLogin(HttpServletResponse response, @PathVariable String name) {
+		byte[] data = userService.findByLogin(name).getAvatar();
+		if (data != null) {
+			response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+			response.setContentLength(data.length);
+			try (ServletOutputStream outputStream = response.getOutputStream()) {
+				FileCopyUtils.copy(data, outputStream);
+			} catch (IOException e) {
+			}
+		}
+	}
 
-  @GetMapping("/productInfo/{id}/image")
-  public void getProductImage(HttpServletResponse response, @PathVariable int id) {
-    byte[] data = productSrvice.findById(id).getImage();
-    if (data != null) {
-      response.setContentType(MediaType.IMAGE_JPEG_VALUE);
-      response.setContentLength(data.length);
-      try (ServletOutputStream outputStream = response.getOutputStream()) {
-        FileCopyUtils.copy(data, outputStream);
-      } catch (IOException e) {
-      }
-    }
-  }
+	@GetMapping("/productInfo/{id}/image")
+	public void getProductImage(HttpServletResponse response, @PathVariable int id) {
+		byte[] data = productSrvice.findById(id).getImage();
+		if (data != null) {
+			response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+			response.setContentLength(data.length);
+			try (ServletOutputStream outputStream = response.getOutputStream()) {
+				FileCopyUtils.copy(data, outputStream);
+			} catch (IOException e) {
+			}
+		}
+	}
 
-  @GetMapping("/superCategoryInfo/{id}/image")
-  public void getSuperCategoryImage(HttpServletResponse response, @PathVariable int id) {
-    byte[] data = superCategoryService.findById(id).getImage();
-    if (data != null) {
-      response.setContentType(MediaType.IMAGE_JPEG_VALUE);
-      response.setContentLength(data.length);
-      try (ServletOutputStream outputStream = response.getOutputStream()) {
-        FileCopyUtils.copy(data, outputStream);
-      } catch (IOException e) {
-      }
-    }
-  }
+	@GetMapping("/superCategoryInfo/{id}/image")
+	public void getSuperCategoryImage(HttpServletResponse response, @PathVariable int id) {
+		byte[] data = superCategoryService.findById(id).getImage();
+		if (data != null) {
+			response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+			response.setContentLength(data.length);
+			try (ServletOutputStream outputStream = response.getOutputStream()) {
+				FileCopyUtils.copy(data, outputStream);
+			} catch (IOException e) {
+			}
+		}
+	}
 
-  @GetMapping("/categoryInfo/{id}/image")
-  public void getCategoryImage(HttpServletResponse response, @PathVariable int id) {
-    byte[] data = categoryService.findById(id).getImage();
-    if (data != null) {
-      response.setContentType(MediaType.IMAGE_JPEG_VALUE);
-      response.setContentLength(data.length);
-      try (ServletOutputStream outputStream = response.getOutputStream()) {
-        FileCopyUtils.copy(data, outputStream);
-      } catch (IOException e) {
-      }
-    }
-  }
+	@GetMapping("/categoryInfo/{id}/image")
+	public void getCategoryImage(HttpServletResponse response, @PathVariable int id) {
+		byte[] data = categoryService.findById(id).getImage();
+		if (data != null) {
+			response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+			response.setContentLength(data.length);
+			try (ServletOutputStream outputStream = response.getOutputStream()) {
+				FileCopyUtils.copy(data, outputStream);
+			} catch (IOException e) {
+			}
+		}
+	}
 
-  @GetMapping("/bannerInfo/{id}/image")
-  public void getBannerImage(HttpServletResponse response, @PathVariable int id) {
-    byte[] data = bannerService.findById(id).getImage();
-    if (data != null) {
-      response.setContentType(MediaType.IMAGE_JPEG_VALUE);
-      response.setContentLength(data.length);
-      try (ServletOutputStream outputStream = response.getOutputStream()) {
-        FileCopyUtils.copy(data, outputStream);
-      } catch (IOException e) {
-      }
-    }
-  }
+	@GetMapping("/bannerInfo/{id}/image")
+	public void getBannerImage(HttpServletResponse response, @PathVariable int id) {
+		byte[] data = bannerService.findById(id).getImage();
+		if (data != null) {
+			response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+			response.setContentLength(data.length);
+			try (ServletOutputStream outputStream = response.getOutputStream()) {
+				FileCopyUtils.copy(data, outputStream);
+			} catch (IOException e) {
+			}
+		}
+	}
 
-  @MessageMapping("/newOrderNotification")
-  @SendTo("/adminNotification")
-  public Notification greeting(OrderMessage orderMessage) {
-    return new Notification(orderMessage.getMessage());
-  }
+	@MessageMapping("/newOrderNotification")
+	@SendTo("/adminNotification")
+	public Notification greeting(OrderMessage orderMessage) {
+		return new Notification(orderMessage.getMessage());
+	}
 }

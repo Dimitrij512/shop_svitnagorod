@@ -59,5 +59,4 @@ public class SuperCategoryDAOImpl extends AbstractDao<Integer, SuperCategory>
 
 		return listSuperCategory;
 	}
-
 }

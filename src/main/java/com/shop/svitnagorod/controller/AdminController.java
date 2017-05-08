@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,158 +29,173 @@ import com.shop.svitnagorod.service.UserService;
 @RequestMapping("/admin")
 public class AdminController {
 
-  private static final String SUPERCATEGORIES = "superCategories";
-  private static final String SUPERCATEGORY = "spuerCategory";
-  private static final String CATEGORIES = "categories";
-  private static final String CATEGORY = "category";
-  private static final String PRODUCTS = "products";
-  private static final String PRODUCT = "product";
-  private static final String BANNERS = "banners";
-  private static final String BANNER = "banner";
-  public static final String USERS = "users";
+	private static final String SUPERCATEGORIES = "superCategories";
+	private static final String SUPERCATEGORY = "spuerCategory";
+	private static final String CATEGORIES = "categories";
+	private static final String CATEGORY = "category";
+	private static final String PRODUCTS = "products";
+	private static final String PRODUCT = "product";
+	private static final String BANNERS = "banners";
+	private static final String BANNER = "banner";
+	public static final String USERS = "users";
 
-  @Autowired
-  SuperCategoryService superCategoryService;
-  @Autowired
-  CategoryService categoryService;
-  @Autowired
-  ProductService productService;
-  @Autowired
-  UserService userService;
-  @Autowired
-  OrdersService orderService;
-  @Autowired
-  BannerService bannerService;
+	@Autowired
+	SuperCategoryService superCategoryService;
+	@Autowired
+	CategoryService categoryService;
+	@Autowired
+	ProductService productService;
+	@Autowired
+	UserService userService;
+	@Autowired
+	OrdersService orderService;
+	@Autowired
+	BannerService bannerService;
 
-  @RequestMapping(value = { "/welcome" }, method = RequestMethod.GET)
-  public String loginPage(Model model) {
+	@RequestMapping(value = { "/welcome" }, method = RequestMethod.GET)
+	public String loginPage(Model model) {
 
-    return "admin";
-  }
+		return "admin";
+	}
 
-  @GetMapping("/settingWebsite")
-  public String settingWebsite(Model model) {
+	@GetMapping("/settingWebsite")
+	public String settingWebsite(Model model) {
 
-    return "settingWebSite";
-  }
+		return "settingWebSite";
+	}
 
-  @GetMapping("/settingWebsite/users")
-  public String managementUsers(Model model) {
+	@GetMapping("/settingWebsite/users")
+	public String managementUsers(Model model) {
 
-    model.addAttribute(USERS, userService.findAllUser());
+		model.addAttribute(USERS, userService.findAllUser());
 
-    return "managementUsers";
-  }
+		return "managementUsers";
+	}
 
-  @GetMapping("/settingWebsite/createUpdateSuperCategory")
-  public String createSuperCategory(Model model) {
+	@GetMapping("/settingWebsite/createUpdateSuperCategory")
+	public String createSuperCategory(Model model) {
 
-    model.addAttribute(SUPERCATEGORY, new SuperCategoryDTO());
+		model.addAttribute(SUPERCATEGORY, new SuperCategoryDTO());
 
-    return "createUpdateSuperCategory";
-  }
+		return "createUpdateSuperCategory";
+	}
 
-  @PostMapping("/settingWebsite/createUpdateSuperCategory")
-  public String addSuperCategory(@ModelAttribute(SUPERCATEGORIES) SuperCategoryDTO superCategoryDTO) {
+	@GetMapping("/settingWebsite/createUpdateSuperCategory/{id}")
+	public String updateSuperCategory(@PathVariable int id, Model model) {
 
-    superCategoryService.save(superCategoryDTO);
+		model.addAttribute(SUPERCATEGORY, superCategoryService.findById(id));
 
-    return "redirect:/admin/settingWebsite/superCategory";
-  }
+		return "createUpdateSuperCategory";
+	}
 
-  @GetMapping("/settingWebsite/categories")
-  public String managementCategory(Model model) {
+	@PostMapping("/settingWebsite/createUpdateSuperCategory/{id}")
+	public String saveSuperCategory(@ModelAttribute("orders") SuperCategoryDTO superCategoryDTO, Model model) {
+		superCategoryService.update(superCategoryDTO);
 
-    model.addAttribute(CATEGORIES, categoryService.findAllCategory());
-    model.addAttribute(CATEGORY, new CategoryDTO());
-    model.addAttribute(SUPERCATEGORIES, superCategoryService.findAllCategory());
+		return "redirect:/admin/settingWebsite/superCategory";
+	}
 
-    return "managementCategories";
-  }
+	@PostMapping("/settingWebsite/createUpdateSuperCategory")
+	public String addSuperCategory(@ModelAttribute(SUPERCATEGORIES) SuperCategoryDTO superCategoryDTO) {
 
-  @GetMapping("/settingWebsite/products")
-  public String managementProduct(Model model) {
+		superCategoryService.save(superCategoryDTO);
 
-    model.addAttribute(PRODUCTS, productService.findAllProducts());
-    model.addAttribute(PRODUCT, new ProductDTO());
-    model.addAttribute(CATEGORIES, categoryService.findAllCategory());
+		return "redirect:/admin/settingWebsite/superCategory";
+	}
 
-    return "managementProducts";
-  }
+	@GetMapping("/settingWebsite/categories")
+	public String managementCategory(Model model) {
 
-  @GetMapping("/settingWebsite/superCategory")
-  public String managementSuperCategory(Model model) {
-    model.addAttribute(SUPERCATEGORIES, superCategoryService.findAllCategory());
+		model.addAttribute(CATEGORIES, categoryService.findAllCategory());
+		model.addAttribute(CATEGORY, new CategoryDTO());
+		model.addAttribute(SUPERCATEGORIES, superCategoryService.findAllCategory());
 
-    return "managementSuperCategories";
-  }
+		return "managementCategories";
+	}
 
-  @GetMapping("/settingWebsite/banners")
-  public String managementBanner(Model model) {
+	@GetMapping("/settingWebsite/products")
+	public String managementProduct(Model model) {
 
-    model.addAttribute(BANNERS, bannerService.findAll());
-    model.addAttribute(BANNER, new BannerDTO());
+		model.addAttribute(PRODUCTS, productService.findAllProducts());
+		model.addAttribute(PRODUCT, new ProductDTO());
+		model.addAttribute(CATEGORIES, categoryService.findAllCategory());
 
-    return "managementBanners";
-  }
+		return "managementProducts";
+	}
 
-  @PostMapping("/settingWebsite/banners")
-  public String createBanner(@ModelAttribute(BANNERS) BannerDTO bannerDTO) {
+	@GetMapping("/settingWebsite/superCategory")
+	public String managementSuperCategory(Model model) {
+		model.addAttribute(SUPERCATEGORIES, superCategoryService.findAllCategory());
 
-    bannerService.save(bannerDTO);
+		return "managementSuperCategories";
+	}
 
-    return "redirect:/admin/settingWebsite/banners";
-  }
+	@GetMapping("/settingWebsite/banners")
+	public String managementBanner(Model model) {
 
-  @PostMapping("/settingWebsite/products")
-  public String addProduct(@ModelAttribute(PRODUCTS) ProductDTO productDTO) {
+		model.addAttribute(BANNERS, bannerService.findAll());
+		model.addAttribute(BANNER, new BannerDTO());
 
-    productService.save(productDTO);
+		return "managementBanners";
+	}
 
-    return "redirect:/admin/settingWebsite/products";
-  }
+	@PostMapping("/settingWebsite/banners")
+	public String createBanner(@ModelAttribute(BANNERS) BannerDTO bannerDTO) {
 
-  @PostMapping("/settingWebsite/categories")
-  public String addCategory(@ModelAttribute(CATEGORIES) CategoryDTO categoryDTO) {
+		bannerService.save(bannerDTO);
 
-    categoryService.save(categoryDTO);
+		return "redirect:/admin/settingWebsite/banners";
+	}
 
-    return "redirect:/admin/settingWebsite/categories";
-  }
+	@PostMapping("/settingWebsite/products")
+	public String addProduct(@ModelAttribute(PRODUCTS) ProductDTO productDTO) {
 
-  @DeleteMapping("/settingWebsite/superCategory/delete")
-  @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void deleterSuperCategory(@RequestBody int id) {
+		productService.save(productDTO);
 
-    superCategoryService.delete(id);
-  }
+		return "redirect:/admin/settingWebsite/products";
+	}
 
-  @DeleteMapping("/settingWebsite/categories/delete")
-  @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void deleteCategory(@RequestBody int id) {
+	@PostMapping("/settingWebsite/categories")
+	public String addCategory(@ModelAttribute(CATEGORIES) CategoryDTO categoryDTO) {
 
-    categoryService.delete(id);
-  }
+		categoryService.save(categoryDTO);
 
-  @DeleteMapping("/settingWebsite/user/delete")
-  @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void deleteUser(@RequestBody int id) {
+		return "redirect:/admin/settingWebsite/categories";
+	}
 
-    userService.delete(id);
-  }
+	@DeleteMapping("/settingWebsite/superCategory/delete")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleterSuperCategory(@RequestBody int id) {
 
-  @DeleteMapping("/settingWebsite/products/delete")
-  @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void deleteProduct(@RequestBody int id) {
+		superCategoryService.delete(id);
+	}
 
-    productService.delete(id);
-  }
+	@DeleteMapping("/settingWebsite/categories/delete")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteCategory(@RequestBody int id) {
 
-  @DeleteMapping("/settingWebsite/banner/delete")
-  @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void deleteBanner(@RequestBody int id) {
+		categoryService.delete(id);
+	}
 
-    bannerService.delete(id);
-  }
+	@DeleteMapping("/settingWebsite/user/delete")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteUser(@RequestBody int id) {
+
+		userService.delete(id);
+	}
+
+	@DeleteMapping("/settingWebsite/products/delete")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteProduct(@RequestBody int id) {
+
+		productService.delete(id);
+	}
+
+	@DeleteMapping("/settingWebsite/banner/delete")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteBanner(@RequestBody int id) {
+
+		bannerService.delete(id);
+	}
 
 }
