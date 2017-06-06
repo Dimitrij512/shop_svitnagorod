@@ -102,8 +102,8 @@ public class GuestController {
 	public String homePage(Model model) {
 
 		model.addAttribute(BANNERS, bannerService.findEnabled());
-		model.addAttribute(CATEGORYES, categoryService.findAllCategory());
-		model.addAttribute(PRODUCTS, productSrvice.findAllProducts());
+		//model.addAttribute(CATEGORYES, categoryService.findAllCategory());
+		//model.addAttribute(PRODUCTS, productSrvice.findAllProducts());
 
 		return "home";
 	}

@@ -14,7 +14,7 @@
           <form:form action="" method="POST" modelAttribute="spuerCategory" class="" enctype="multipart/form-data">
             <div class="form-group">
             <c:if test="${spuerCategory.id > 0}">
-              <img alt="" style="width: 50px; height: 50px;" src=<c:url value="/superCategoryInfo/${spuerCategory.id}/image" />>
+              <img  class = "img-circle" alt="" style="width: 50px; height: 50px;" src=<c:url value="/superCategoryInfo/${spuerCategory.id}/image" />>
             </c:if>
               <label for="user_foto"><i class="icon-user"></i> <b>Зображення</b></label>
                <form:input type="file" path="image" name="img[]" id="user_foto" class="file"/>

@@ -3,43 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%> 
 
-<div class="row">
-  <div class="col-lg-9">
-    <form:form action="" method="POST" modelAttribute="category" enctype="multipart/form-data" class="form-inline">
-      <div class="form-group">
-        <div class="col-lg-12">
-         <form:input type="file" path="image" name="img[]"  class="file" />
-          <div class="input-group">
-            <span class="input-group-addon"><span class="glyphicon glyphicon-picture"></span></span>
-            <input type="text" class="form-control" disabled placeholder="зображення каегорії" />
-            <span class="input-group-btn">
-              <button class="browse btn btn-info" type="button">
-              <i class="glyphicon glyphicon-search"></i> завантажити</button>
-              </span>
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="col-lg-12">
-          <div class="input-group"> <span class="input-group-addon"><span>назва</span></span>
-            <form:input path="name" type="text" class="form-control" />
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="col-lg-12">
-           <form:select id="" path="super_category_id" items="${superCategories}" class="form-control" data-placeholder="super category"
-        	itemLabel="name" itemValue="id" />  
-        </div>
-      </div> 
-      <div class="form-group">
-        <div class="col-lg-12">
-          <button type="submit" class="btn btn-success">Створити</button>
-        </div>
-      </div>
-    </form:form>
-  </div>
-</div>
+<p class="text-center">
+  <a href="${pageContext.request.contextPath}/admin/settingWebsite/createUpdateCategory" class="btn btn-primary"> створити категорію</a>
+</p>
 
 <table id = "categories" class="table table-striped table-bordered">
   <thead>
@@ -51,8 +17,6 @@
     </tr>
   </thead>
   <tbody>
-  <c:if test="${category.super_category_id == superCategory.id}">
-  </c:if>
     <c:forEach items="${categories}" var="category">
       <tr>
         <td>
@@ -63,9 +27,9 @@
         </td>
         <td>
          <c:forEach items="${superCategories}" var="superCategory">
-         	<c:if test="${category.super_category_id == superCategory.id}">
+          	<c:if test="${category.superCategory.id == superCategory.id}">
          		<c:out value="${superCategory.name}"></c:out>
-         	</c:if>
+          	</c:if>
          </c:forEach> 
         </td>
         <td>

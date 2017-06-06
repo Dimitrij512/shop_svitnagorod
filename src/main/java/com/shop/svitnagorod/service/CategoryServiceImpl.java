@@ -14,49 +14,49 @@ import com.shop.svitnagorod.model.Category;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
-  @Autowired
-  CategoryDao dao;
+	@Autowired
+	CategoryDao dao;
 
-  @Autowired
-  GeneralService genSrvice;
+	@Autowired
+	GeneralService genSrvice;
 
-  @Transactional
-  @Override
-  public void save(CategoryDTO categoryDTO) {
-    Category category = new Category();
-    category.setId(categoryDTO.getId());
-    category.setName(categoryDTO.getName());
-    category.setProducts(categoryDTO.getProducts());
-    category.setSuper_category_id(categoryDTO.getSuper_category_id());
-    MultipartFile image = categoryDTO.getImage();
-    try {
-      if (image.isEmpty()) {
-        category.setImage(genSrvice.getDefoultImageProduct());
-      } else {
-        category.setImage(image.getBytes());
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    dao.save(category);
-  }
+	@Transactional
+	@Override
+	public void save(CategoryDTO categoryDTO) {
+		Category category = new Category();
+		category.setId(categoryDTO.getId());
+		category.setName(categoryDTO.getName());
+		category.setProducts(categoryDTO.getProducts());
+		category.setSuperCategory(categoryDTO.getSuperCategory());
+		MultipartFile image = categoryDTO.getImage();
+		try {
+			if (image.isEmpty()) {
+				category.setImage(genSrvice.getDefoultImageProduct());
+			} else {
+				category.setImage(image.getBytes());
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		dao.save(category);
+	}
 
-  @Transactional
-  @Override
-  public void delete(int id) {
-    dao.delete(id);
-  }
+	@Transactional
+	@Override
+	public void delete(int id) {
+		dao.delete(id);
+	}
 
-  @Transactional
-  @Override
-  public List<Category> findAllCategory() {
-    return dao.findAllCategories();
-  }
+	@Transactional
+	@Override
+	public List<Category> findAllCategory() {
+		return dao.findAllCategories();
+	}
 
-  @Transactional
-  @Override
-  public Category findById(int id) {
-    return dao.findById(id);
-  }
+	@Transactional
+	@Override
+	public Category findById(int id) {
+		return dao.findById(id);
+	}
 
 }

@@ -46,5 +46,11 @@
        <put-attribute name="title" value="створення категорії" />  
        <put-attribute name="menu" value="/WEB-INF/views/pages/admin/createUpdateSuperCategory.jsp" />  
    </definition>
-
+   
+             <!-- Page for create super category-->
+   <definition name="createUpdateCategory" extends="settingWebSite">  
+       <put-attribute name="title" value="створення категорії" />  
+       <put-attribute name="menu" value="/WEB-INF/views/pages/admin/createUpdateCategory.jsp" />  
+   </definition>
+   
 </tiles-definitions>

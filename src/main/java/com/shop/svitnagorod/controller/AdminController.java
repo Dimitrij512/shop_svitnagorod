@@ -80,6 +80,15 @@ public class AdminController {
 		return "createUpdateSuperCategory";
 	}
 
+	@GetMapping("/settingWebsite/createUpdateCategory")
+	public String createCategory(Model model) {
+
+		model.addAttribute(CATEGORY, new CategoryDTO());
+		model.addAttribute(SUPERCATEGORIES, superCategoryService.findAllCategory());
+
+		return "createUpdateCategory";
+	}
+
 	@GetMapping("/settingWebsite/createUpdateSuperCategory/{id}")
 	public String updateSuperCategory(@PathVariable int id, Model model) {
 
@@ -101,6 +110,15 @@ public class AdminController {
 		superCategoryService.save(superCategoryDTO);
 
 		return "redirect:/admin/settingWebsite/superCategory";
+	}
+
+	@PostMapping("/settingWebsite/createUpdateCategory")
+	public String addCategory(@ModelAttribute(CATEGORY) CategoryDTO categoryDTO) {
+		System.out.println("---------------- somthing post controller ----------------------");
+
+		categoryService.save(categoryDTO);
+
+		return "redirect:/admin/settingWebsite/categories";
 	}
 
 	@GetMapping("/settingWebsite/categories")
@@ -153,14 +171,6 @@ public class AdminController {
 		productService.save(productDTO);
 
 		return "redirect:/admin/settingWebsite/products";
-	}
-
-	@PostMapping("/settingWebsite/categories")
-	public String addCategory(@ModelAttribute(CATEGORIES) CategoryDTO categoryDTO) {
-
-		categoryService.save(categoryDTO);
-
-		return "redirect:/admin/settingWebsite/categories";
 	}
 
 	@DeleteMapping("/settingWebsite/superCategory/delete")

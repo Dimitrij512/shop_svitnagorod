@@ -34,7 +34,7 @@
     </div>
     <div class="form-group">
       <div class="input-group"> <span class="input-group-addon"><span class="glyphicon glyphicon-menu-hamburger"></span></span>
-        <form:select id="" path="category_id" items="${categories}" class="form-control" data-placeholder="super category" itemLabel="name"
+        <form:select id="" path="category" items="${categories}" class="form-control" data-placeholder="super category" itemLabel="name"
           itemValue="id" />
       </div>
     </div>
@@ -71,7 +71,7 @@
           </td>
           <td>
             <c:forEach items="${categories}" var="category">
-              <c:if test="${product.category_id == category.id}">
+              <c:if test="${product.category.id == category.id}">
                 <c:out value="${category.name}"></c:out>
               </c:if>
             </c:forEach>

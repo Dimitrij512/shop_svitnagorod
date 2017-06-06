@@ -61,7 +61,6 @@ public class SuperCategoryServiceImpl implements SuperCategoryService {
 		try {
 			if (!image.isEmpty()) {
 				entity.setImage(image.getBytes());
-				//entityentity.setImage(genService.getDefoultImageProduct());
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

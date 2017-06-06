@@ -1,83 +1,96 @@
 package com.shop.svitnagorod.DTO;
 
+import java.io.Serializable;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.web.multipart.MultipartFile;
 
-public class ProductDTO {
+import com.shop.svitnagorod.model.Category;
 
-  private static final long serialVersionUID = -846256523776995760L;
+public class ProductDTO implements Serializable {
 
-  private int id;
-  private String name;
-  private String description;
-  private float price;
-  private int category_id;
-  private MultipartFile image;
+	private static final long serialVersionUID = -846256523776995760L;
 
-  public int getId() {
-    return id;
-  }
+	private int id;
+	private String name;
+	private String description;
+	private float price;
+	private Category category;
+	//private int category_id;
+	private MultipartFile image;
 
-  public void setId(int id) {
-    this.id = id;
-  }
+	public int getId() {
+		return id;
+	}
 
-  public String getName() {
-    return name;
-  }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-  public void setName(String name) {
-    this.name = name;
-  }
+	public String getName() {
+		return name;
+	}
 
-  public String getDescription() {
-    return description;
-  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+	public String getDescription() {
+		return description;
+	}
 
-  public float getPrice() {
-    return price;
-  }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-  public void setPrice(float price) {
-    this.price = price;
-  }
+	public float getPrice() {
+		return price;
+	}
 
-  public int getCategory_id() {
-    return category_id;
-  }
+	public void setPrice(float price) {
+		this.price = price;
+	}
 
-  public void setCategory_id(int category_id) {
-    this.category_id = category_id;
-  }
+	public MultipartFile getImage() {
+		return image;
+	}
 
-  @Override
-  public int hashCode() {
-    return HashCodeBuilder.reflectionHashCode(this, true);
+	public void setImage(MultipartFile image) {
+		this.image = image;
+	}
 
-  }
+	public Category getCategory() {
+		return category;
+	}
 
-  @Override
-  public boolean equals(Object obj) {
-    return EqualsBuilder.reflectionEquals(this, obj, true);
-  }
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 
-  @Override
-  public String toString() {
-    return ToStringBuilder.reflectionToString(this);
-  }
+	//  public int getCategory_id() {
+	//    return category_id;
+	//  }
+	//
+	//  public void setCategory_id(int category_id) {
+	//    this.category_id = category_id;
+	//  }
 
-  public MultipartFile getImage() {
-    return image;
-  }
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this, true);
 
-  public void setImage(MultipartFile image) {
-    this.image = image;
-  }
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return EqualsBuilder.reflectionEquals(this, obj, true);
+	}
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
 
 }

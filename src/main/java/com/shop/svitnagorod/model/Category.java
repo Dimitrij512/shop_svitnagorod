@@ -3,12 +3,15 @@ package com.shop.svitnagorod.model;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -22,9 +25,10 @@ public class Category implements Serializable {
 
 	private int id;
 	private String name;
+	private SuperCategory superCategory;
 	private Set<Product> products;
-	private int super_category_id;
 	private byte[] image;
+	//private int super_category_id;
 
 	@Id
 	@Column(name = "id")
@@ -37,8 +41,9 @@ public class Category implements Serializable {
 		this.id = id;
 	}
 
-	@OneToMany
-	@JoinColumn(name = "category_id")
+	//	@OneToMany
+	//	@JoinColumn(name = "category_id")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "category", cascade = CascadeType.REMOVE)
 	public Set<Product> getProducts() {
 		return products;
 	}
@@ -56,14 +61,23 @@ public class Category implements Serializable {
 		this.name = name;
 	}
 
-	@Column(name = "super_category_id")
-	public int getSuper_category_id() {
-		return super_category_id;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "super_category_id", nullable = false)
+	public SuperCategory getSuperCategory() {
+		return superCategory;
 	}
 
-	public void setSuper_category_id(int super_category_id) {
-		this.super_category_id = super_category_id;
+	public void setSuperCategory(SuperCategory superCategory) {
+		this.superCategory = superCategory;
 	}
+	//	@Column(name = "super_category_id")
+	//	public int getSuper_category_id() {
+	//		return super_category_id;
+	//	}
+	//
+	//	public void setSuper_category_id(int super_category_id) {
+	//		this.super_category_id = super_category_id;
+	//	}
 
 	@Column(name = "image")
 	public byte[] getImage() {
